@@ -51,6 +51,10 @@ public class Controller {
     }
 
 
+    @GetMapping("/OrdenarNomes")
+    public List<PessoaFisica> ordenarNomes(){
+        return pf.findAllByOrderByNomeClienteDesc();
+   }
 
 
 
