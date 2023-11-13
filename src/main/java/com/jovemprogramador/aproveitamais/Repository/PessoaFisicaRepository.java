@@ -12,6 +12,8 @@ import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
 public interface PessoaFisicaRepository extends JpaRepository<PessoaFisica, Integer>{
  
     List<PessoaFisica> findAll();
-    
+
+    PessoaFisica findByLogin(String login);
+
 
 }
