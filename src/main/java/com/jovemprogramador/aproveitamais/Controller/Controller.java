@@ -1,8 +1,10 @@
 package com.jovemprogramador.aproveitamais.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+//import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,29 +23,49 @@ public class Controller {
         return pf.save(obj);
     }
 
-
-    @GetMapping("")
-    public String mensagem(){
-        return "Hello World!";
-    }
-
-    @GetMapping("/boasVindas")
-    public String boaVindas(){
-        return "Seja bem vindo!";
-    }
-    
-    
-    
-    @GetMapping("/boasVindas/{nome}")
-    public String boaVindas(@PathVariable String nome){
-        return "Seja bem vindo!" + nome;
+    @GetMapping("/MostrarCadastros")
+    public List<PessoaFisica> selecionar(){
+        return pf.findAll();
     }
 
 
-    @PostMapping("/pessoaFisica")
-    public PessoaFisica pessoaFisica(@RequestBody PessoaFisica pf){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // @GetMapping("")
+    // public String mensagem(){
+    //     return "Hello World!";
+    // }
+
+    // @GetMapping("/boasVindas")
+    // public String boaVindas(){
+    //     return "Seja bem vindo!";
+    // }
+    
+    
+    
+    // @GetMapping("/boasVindas/{nome}")
+    // public String boaVindas(@PathVariable String nome){
+    //     return "Seja bem vindo!" + nome;
+    // }
+
+
+    // @PostMapping("/pessoaFisica")
+    // public PessoaFisica pessoaFisica(@RequestBody PessoaFisica pf){
         
-        return pf;
-    }
+    //     return pf;
+    // }
 
 }
