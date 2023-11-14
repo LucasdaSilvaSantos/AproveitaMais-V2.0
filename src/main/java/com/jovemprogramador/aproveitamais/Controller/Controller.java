@@ -56,6 +56,11 @@ public class Controller {
         return pf.findAllByOrderByNomeClienteDesc();
    }
 
+   @GetMapping("/contador")
+   public long contador() {
+       return pf.count();
+   }
+
 
 
 
