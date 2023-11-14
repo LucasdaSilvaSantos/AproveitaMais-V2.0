@@ -33,4 +33,7 @@ public class PessoaFisica {
 
     @Column(nullable = false, unique = false)
     private String telefone;
+
+    @Column(nullable = false, unique = false)
+    private int idade;
 }
