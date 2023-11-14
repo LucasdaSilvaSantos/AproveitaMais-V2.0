@@ -57,10 +57,14 @@ public class Controller {
    }
 
    @GetMapping("/contador")
-   public long contador() {
-       return pf.count();
+   public long contador(){
+    return pf.count();
    }
 
+   @GetMapping("/nomeContem/{termo}")
+   List<PessoaFisica> nomeContem(@PathVariable String termo){
+    return pf.findByNomeClienteContaining(termo);
+   }
 
 
 

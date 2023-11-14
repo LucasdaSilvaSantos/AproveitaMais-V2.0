@@ -17,5 +17,6 @@ public interface PessoaFisicaRepository extends JpaRepository<PessoaFisica, Inte
 
     List<PessoaFisica> findAllByOrderByNomeClienteAsc();
 
+    List<PessoaFisica> findByNomeClienteContaining(String termo);
 
 }
