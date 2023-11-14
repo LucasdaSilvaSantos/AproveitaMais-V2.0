@@ -15,7 +15,7 @@ public interface PessoaFisicaRepository extends JpaRepository<PessoaFisica, Inte
 
     PessoaFisica findByLogin(String login);
 
-    List<PessoaFisica> findAllByOrderByNomeClienteDesc();
+    List<PessoaFisica> findAllByOrderByNomeClienteAsc();
 
 
 }
