@@ -14,30 +14,45 @@ import lombok.Data;
 @Entity
 @Table(name = "pessoa_juridica")
 public class PessoaJuridica {
-    
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int empresaId;
 
-    @Column(nullable = false, unique = false)
-    @NotBlank(message = "Informe o nome da Empresa")
-    private String nomeEmpresa;
-
-    @Column(nullable = false, unique = true)
-    @NotBlank(message = "Insira um CNPJ")
-    private String cnpj;
-
+    @NotBlank(message = "Insira um email")
     @Column(nullable = false, unique = true)
     @Email
-    @NotBlank(message = "Insira um email")
     private String login;
 
-    @Column(nullable = false, unique = false)
+    @NotBlank(message = "Informe o nome da Empresa")
+    @Column(nullable = false, unique = true)
+    private String nomeEmpresa;
+
     @NotBlank(message = "Insira uma senha")
+    @Column(nullable = false, unique = false)
     private String senha;
 
-    @Column(nullable = false, unique = false)
-    @NotBlank(message = "Insira um telefone")
-    private String telefone;
+    @NotBlank(message = "Insira um CNPJ")
+    @Column(nullable = false, unique = true)
+    private long CNPJ;
 
+    @NotBlank
+    @Column(nullable = false, unique = true)
+    private int codigoEndereco;
+
+    @Column(nullable = true, unique = true)
+    private String inscricaoEstadual;
+
+    @Column(nullable = false, unique = false)
+    private String nomeFantasia;
+
+    @NotBlank
+    @Column(nullable = false, unique = true)
+    private String razaoSocial;
+
+    @NotBlank
+    @Column(nullable = false, unique = false)
+    private String telefone;
 }

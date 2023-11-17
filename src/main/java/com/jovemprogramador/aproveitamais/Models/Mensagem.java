@@ -7,7 +7,6 @@ import lombok.Data;
 @Component
 @Data
 public class Mensagem {
-     
 
     private String mensagem;
 
