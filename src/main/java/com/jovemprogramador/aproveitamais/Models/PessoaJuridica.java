@@ -17,7 +17,7 @@ public class PessoaJuridica {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int codigo;
+    private int empresaId;
 
     @Column(nullable = false, unique = false)
     @NotBlank(message = "Informe o nome da Empresa")
