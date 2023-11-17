@@ -29,4 +29,6 @@ public interface PessoaFisicaRepository extends JpaRepository<PessoaFisica, Inte
 
     @Query(value = "SELECT * FROM pessoa_fisica WHERE idade >= :idade", nativeQuery = true)
     List<PessoaFisica> idadeMaiorIgual(int idade);
+
+    long countByLogin(String login);
 }

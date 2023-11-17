@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
+import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
+import com.jovemprogramador.aproveitamais.Service.Services;
+
+import jakarta.validation.Valid;
 
 @RestController
 public class Controller {
@@ -23,34 +26,35 @@ public class Controller {
     @Autowired
     private PessoaFisicaRepository pf;
 
+    @Autowired
+    private Services services;
+
     @PostMapping("/cadastro")
-    public PessoaFisica cadastroPF(@RequestBody PessoaFisica pessoa){
-        return pf.save(pessoa);
+    public ResponseEntity<?> cadastroPF(@RequestBody PessoaFisica pessoa){
+        return services.cadastrar(pessoa);
     }
 
     @GetMapping("/MostrarCadastros")
-    public List<PessoaFisica> selecionar(){
-        return pf.findAll();
+    public ResponseEntity<?> selecionar(){
+        return services.selecionar();
     }
 
 
     @GetMapping("/MostrarCadastro/{login}")
-    public PessoaFisica findByLogin(@PathVariable String login){
-        return pf.findByLogin(login);
+    public ResponseEntity<?> findByLogin(@PathVariable String login){
+        return services.selecionarPeloLogin(login);
     }
 
 
     @PutMapping("/editarCadastro")
-    public PessoaFisica Editar(@RequestBody PessoaFisica pessoa){
-        return pf.save(pessoa);
+    public ResponseEntity<?> Editar(@RequestBody PessoaFisica pessoa){
+        return services.editar(pessoa);
     }
 
 
     @DeleteMapping("/deletarCadastro/{login}")
-    public void remover(@PathVariable String login){
-        PessoaFisica pessoa = findByLogin(login);
-
-        pf.delete(pessoa);
+    public ResponseEntity<?> remover(@PathVariable String login){
+        return services.remover(login);
     }
 
 
@@ -95,6 +99,11 @@ public class Controller {
     return new ResponseEntity<>(HttpStatus.CREATED);
    }
 
+
+   @PostMapping("/cliente")
+   public void cliente(@Valid @RequestBody PessoaJuridica pessoaJuridica){
+
+   }
 
 
     // @GetMapping("")

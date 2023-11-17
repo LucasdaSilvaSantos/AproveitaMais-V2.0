@@ -8,29 +8,28 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Pessoa_Fisica")
-public class PessoaFisica {
+@Table(name = "pessoa_juridica")
+public class PessoaJuridica {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int codigo;
 
     @Column(nullable = false, unique = false)
-    @NotBlank(message = "Informe o seu nome")
-    private String nomeCliente;
+    @NotBlank(message = "Informe o nome da Empresa")
+    private String nomeEmpresa;
 
     @Column(nullable = false, unique = true)
-    @NotBlank(message = "Insira um CPF")
-    private String cpf;
+    @NotBlank(message = "Insira um CNPJ")
+    private String cnpj;
 
     @Column(nullable = false, unique = true)
-    @NotBlank(message = "Insira um email")
     @Email
+    @NotBlank(message = "Insira um email")
     private String login;
 
     @Column(nullable = false, unique = false)
@@ -41,7 +40,4 @@ public class PessoaFisica {
     @NotBlank(message = "Insira um telefone")
     private String telefone;
 
-    @Column(nullable = false, unique = false)
-    @NotBlank(message = "Insira uma idade")
-    private int idade;
 }
