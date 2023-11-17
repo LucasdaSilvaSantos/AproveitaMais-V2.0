@@ -13,8 +13,10 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Pessoa_Fisica")
+@Table(name = "pessoa_fisica")
 public class PessoaFisica {
+
+    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,7 +43,8 @@ public class PessoaFisica {
     @NotBlank(message = "Insira um telefone")
     private String telefone;
 
+    @NotBlank
     @Column(nullable = false, unique = false)
-    @NotBlank(message = "Insira uma idade")
-    private int idade;
+    private int codigoEndereco;
+
 }

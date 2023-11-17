@@ -24,9 +24,6 @@ public class Services {
         if(pessoa.getNomeCliente().equals("")){
             mensagem.setMensagem("O usuario já está cadastrado");
             return new ResponseEntity<>(mensagem,HttpStatus.BAD_REQUEST);
-        }else if(pessoa.getIdade()<0){
-            mensagem.setMensagem("Informe uma idade valida");
-            return new ResponseEntity<>(mensagem, HttpStatus.BAD_REQUEST);
         }else{
             return new ResponseEntity<>(pf.save(pessoa), HttpStatus.CREATED);
         }
@@ -66,10 +63,7 @@ public class Services {
         }else if(pessoa.getTelefone().equals("")){
             mensagem.setMensagem("É necessario informar um telefone");
             return new ResponseEntity<>(mensagem, HttpStatus.BAD_REQUEST);
-        }else if(pessoa.getIdade() < 0){
-            mensagem.setMensagem("É necessario informar uma idade válida");
-            return new ResponseEntity<>(mensagem, HttpStatus.BAD_REQUEST);
-        } else{
+        }else{
             return new ResponseEntity<>(pf.save(pessoa), HttpStatus.OK);
         }
 
