@@ -16,49 +16,49 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
 import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
-import com.jovemprogramador.aproveitamais.Service.Services;
+import com.jovemprogramador.aproveitamais.Service.ServicePessoaFisica;
 
 import jakarta.validation.Valid;
 
 @RestController
-public class Controller {
+public class ControllerPessoaFisica {
     
     @Autowired
     private PessoaFisicaRepository pf;
 
     @Autowired
-    private Services services;
+    private ServicePessoaFisica services;
 
     @PostMapping("/cadastro")
     public ResponseEntity<?> cadastroPF(@RequestBody PessoaFisica pessoa){
-        return services.cadastrar(pessoa);
+        return services.cadastrarPessoaFisica(pessoa);
     }
 
-    @GetMapping("/MostrarCadastros")
+    @GetMapping("/mostrarCadastros")
     public ResponseEntity<?> selecionar(){
-        return services.selecionar();
+        return services.selecionarPessoaFisica();
     }
 
 
-    @GetMapping("/MostrarCadastro/{login}")
+    @GetMapping("/mostrarCadastro/{login}")
     public ResponseEntity<?> findByLogin(@PathVariable String login){
         return services.selecionarPeloLogin(login);
     }
 
 
     @PutMapping("/editarCadastro")
-    public ResponseEntity<?> Editar(@RequestBody PessoaFisica pessoa){
-        return services.editar(pessoa);
+    public PessoaFisica Editar(@RequestBody PessoaFisica pessoa){
+        return pf.save(pessoa);
     }
 
 
     @DeleteMapping("/deletarCadastro/{login}")
     public ResponseEntity<?> remover(@PathVariable String login){
-        return services.remover(login);
+        return services.removerPessoaFisica(login);
     }
 
 
-    @GetMapping("/OrdenarNomes")
+    @GetMapping("/ordenarNomes")
     public List<PessoaFisica> ordenarNomes(){
         return pf.findAllByOrderByNomeClienteAsc();
    }

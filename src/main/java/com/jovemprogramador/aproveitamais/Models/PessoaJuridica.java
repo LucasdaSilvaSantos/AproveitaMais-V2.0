@@ -36,11 +36,11 @@ public class PessoaJuridica {
 
     @NotBlank(message = "Insira um CNPJ")
     @Column(nullable = false, unique = true)
-    private long cnpj;
+    private String cnpj;
 
-    @NotBlank
-    @Column(nullable = false, unique = true)
-    private int codigoEndereco;
+    // @NotBlank
+    // @Column(nullable = false, unique = true)
+    // private int codigoEndereco;
 
     @Column(nullable = true, unique = true)
     private String inscricaoEstadual;

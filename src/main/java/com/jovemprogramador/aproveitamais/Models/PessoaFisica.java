@@ -43,8 +43,8 @@ public class PessoaFisica {
     @NotBlank(message = "Insira um telefone")
     private String telefone;
 
-    @NotBlank
-    @Column(nullable = false, unique = false)
-    private int codigoEndereco;
+    // @NotBlank
+    // @Column(nullable = false, unique = false)s
+    // private int codigoEndereco;
 
 }

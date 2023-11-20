@@ -10,7 +10,7 @@ import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
 
 @Service
-public class Services {
+public class ServicePessoaFisica {
 
     @Autowired
     private Mensagem mensagem;
@@ -18,8 +18,8 @@ public class Services {
     @Autowired
     private PessoaFisicaRepository pf;
 
-    //Método para cadastrar Pessoas
-    public ResponseEntity<?> cadastrar(PessoaFisica pessoa){
+    //Método para cadastrar pessoas
+    public ResponseEntity<?> cadastrarPessoaFisica(PessoaFisica pessoa){
 
         if(pessoa.getNomeCliente().equals("")){
             mensagem.setMensagem("O usuario já está cadastrado");
@@ -30,11 +30,11 @@ public class Services {
     }
 
     //Método para selecionar pessoas
-    public ResponseEntity<?> selecionar(){
+    public ResponseEntity<?> selecionarPessoaFisica(){
         return new ResponseEntity<>(pf.findAll(), HttpStatus.OK);
     }
 
-    //Método para selecionar pessoas através do código
+    //Método para selecionar pessoas através do login
     public ResponseEntity<?> selecionarPeloLogin(String login){
 
         if(pf.countByLogin(login) == 0){
@@ -46,7 +46,7 @@ public class Services {
     }
 
     //Método para editar dados
-    public ResponseEntity<?> editar(PessoaFisica pessoa){
+    public ResponseEntity<?> editarPessoaFisica(PessoaFisica pessoa){
 
         if(pf.countByLogin(pessoa.getLogin()) == 0){
             mensagem.setMensagem("O Login informado não existe");
@@ -70,7 +70,7 @@ public class Services {
     }
 
     //Método para Remover dados
-    public ResponseEntity<?> remover(String login){
+    public ResponseEntity<?> removerPessoaFisica(String login){
 
         if(pf.countByLogin(login) == 0){
             mensagem.setMensagem("Login não encontrado");
