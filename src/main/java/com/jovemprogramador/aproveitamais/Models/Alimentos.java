@@ -25,8 +25,12 @@ public class Alimentos {
   
     @Column(nullable = false, unique = true)
     @NotBlank(message = "Insira o código de barras")
-    private long codigoDeBarras;
+    private String codigoDeBarras;
 
+
+    @Column(nullable = false, unique = false)
+    @NotBlank(message = "Insira o nome do produto")
+    private String nomeAlimento;
   
     @Column(nullable = false, unique = false)
     @NotBlank(message = "Insira a marca do produto")
@@ -46,5 +50,5 @@ public class Alimentos {
   
     @Column(nullable = false, unique = false)
     @NotBlank(message = "Insira o preço do produto")
-    private double preco;
+    private float preco;
 }
