@@ -18,10 +18,10 @@ public class ServiceAlimentos {
     private AlimentosRepository ar;
 
     //Método para cadastrar Alimentos
-    public ResponseEntity<?> cadastrar(Alimentos alimentos){
+    public ResponseEntity<?> cadastrarAlimentos(Alimentos alimentos){
 
         if(alimentos.getNomeAlimento().equals("")){
-            mensagem.setMensagem("O usuario já está cadastrado");
+            mensagem.setMensagem("O alimentos já está cadastrado");
             return new ResponseEntity<>(mensagem,HttpStatus.BAD_REQUEST);
         }else{
             return new ResponseEntity<>(ar.save(alimentos), HttpStatus.CREATED);
@@ -29,12 +29,12 @@ public class ServiceAlimentos {
     }
 
     //Método para selecionar alimentos
-    public ResponseEntity<?> selecionar(){
+    public ResponseEntity<?> selecionarTodosAlimentos(){
         return new ResponseEntity<>(ar.findAll(), HttpStatus.OK);
     }
 
     //Método para selecionar alimentos através do Id
-    public ResponseEntity<?> selecionarPeloID(int alimentosId){
+    public ResponseEntity<?> selecionarAlimentosPeloID(int alimentosId){
 
         if(ar.countByAlimentosId(alimentosId) == 0){
             mensagem.setMensagem("Não foi encontrado nenhum alimento.");
@@ -45,7 +45,7 @@ public class ServiceAlimentos {
     }
 
     //Método para editar alimentos
-    public ResponseEntity<?> editar(Alimentos alimentos){
+    public ResponseEntity<?> editarAlimentos(Alimentos alimentos){
 
         if(ar.countByAlimentosId(alimentos.getAlimentosId()) == 0){
             mensagem.setMensagem("O Login informado não existe");
@@ -72,13 +72,13 @@ public class ServiceAlimentos {
     }
 
     //Método para Remover alimentos
-    public ResponseEntity<?> remover(int alimentosId){
+    public ResponseEntity<?> removerAlimentos(int alimentosId){
 
         if(ar.countByAlimentosId(alimentosId) == 0){
             mensagem.setMensagem("Id não encontrado");
             return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
         }else{
-            Alimentos alimentos = ar.findByAlimentosIdR(alimentosId);
+            Alimentos alimentos = (Alimentos) ar.findByAlimentosId(alimentosId);
             ar.delete(alimentos);
 
             mensagem.setMensagem("Alimento removido com sucesso!");

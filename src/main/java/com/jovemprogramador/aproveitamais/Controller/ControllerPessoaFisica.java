@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
-import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
+// import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
 import com.jovemprogramador.aproveitamais.Service.ServicePessoaFisica;
 
@@ -41,7 +41,7 @@ public class ControllerPessoaFisica {
 
 
     @GetMapping("/mostrarCadastro/{login}")
-    public ResponseEntity<?> findByLogin(@PathVariable String login){
+    public ResponseEntity<?> findByLogin(@Valid @PathVariable String login){
         return services.selecionarPeloLogin(login);
     }
 
@@ -100,10 +100,10 @@ public class ControllerPessoaFisica {
    }
 
 
-   @PostMapping("/cliente")
-   public void cliente(@Valid @RequestBody PessoaJuridica pessoaJuridica){
+//    @PostMapping("/cliente")
+//    public void cliente(@Valid @RequestBody PessoaJuridica pessoaJuridica){
 
-   }
+//    }
 
 
     // @GetMapping("")

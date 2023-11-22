@@ -4,6 +4,7 @@ public enum Categoria {
     
     BEBIDAS,
     ALIMENTOS,
+    CEREAIS,
     MATINAIS,
     LATICINIOS,
     CARNES,

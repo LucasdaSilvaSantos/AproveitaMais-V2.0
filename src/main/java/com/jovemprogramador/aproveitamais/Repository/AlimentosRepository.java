@@ -15,15 +15,13 @@ public interface AlimentosRepository extends JpaRepository<Alimentos, Integer>{
 
     List<Alimentos> findByNomeAlimento(String nomeAlimento);
 
-    Alimentos findByAlimentosIdR(int alimentosId);
-
     List<Alimentos> findByAlimentosId(int alimentosId);
 
     List<Alimentos> findByCategoria(String categoria);
 
-    List<Alimentos> findAllByOrderByNomeAlimentosAsc();
+    List<Alimentos> findAllByOrderByNomeAlimentoAsc();
 
-    List<Alimentos> findAllByOrderByNomeAlimentosDesc();
+    List<Alimentos> findAllByOrderByNomeAlimentoDesc();
 
     List<Alimentos> findAllByOrderByCategoriaAsc();
 
@@ -33,7 +31,7 @@ public interface AlimentosRepository extends JpaRepository<Alimentos, Integer>{
 
     List<Alimentos> findAllByOrderByPrecoDesc();
 
-    List<Alimentos> findByNomeAlimentosContaining(String termo);
+    List<Alimentos> findByNomeAlimentoContaining(String termo);
 
     @Query(value = "SELECT nome_alimento FROM alimentos", nativeQuery = true)
     List<String> NomesDaTabela ();
