@@ -31,6 +31,5 @@ public class Endereco {
     private String numero;
 
     @Column(nullable = true, unique = false)
-    @Enumerated(EnumType.STRING)
-    private Complemento complemento;
+    private String complemento;
 }

@@ -1,5 +1,7 @@
 package com.jovemprogramador.aproveitamais.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +50,7 @@ public class ServiceAlimentos {
     public ResponseEntity<?> editarAlimentos(Alimentos alimentos){
 
         if(ar.countByAlimentosId(alimentos.getAlimentosId()) == 0){
-            mensagem.setMensagem("O Login informado não existe");
+            mensagem.setMensagem("O alimento informado não existe");
             return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
         }else if(alimentos.getNomeAlimento().equals("")){
             mensagem.setMensagem("É necessário informar um nome");
@@ -72,17 +74,19 @@ public class ServiceAlimentos {
     }
 
     //Método para Remover alimentos
-    public ResponseEntity<?> removerAlimentos(int alimentosId){
-
-        if(ar.countByAlimentosId(alimentosId) == 0){
+    public ResponseEntity<?> removerAlimentos(int alimentosId) {
+        List<Alimentos> alimentosList = ar.findByAlimentosId(alimentosId);
+    
+        if (alimentosList.isEmpty()) {
             mensagem.setMensagem("Id não encontrado");
             return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
-        }else{
-            Alimentos alimentos = (Alimentos) ar.findByAlimentosId(alimentosId);
+        } else {
+            Alimentos alimentos = alimentosList.get(0);
             ar.delete(alimentos);
-
+    
             mensagem.setMensagem("Alimento removido com sucesso!");
             return new ResponseEntity<>(mensagem, HttpStatus.OK);
         }
     }
+    
 }
