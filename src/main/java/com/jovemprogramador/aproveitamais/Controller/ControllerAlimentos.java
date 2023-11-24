@@ -51,7 +51,7 @@ public class ControllerAlimentos {
     }
 
 
-    @DeleteMapping("/deletarAlimentos/{AlimentosId}")
+    @DeleteMapping("/deletarAlimentos/{alimentosId}")
     public ResponseEntity<?> remover(@PathVariable int alimentosId){
         return services.removerAlimentos(alimentosId);
     }
