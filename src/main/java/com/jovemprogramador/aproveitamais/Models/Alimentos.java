@@ -35,10 +35,13 @@ public class Alimentos {
     @JoinColumn(name = "categoriaId", nullable = false, unique = false)
     private Categorias categoria;
 
-    
-    @Column(nullable = false, unique = false)
-    private String mercadoDeOrigem;
+    @ManyToOne
+    @JoinColumn(name = "empresaId", nullable = false, unique = false)
+    private PessoaJuridica mercadoDeOrigem;
 
     @Column(nullable = false, unique = false)
     private double preco;
+
+    @Column(nullable = false, unique = false)
+    private int quantidade;
 }
