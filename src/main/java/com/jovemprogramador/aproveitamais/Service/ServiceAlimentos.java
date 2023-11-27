@@ -22,8 +22,11 @@ public class ServiceAlimentos {
     @Autowired
     private AlimentosRepository ar;
 
+<<<<<<< HEAD
     @Autowired
     private categoria cr;
+=======
+>>>>>>> 4d2a5a505877188552aab89dae4f235212fcbd4e
 
     //Método para cadastrar Alimentos
     public ResponseEntity<?> cadastrarAlimentos(Alimentos alimentos){

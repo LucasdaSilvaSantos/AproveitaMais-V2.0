@@ -42,7 +42,11 @@ public class ControllerAlimentos {
 
 
     @GetMapping("/mostrarAlimentos/{alimentosId}")
+<<<<<<< HEAD
     public ResponseEntity<?> findByLogin(@PathVariable int alimentosId){
+=======
+    public ResponseEntity<?> findByLogin(@Valid @PathVariable int alimentosId){
+>>>>>>> 4d2a5a505877188552aab89dae4f235212fcbd4e
         return services.selecionarAlimentosPeloID(alimentosId);
     }
 
