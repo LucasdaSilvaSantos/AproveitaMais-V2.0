@@ -29,7 +29,6 @@ public class Alimentos {
   
     @Column(nullable = false, unique = false)
     private String marca;
-  
     
     @ManyToOne
     @JoinColumn(name = "categoriaId", nullable = false, unique = false)
