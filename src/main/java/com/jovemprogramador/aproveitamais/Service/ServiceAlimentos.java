@@ -13,7 +13,8 @@ import com.jovemprogramador.aproveitamais.Repository.AlimentosRepository;
 
 @Service
 public class ServiceAlimentos {
-     @Autowired
+    
+    @Autowired
     private Mensagem mensagem;
 
     @Autowired
