@@ -20,6 +20,7 @@ public class ServiceAlimentos {
     @Autowired
     private AlimentosRepository ar;
 
+
     //Método para cadastrar Alimentos
     public ResponseEntity<?> cadastrarAlimentos(Alimentos alimentos){
 

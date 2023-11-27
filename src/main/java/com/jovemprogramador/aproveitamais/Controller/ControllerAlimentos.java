@@ -39,7 +39,7 @@ public class ControllerAlimentos {
     }
 
 
-    @GetMapping("/mostrarAlimentos/{AlimentosId}")
+    @GetMapping("/mostrarAlimentos/{alimentosId}")
     public ResponseEntity<?> findByLogin(@Valid @PathVariable int alimentosId){
         return services.selecionarAlimentosPeloID(alimentosId);
     }
