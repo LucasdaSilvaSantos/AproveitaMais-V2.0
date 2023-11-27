@@ -33,6 +33,7 @@ public class Alimentos {
     @Column(nullable = false, unique = true)
     private String categoria;
 
+    
     @Column(nullable = false, unique = false)
     private String mercadoDeOrigem;
 

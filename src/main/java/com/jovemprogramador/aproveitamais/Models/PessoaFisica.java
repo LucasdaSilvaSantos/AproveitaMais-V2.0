@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -43,7 +45,9 @@ public class PessoaFisica {
     @NotBlank(message = "Insira um telefone")
     private String telefone;
 
-    // @Column(nullable = false, unique = false)s
-    // private int codigoEndereco;
+    @NotBlank
+    @OneToOne
+    @JoinColumn(name = "codigoEndereco", nullable = false, unique = false)
+    private Endereco codigoEndereco;
 
 }
