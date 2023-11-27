@@ -22,11 +22,9 @@ public class Endereco {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int codigoEndereco;
 
-    @NotBlank
     @Column(nullable = false, unique = false)
     private long CEP;
 
-    @NotBlank
     @Column(nullable = false, unique = false)
     private String numero;
 

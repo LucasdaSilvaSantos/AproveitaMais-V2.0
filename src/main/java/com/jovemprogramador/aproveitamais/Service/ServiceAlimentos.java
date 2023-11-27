@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.jovemprogramador.aproveitamais.Models.Mensagem;
 import com.jovemprogramador.aproveitamais.Models.Alimentos;
+import com.jovemprogramador.aproveitamais.Models.Categorias;
 import com.jovemprogramador.aproveitamais.Repository.AlimentosRepository;
+import com.jovemprogramador.aproveitamais.Repository.categoria;
 
 @Service
 public class ServiceAlimentos {
@@ -19,6 +21,9 @@ public class ServiceAlimentos {
 
     @Autowired
     private AlimentosRepository ar;
+
+    @Autowired
+    private categoria cr;
 
     //Método para cadastrar Alimentos
     public ResponseEntity<?> cadastrarAlimentos(Alimentos alimentos){

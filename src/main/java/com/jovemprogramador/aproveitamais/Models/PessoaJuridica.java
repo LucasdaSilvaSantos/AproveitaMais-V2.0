@@ -40,7 +40,6 @@ public class PessoaJuridica {
     @Column(nullable = false, unique = true)
     private String cnpj;
 
-    @NotBlank
     @OneToOne
     @JoinColumn(name = "codigoEndereco", nullable = false, unique = false)
     private Endereco codigoEndereco;

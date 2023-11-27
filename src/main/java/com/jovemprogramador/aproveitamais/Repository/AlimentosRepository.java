@@ -25,18 +25,11 @@ public interface AlimentosRepository extends JpaRepository<Alimentos, Integer>{
 
     List<Alimentos> findAllByOrderByNomeAlimentoDesc();
 
-    List<Alimentos> findAllByOrderByCategoriaAsc();
-
-    List<Alimentos> findAllByOrderByCategoriaDesc();
-
     List<Alimentos> findAllByOrderByPrecoAsc();
 
     List<Alimentos> findAllByOrderByPrecoDesc();
 
     List<Alimentos> findByNomeAlimentoContaining(String termo);
-
-    // @Query(value = "SELECT a FROM alimentos a WHERE a.categoria =:categoria")
-    // List<Alimentos> findByCategoria(@Param(value = "categoria") Categorias categoria);
 
     @Query(value = "SELECT nome_alimento FROM alimentos", nativeQuery = true)
     List<String> NomesDaTabela ();

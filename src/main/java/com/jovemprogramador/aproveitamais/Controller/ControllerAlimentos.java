@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jovemprogramador.aproveitamais.Models.Alimentos;
+import com.jovemprogramador.aproveitamais.Models.Categorias;
 import com.jovemprogramador.aproveitamais.Repository.AlimentosRepository;
 import com.jovemprogramador.aproveitamais.Service.ServiceAlimentos;
 
@@ -30,7 +31,8 @@ public class ControllerAlimentos {
 
     @PostMapping("/cadastrarAlimento")
     public ResponseEntity<?> cadastroAlimento(@RequestBody Alimentos alimentos){
-        return services.cadastrarAlimentos(alimentos);
+        return services.cadastrarAlimentos(alimentos); 
+
     }
 
     @GetMapping("/mostrarAlimentos")
@@ -39,8 +41,8 @@ public class ControllerAlimentos {
     }
 
 
-    @GetMapping("/mostrarAlimentos/{AlimentosId}")
-    public ResponseEntity<?> findByLogin(@Valid @PathVariable int alimentosId){
+    @GetMapping("/mostrarAlimentos/{alimentosId}")
+    public ResponseEntity<?> findByLogin(@PathVariable int alimentosId){
         return services.selecionarAlimentosPeloID(alimentosId);
     }
 
@@ -65,16 +67,6 @@ public class ControllerAlimentos {
    @GetMapping("/ordenarAlimentosDesc")
     public List<Alimentos> ordenarAlimentosDesc(){
         return ar.findAllByOrderByNomeAlimentoDesc();
-   }
-
-   @GetMapping("/ordenarAlimentosCategoriaAsc")
-    public List<Alimentos> ordenarCategoriaAlimentosAsc(){
-        return ar.findAllByOrderByCategoriaAsc();
-   }
-
-   @GetMapping("/ordenarAlimentosCategoriaDesc")
-    public List<Alimentos> ordenarCategoriaAlimentosDesc(){
-        return ar.findAllByOrderByCategoriaDesc();
    }
 
    @GetMapping("/contadorAlimentos")
