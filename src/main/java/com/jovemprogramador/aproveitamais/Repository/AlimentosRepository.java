@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.jovemprogramador.aproveitamais.Models.Alimentos;
+import com.jovemprogramador.aproveitamais.Models.Categorias;
 
 @Repository
 public interface AlimentosRepository extends JpaRepository<Alimentos, Integer>{
@@ -17,7 +19,7 @@ public interface AlimentosRepository extends JpaRepository<Alimentos, Integer>{
 
     List<Alimentos> findByAlimentosId(int alimentosId);
 
-    List<Alimentos> findByCategoria(String categoria);
+    List<Alimentos> findByCategoria(Categorias categoria);
 
     List<Alimentos> findAllByOrderByNomeAlimentoAsc();
 
@@ -32,6 +34,9 @@ public interface AlimentosRepository extends JpaRepository<Alimentos, Integer>{
     List<Alimentos> findAllByOrderByPrecoDesc();
 
     List<Alimentos> findByNomeAlimentoContaining(String termo);
+
+    // @Query(value = "SELECT a FROM alimentos a WHERE a.categoria =:categoria")
+    // List<Alimentos> findByCategoria(@Param(value = "categoria") Categorias categoria);
 
     @Query(value = "SELECT nome_alimento FROM alimentos", nativeQuery = true)
     List<String> NomesDaTabela ();

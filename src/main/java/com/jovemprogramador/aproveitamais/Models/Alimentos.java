@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -14,8 +16,6 @@ import lombok.Data;
 public class Alimentos {
     
     private static final long serialVersionUID = 1L;
-
-    //Fazer o many to One, Foreign Key
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,8 +30,10 @@ public class Alimentos {
     @Column(nullable = false, unique = false)
     private String marca;
   
-    @Column(nullable = false, unique = true)
-    private String categoria;
+    
+    @ManyToOne
+    @JoinColumn(name = "categoriaId", nullable = false, unique = false)
+    private Categorias categoria;
 
     @Column(nullable = false, unique = false)
     private String mercadoDeOrigem;
