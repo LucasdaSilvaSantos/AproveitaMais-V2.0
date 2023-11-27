@@ -35,6 +35,7 @@ public class Alimentos {
     @JoinColumn(name = "categoriaId", nullable = false, unique = false)
     private Categorias categoria;
 
+    
     @Column(nullable = false, unique = false)
     private String mercadoDeOrigem;
 
