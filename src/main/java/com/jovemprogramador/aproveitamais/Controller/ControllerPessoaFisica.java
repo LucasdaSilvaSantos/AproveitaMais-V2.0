@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jovemprogramador.aproveitamais.Models.ClasseGenerica;
 import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
+import com.jovemprogramador.aproveitamais.Models.RegistroPedidos;
+import com.jovemprogramador.aproveitamais.Models.classeGenerica;
 // import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
 import com.jovemprogramador.aproveitamais.Service.ServicePessoaFisica;
@@ -43,6 +46,14 @@ public class ControllerPessoaFisica {
     @GetMapping("/mostrarCadastro/{login}")
     public ResponseEntity<?> findByLogin(@Valid @PathVariable String login){
         return services.selecionarPeloLogin(login);
+    }
+
+    @PostMapping("/login")
+    public  login(@RequestBody PessoaFisica pessoa){
+        if (pf.countByLogin(pessoa.getLogin()) == 0) {
+            return "cxv";
+        }
+
     }
 
 
@@ -97,6 +108,11 @@ public class ControllerPessoaFisica {
    @GetMapping("/status")
    public ResponseEntity<?> status(){
     return new ResponseEntity<>(HttpStatus.CREATED);
+   }
+
+   @PostMapping("/pedido")
+   public RegistroPedidos registrarPedido(PessoaFisica clienteId, ){
+
    }
 
 //    @PostMapping("/cliente")
