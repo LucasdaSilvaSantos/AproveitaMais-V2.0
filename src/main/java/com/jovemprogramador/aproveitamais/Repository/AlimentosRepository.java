@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.jovemprogramador.aproveitamais.Models.Alimentos;
-import com.jovemprogramador.aproveitamais.Models.Categorias;
 
 @Repository
 public interface AlimentosRepository extends JpaRepository<Alimentos, Integer>{
@@ -17,8 +16,6 @@ public interface AlimentosRepository extends JpaRepository<Alimentos, Integer>{
     List<Alimentos> findByNomeAlimento(String nomeAlimento);
 
     List<Alimentos> findByAlimentosId(int alimentosId);
-
-    List<Alimentos> findByCategoria(Categorias categoria);
 
     List<Alimentos> findAllByOrderByNomeAlimentoAsc();
 
@@ -38,6 +35,7 @@ public interface AlimentosRepository extends JpaRepository<Alimentos, Integer>{
 
     @Query(value = "SELECT * FROM alimentos WHERE preco <= :preco", nativeQuery = true)
     List<Alimentos> precoMenorIgual(int preco);
+
 
     long countByAlimentosId(int alimentosId);
 }
