@@ -35,6 +35,7 @@ public class ControllerAlimentos {
 
     }
 
+
     @GetMapping("/mostrarAlimentos")
     public ResponseEntity<?> selecionar(){
         return services.selecionarTodosAlimentos();
@@ -42,12 +43,14 @@ public class ControllerAlimentos {
 
 
     @GetMapping("/mostrarAlimentos/{alimentosId}")
-<<<<<<< HEAD
     public ResponseEntity<?> findByLogin(@PathVariable int alimentosId){
-=======
-    public ResponseEntity<?> findByLogin(@Valid @PathVariable int alimentosId){
->>>>>>> 4d2a5a505877188552aab89dae4f235212fcbd4e
         return services.selecionarAlimentosPeloID(alimentosId);
+    }
+
+
+    @GetMapping("/mostrarAlimentosDisponiveis")
+    public List<Alimentos> verificarDisponibilidades(){
+        return ar.verificarQuantidade();
     }
 
 
@@ -68,36 +71,43 @@ public class ControllerAlimentos {
         return ar.findAllByOrderByNomeAlimentoAsc();
    }
 
+
    @GetMapping("/ordenarAlimentosDesc")
     public List<Alimentos> ordenarAlimentosDesc(){
         return ar.findAllByOrderByNomeAlimentoDesc();
    }
+
 
    @GetMapping("/contadorAlimentos")
    public long contadorAlimentos(){
     return ar.count();
    }
 
+
    @GetMapping("/nomealimentoContem/{termo}")
    List<Alimentos> NomeAlimentoContem(@PathVariable String termo){
     return ar.findByNomeAlimentoContaining(termo);
    }
+
 
    @GetMapping("/nomesalimentosTabela")
    public List<String> NomesAlimentosTabela(){
     return ar.NomesDaTabela();
    }
 
+
    @GetMapping("/precoMaiorIgual/{preco}")
    public List<Alimentos> precoMaiorIgual(@PathVariable int preco){
     return ar.precoMaiorIgual(preco);
    }
+
 
    @GetMapping("/idadeMenorIgual/{idade}")
    public List<Alimentos> precoMenorIgual(@PathVariable int preco){
     return ar.precoMenorIgual(preco);
    }
    
+
    @GetMapping("/statusAlimentos")
    public ResponseEntity<?> status(){
     return new ResponseEntity<>(HttpStatus.CREATED);

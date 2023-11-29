@@ -22,7 +22,7 @@ public class PessoaFisica {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int codigo;
+    private int clienteId;
 
     @Column(nullable = false, unique = false)
     @NotBlank(message = "Informe o seu nome")

@@ -99,7 +99,6 @@ public class ControllerPessoaFisica {
     return new ResponseEntity<>(HttpStatus.CREATED);
    }
 
-
 //    @PostMapping("/cliente")
 //    public void cliente(@Valid @RequestBody PessoaJuridica pessoaJuridica){
 

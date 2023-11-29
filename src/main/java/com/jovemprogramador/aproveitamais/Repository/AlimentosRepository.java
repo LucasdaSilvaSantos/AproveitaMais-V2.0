@@ -39,5 +39,8 @@ public interface AlimentosRepository extends JpaRepository<Alimentos, Integer>{
     @Query(value = "SELECT * FROM alimentos WHERE preco <= :preco", nativeQuery = true)
     List<Alimentos> precoMenorIgual(int preco);
 
+    @Query(value = "SELECT * FROM alimentos WHERE quantidade >= 1", nativeQuery = true)
+    List<Alimentos> verificarQuantidade();
+
     long countByAlimentosId(int alimentosId);
 }
