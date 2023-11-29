@@ -29,6 +29,15 @@ public class ServicePessoaFisica {
         }
     }
 
+    // //Método para logar (Pode finalizar caso consiga terminar o controller @JoZonnoZoJ)
+    // public ResponseEntity<?> logarPessoaFisica(PessoaFisica pessoa){
+    //     if(pessoa.getLogin().equals("")){
+    //         if()            
+    //     }else{
+    //         return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
+    //     }
+    // }
+
     //Método para selecionar pessoas
     public ResponseEntity<?> selecionarPessoaFisica(){
         return new ResponseEntity<>(pf.findAll(), HttpStatus.OK);
