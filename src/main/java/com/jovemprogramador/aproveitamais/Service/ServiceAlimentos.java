@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.jovemprogramador.aproveitamais.Models.Mensagem;
 import com.jovemprogramador.aproveitamais.Models.Alimentos;
+<<<<<<< HEAD
 // import com.jovemprogramador.aproveitamais.Models.Categorias;
+=======
+>>>>>>> e5ae88895c864bcf277178232dc0ff09a7715874
 import com.jovemprogramador.aproveitamais.Repository.AlimentosRepository;
 
 @Service

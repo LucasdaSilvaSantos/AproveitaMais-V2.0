@@ -16,15 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jovemprogramador.aproveitamais.Models.Alimentos;
 import com.jovemprogramador.aproveitamais.Models.Categorias;
 import com.jovemprogramador.aproveitamais.Repository.AlimentosRepository;
+import com.jovemprogramador.aproveitamais.Repository.CategoriaRepository;
 import com.jovemprogramador.aproveitamais.Service.ServiceAlimentos;
 
 import jakarta.validation.Valid;
+
 
 @RestController
 public class ControllerAlimentos {
     
     @Autowired
     private AlimentosRepository ar;
+
+    @Autowired
+    private CategoriaRepository cr;
 
     @Autowired
     private ServiceAlimentos services;
@@ -43,7 +48,11 @@ public class ControllerAlimentos {
 
 
     @GetMapping("/mostrarAlimentos/{alimentosId}")
+<<<<<<< HEAD
     public ResponseEntity<?> findByLogin(@PathVariable int alimentosId){
+=======
+    public ResponseEntity<?> findByLogin(@Valid @PathVariable int alimentosId){
+>>>>>>> e5ae88895c864bcf277178232dc0ff09a7715874
         return services.selecionarAlimentosPeloID(alimentosId);
     }
 
@@ -77,6 +86,23 @@ public class ControllerAlimentos {
         return ar.findAllByOrderByNomeAlimentoDesc();
    }
 
+<<<<<<< HEAD
+=======
+   @GetMapping(value="/ordenarCategoria")
+   public List<Categorias> ordenarCategoria() {
+       return cr.findAll();
+   }
+
+   @GetMapping(value = "/ordenarCategoriaAsc")
+   public List<Categorias> ordenarCategoriaAscendente(){
+    return cr.findByOrderByCategoriaAsc();
+   }
+
+   @GetMapping(value = "/ordenarCategoriaDesc")
+   public List<Categorias> ordenarCategoriasDescendente(){
+    return cr.findByOrderByCategoriaDesc();
+   }
+>>>>>>> e5ae88895c864bcf277178232dc0ff09a7715874
 
    @GetMapping("/contadorAlimentos")
    public long contadorAlimentos(){
