@@ -48,11 +48,7 @@ public class ControllerAlimentos {
 
 
     @GetMapping("/mostrarAlimentos/{alimentosId}")
-<<<<<<< HEAD
-    public ResponseEntity<?> findByLogin(@PathVariable int alimentosId){
-=======
     public ResponseEntity<?> findByLogin(@Valid @PathVariable int alimentosId){
->>>>>>> e5ae88895c864bcf277178232dc0ff09a7715874
         return services.selecionarAlimentosPeloID(alimentosId);
     }
 
@@ -86,8 +82,6 @@ public class ControllerAlimentos {
         return ar.findAllByOrderByNomeAlimentoDesc();
    }
 
-<<<<<<< HEAD
-=======
    @GetMapping(value="/ordenarCategoria")
    public List<Categorias> ordenarCategoria() {
        return cr.findAll();
@@ -102,7 +96,6 @@ public class ControllerAlimentos {
    public List<Categorias> ordenarCategoriasDescendente(){
     return cr.findByOrderByCategoriaDesc();
    }
->>>>>>> e5ae88895c864bcf277178232dc0ff09a7715874
 
    @GetMapping("/contadorAlimentos")
    public long contadorAlimentos(){
