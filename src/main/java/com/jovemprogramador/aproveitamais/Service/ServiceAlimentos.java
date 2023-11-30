@@ -76,13 +76,12 @@ public class ServiceAlimentos {
 
     //Método para Remover alimentos
     public ResponseEntity<?> removerAlimentos(int alimentosId) {
-        List<Alimentos> alimentosList = ar.findByAlimentosId(alimentosId);
     
-        if (alimentosList.isEmpty()) {
+        if (ar.countByAlimentosId(alimentosId) == 0) {
             mensagem.setMensagem("Id não encontrado");
             return new ResponseEntity<>(mensagem, HttpStatus.NOT_FOUND);
         } else {
-            Alimentos alimentos = alimentosList.get(0);
+            Alimentos alimentos = ar.findByAlimentosId(alimentosId);
             ar.delete(alimentos);
     
             mensagem.setMensagem("Alimento removido com sucesso!");

@@ -24,6 +24,8 @@ public interface PessoaFisicaRepository extends JpaRepository<PessoaFisica, Inte
 
     List<PessoaFisica> findByNomeClienteEndsWith(String termo);
 
+    PessoaFisica findByClienteId(int clienteId);
+
     @Query(value = "SELECT nome_cliente FROM pessoa_fisica", nativeQuery = true)
     List<String> NomesDaTabela ();
 
@@ -31,4 +33,13 @@ public interface PessoaFisicaRepository extends JpaRepository<PessoaFisica, Inte
     List<PessoaFisica> idadeMaiorIgual(int idade);
 
     long countByLogin(String login);
+
+    long countByCpf(String cpf);
+
+    long countByNomeCliente(String nomeCliente);
+
+    long countBySenha(String senha);
+
+    long countByTelefone(String telefone);
+
 }

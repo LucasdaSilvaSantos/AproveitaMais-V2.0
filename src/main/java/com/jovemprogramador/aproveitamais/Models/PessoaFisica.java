@@ -1,11 +1,15 @@
 package com.jovemprogramador.aproveitamais.Models;
 
+import org.hibernate.annotations.ManyToAny;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
@@ -45,8 +49,7 @@ public class PessoaFisica {
     @NotBlank(message = "Insira um telefone")
     private String telefone;
 
-    @NotBlank
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "codigoEndereco", nullable = false, unique = false)
     private Endereco codigoEndereco;
 

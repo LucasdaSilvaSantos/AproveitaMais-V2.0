@@ -15,7 +15,7 @@ public interface AlimentosRepository extends JpaRepository<Alimentos, Integer>{
 
     List<Alimentos> findByNomeAlimento(String nomeAlimento);
 
-    List<Alimentos> findByAlimentosId(int alimentosId);
+    Alimentos findByAlimentosId(int alimentosId);
 
     List<Alimentos> findAllByOrderByNomeAlimentoAsc();
 

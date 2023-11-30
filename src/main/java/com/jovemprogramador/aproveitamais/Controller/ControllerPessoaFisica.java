@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jovemprogramador.aproveitamais.Models.ClasseGenerica;
+import com.jovemprogramador.aproveitamais.Models.Endereco;
 import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
 import com.jovemprogramador.aproveitamais.Models.RegistroPedidos;
 
@@ -48,14 +49,28 @@ public class ControllerPessoaFisica {
         return services.selecionarPeloLogin(login);
     }
 
-    // @PostMapping("/login")
-    // public String login(@RequestBody PessoaFisica pessoa){
-    //     if (pf.countByLogin(pessoa.getLogin()) == 0) {
-    //         return "cxv";
-    //     }
+    @GetMapping("/login")
+    public String login(@RequestBody PessoaFisica pessoa){
+        if (pf.countByLogin(pessoa.getLogin()) == 0) {
+            return "Login não encontrado";
+        }
+        else if (pf.countByNomeCliente(pessoa.getNomeCliente()) == 0) {
+            return "Nome incorreto";
+        }
+        else if (pf.countByCpf(pessoa.getCpf()) == 0) {
+            return "CPF incorreto";
+        }
+        else if (pf.countBySenha(pessoa.getSenha()) == 0) {
+            return "Senha incorreta";
+        }
+        else if (pf.countByTelefone(pessoa.getTelefone()) == 0) {
+            return "Telefone incorreto";
+        }
+        pessoa = pf.findByLogin(pessoa.getLogin());
+        int clienteId = pessoa.getClienteId();
+        return "/index/" + clienteId;
 
-    // }
-
+    }
 
     @PutMapping("/editarCadastro")
     public PessoaFisica Editar(@RequestBody PessoaFisica pessoa){
@@ -109,40 +124,5 @@ public class ControllerPessoaFisica {
    public ResponseEntity<?> status(){
     return new ResponseEntity<>(HttpStatus.CREATED);
    }
-
-//    @PostMapping("/pedido")
-//    public RegistroPedidos registrarPedido(PessoaFisica clienteId){
-
-//    }
-
-//    @PostMapping("/cliente")
-//    public void cliente(@Valid @RequestBody PessoaJuridica pessoaJuridica){
-
-//    }
-
-
-    // @GetMapping("")
-    // public String mensagem(){
-    //     return "Hello World!";
-    // }
-
-    // @GetMapping("/boasVindas")
-    // public String boaVindas(){
-    //     return "Seja bem vindo!";
-    // }
-    
-    
-    
-    // @GetMapping("/boasVindas/{nome}")
-    // public String boaVindas(@PathVariable String nome){
-    //     return "Seja bem vindo!" + nome;
-    // }
-
-
-    // @PostMapping("/pessoaFisica")
-    // public PessoaFisica pessoaFisica(@RequestBody PessoaFisica pf){
-        
-    //     return pf;
-    // }
 
 }

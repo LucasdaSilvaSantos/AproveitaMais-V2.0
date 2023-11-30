@@ -16,7 +16,7 @@ public class RegistroPedidos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int registro_pedidoId;
+    private int registroPedidoId;
 
 
     @OneToOne

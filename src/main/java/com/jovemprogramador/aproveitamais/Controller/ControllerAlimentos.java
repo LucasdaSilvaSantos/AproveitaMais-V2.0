@@ -15,8 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jovemprogramador.aproveitamais.Models.Alimentos;
 import com.jovemprogramador.aproveitamais.Models.Categorias;
+import com.jovemprogramador.aproveitamais.Models.Pedidos;
+import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
+import com.jovemprogramador.aproveitamais.Models.RegistroPedidos;
 import com.jovemprogramador.aproveitamais.Repository.AlimentosRepository;
 import com.jovemprogramador.aproveitamais.Repository.CategoriaRepository;
+import com.jovemprogramador.aproveitamais.Repository.PedidosRepository;
+import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
+import com.jovemprogramador.aproveitamais.Repository.RegistroPedidosRepository;
 import com.jovemprogramador.aproveitamais.Service.ServiceAlimentos;
 
 import jakarta.validation.Valid;
@@ -33,6 +39,15 @@ public class ControllerAlimentos {
 
     @Autowired
     private ServiceAlimentos services;
+
+    @Autowired
+    private PedidosRepository pr;
+
+    @Autowired
+    private RegistroPedidosRepository rp;
+
+    @Autowired
+    private PessoaFisicaRepository pfr;
 
     @PostMapping("/cadastrarAlimento")
     public ResponseEntity<?> cadastroAlimento(@RequestBody Alimentos alimentos){
@@ -131,4 +146,23 @@ public class ControllerAlimentos {
    public ResponseEntity<?> status(){
     return new ResponseEntity<>(HttpStatus.CREATED);
    }
+
+   @PostMapping("/{clienteId}/alimento/{alimentoId}/{quantidade}")
+   public String adicionarAoCarrinho (@PathVariable int alimentoId, @PathVariable int clienteId, @PathVariable int quantidade) {   
+    Alimentos Alimento = ar.findByAlimentosId(alimentoId);
+        if (quantidade > Alimento.getQuantidade()) {
+            return "Você está pedindo mais unidades deste produto doque há disponível em estoque";
+        }
+        PessoaFisica cliente = pfr.findByClienteId(clienteId);      
+        RegistroPedidos pedido = new RegistroPedidos();
+        pedido.setClienteId(cliente);
+        rp.save(pedido);
+        Pedidos carrinho = new Pedidos();
+        carrinho.setRegistroPedidoId(pedido);
+        carrinho.setAlimentosId(Alimento);
+        carrinho.setQuantidade(quantidade);
+        pr.save(carrinho);
+    return "Adicionado ao carrinho";
+   }
+
 }

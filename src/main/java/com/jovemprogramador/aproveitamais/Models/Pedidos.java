@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -23,7 +24,7 @@ public class Pedidos {
 
     @ManyToOne
     @JoinColumn(name = "registro_pedidoId", nullable = false, unique = false)
-    private RegistroPedidos registro_PedidoId;
+    private RegistroPedidos registroPedidoId;
 
     @ManyToOne
     @JoinColumn(name = "alimentosId", nullable = false, unique = false)

@@ -22,7 +22,7 @@ public class ServicePessoaJuridica {
     public ResponseEntity<?> cadastrarPessoaJuridica(PessoaJuridica pessoaJuridica){
 
         if(pessoaJuridica.getNomeEmpresa().equals("")){
-            mensagem.setMensagem("A empresa já está cadastrada");
+            mensagem.setMensagem("Coloque um nome");
             return new ResponseEntity<>(mensagem,HttpStatus.BAD_REQUEST);
         }else{
             return new ResponseEntity<>(pj.save(pessoaJuridica), HttpStatus.CREATED);
