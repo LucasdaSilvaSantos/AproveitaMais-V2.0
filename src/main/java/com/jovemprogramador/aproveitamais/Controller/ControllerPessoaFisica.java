@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jovemprogramador.aproveitamais.Models.ClasseGenerica;
 import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
 import com.jovemprogramador.aproveitamais.Models.RegistroPedidos;
-import com.jovemprogramador.aproveitamais.Models.classeGenerica;
+
 // import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
 import com.jovemprogramador.aproveitamais.Service.ServicePessoaFisica;
@@ -48,13 +48,13 @@ public class ControllerPessoaFisica {
         return services.selecionarPeloLogin(login);
     }
 
-    @PostMapping("/login")
-    public  login(@RequestBody PessoaFisica pessoa){
-        if (pf.countByLogin(pessoa.getLogin()) == 0) {
-            return "cxv";
-        }
+    // @PostMapping("/login")
+    // public String login(@RequestBody PessoaFisica pessoa){
+    //     if (pf.countByLogin(pessoa.getLogin()) == 0) {
+    //         return "cxv";
+    //     }
 
-    }
+    // }
 
 
     @PutMapping("/editarCadastro")
@@ -110,10 +110,10 @@ public class ControllerPessoaFisica {
     return new ResponseEntity<>(HttpStatus.CREATED);
    }
 
-   @PostMapping("/pedido")
-   public RegistroPedidos registrarPedido(PessoaFisica clienteId, ){
+//    @PostMapping("/pedido")
+//    public RegistroPedidos registrarPedido(PessoaFisica clienteId){
 
-   }
+//    }
 
 //    @PostMapping("/cliente")
 //    public void cliente(@Valid @RequestBody PessoaJuridica pessoaJuridica){
