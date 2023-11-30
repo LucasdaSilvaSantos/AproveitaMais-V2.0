@@ -17,12 +17,10 @@ import com.jovemprogramador.aproveitamais.Models.Alimentos;
 import com.jovemprogramador.aproveitamais.Models.Categorias;
 import com.jovemprogramador.aproveitamais.Models.Pedidos;
 import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
-import com.jovemprogramador.aproveitamais.Models.RegistroPedidos;
 import com.jovemprogramador.aproveitamais.Repository.AlimentosRepository;
 import com.jovemprogramador.aproveitamais.Repository.CategoriaRepository;
 import com.jovemprogramador.aproveitamais.Repository.PedidosRepository;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
-import com.jovemprogramador.aproveitamais.Repository.RegistroPedidosRepository;
 import com.jovemprogramador.aproveitamais.Service.ServiceAlimentos;
 
 import jakarta.validation.Valid;
@@ -42,9 +40,6 @@ public class ControllerAlimentos {
 
     @Autowired
     private PedidosRepository pr;
-
-    @Autowired
-    private RegistroPedidosRepository rp;
 
     @Autowired
     private PessoaFisicaRepository pfr;
@@ -147,22 +142,57 @@ public class ControllerAlimentos {
     return new ResponseEntity<>(HttpStatus.CREATED);
    }
 
-   @PostMapping("/{clienteId}/alimento/{alimentoId}/{quantidade}")
-   public String adicionarAoCarrinho (@PathVariable int alimentoId, @PathVariable int clienteId, @PathVariable int quantidade) {   
+   @PostMapping("/{clienteId}/alimento/{alimentoId}")
+   public String adicionarAoCarrinho (@PathVariable int alimentoId, @PathVariable int clienteId, int quantidade) {   
     Alimentos Alimento = ar.findByAlimentosId(alimentoId);
         if (quantidade > Alimento.getQuantidade()) {
             return "Você está pedindo mais unidades deste produto doque há disponível em estoque";
         }
+        if (quantidade == 0) {
+            return "Selecione uma quantidade";
+        }
         PessoaFisica cliente = pfr.findByClienteId(clienteId);      
-        RegistroPedidos pedido = new RegistroPedidos();
-        pedido.setClienteId(cliente);
-        rp.save(pedido);
         Pedidos carrinho = new Pedidos();
-        carrinho.setRegistroPedidoId(pedido);
+        carrinho.setClienteId(cliente);
         carrinho.setAlimentosId(Alimento);
         carrinho.setQuantidade(quantidade);
         pr.save(carrinho);
+        Alimento.setQuantidade(Alimento.getQuantidade() - quantidade);
+        ar.save(Alimento);
     return "Adicionado ao carrinho";
+   }
+
+   @GetMapping("/{clienteId}/carrinho")
+   public List<Pedidos> mostrarCarrinho(@PathVariable int clienteId) {
+    PessoaFisica cliente = pfr.findByClienteId(clienteId);
+        return pr.findAllByClienteId(cliente);
+   }
+
+   @DeleteMapping("/{clienteId}/carrinho")
+   public String deletarPedido(@PathVariable int clienteId, int pedidoId) {
+        Pedidos pedido = pr.findByPedidoId(pedidoId);
+        pr.delete(pedido);
+        return "Pedido cancelado";
+   }
+
+   @PutMapping("/{clienteId}/carrinho")
+   public String alterarPedido(@PathVariable int clienteId, @RequestBody Pedidos pedidos){
+        Alimentos alimentos = pedidos.getAlimentosId();
+        alimentos = ar.findByAlimentosId(alimentos.getAlimentosId());
+        if (pedidos.getQuantidade() > alimentos.getQuantidade()) {
+            return "Você está pedindo mais unidades deste produto doque há disponível em estoque";
+        }
+        if (pedidos.getQuantidade() == 0) {
+            return "Selecione uma quantidade";
+        }
+        PessoaFisica cliente = pfr.findByClienteId(clienteId);      
+        pedidos.setClienteId(cliente);
+        pedidos.setAlimentosId(alimentos);
+        pr.save(pedidos);
+        alimentos.setQuantidade(alimentos.getQuantidade() - pedidos.getQuantidade());
+        ar.save(alimentos);
+        return "Pedido alterado com sucesso";
+
    }
 
 }

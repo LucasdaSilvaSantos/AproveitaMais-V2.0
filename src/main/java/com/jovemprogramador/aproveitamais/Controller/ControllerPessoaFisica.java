@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jovemprogramador.aproveitamais.Models.ClasseGenerica;
 import com.jovemprogramador.aproveitamais.Models.Endereco;
 import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
-import com.jovemprogramador.aproveitamais.Models.RegistroPedidos;
 
 // import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;

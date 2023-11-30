@@ -20,11 +20,11 @@ public class Pedidos {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int pId;
+    private int pedidoId;
 
     @ManyToOne
-    @JoinColumn(name = "registro_pedidoId", nullable = false, unique = false)
-    private RegistroPedidos registroPedidoId;
+    @JoinColumn(name = "clienteId", nullable = false, unique = false)
+    private PessoaFisica clienteId;
 
     @ManyToOne
     @JoinColumn(name = "alimentosId", nullable = false, unique = false)
