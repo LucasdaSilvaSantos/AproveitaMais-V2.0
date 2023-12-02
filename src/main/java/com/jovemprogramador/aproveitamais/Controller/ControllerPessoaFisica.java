@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jovemprogramador.aproveitamais.Models.ClasseGenerica;
@@ -47,38 +48,19 @@ public class ControllerPessoaFisica {
         return "/home";
     }
 
-    @GetMapping("/mostrarCadastros")
-    public ResponseEntity<?> selecionar(){
-        return services.selecionarPessoaFisica();
-    }
+    // @GetMapping("/login")
+    // public String login(@RequestBody PessoaFisica pessoa){
+    //     if (pf.countByCpf(pessoa.getCpf()) == 0) {
+    //         return "CPF não encontrado";
+    //     }
+    //     else if (pf.countBySenha(pessoa.getSenha()) == 0) {
+    //         return "Senha incorreta";
+    //     }
+    //     pessoa = pf.findByLogin(pessoa.getLogin());
+    //     int clienteId = pessoa.getClienteId();
+    //     return "/index/" + clienteId;
 
-    @GetMapping("/mostrarCadastro/{login}")
-    public ResponseEntity<?> findByLogin(@Valid @PathVariable String login){
-        return services.selecionarPeloLogin(login);
-    }
-
-    @GetMapping("/login")
-    public String login(@RequestBody PessoaFisica pessoa){
-        if (pf.countByLogin(pessoa.getLogin()) == 0) {
-            return "Login não encontrado";
-        }
-        else if (pf.countByNomeCliente(pessoa.getNomeCliente()) == 0) {
-            return "Nome incorreto";
-        }
-        else if (pf.countByCpf(pessoa.getCpf()) == 0) {
-            return "CPF incorreto";
-        }
-        else if (pf.countBySenha(pessoa.getSenha()) == 0) {
-            return "Senha incorreta";
-        }
-        else if (pf.countByTelefone(pessoa.getTelefone()) == 0) {
-            return "Telefone incorreto";
-        }
-        pessoa = pf.findByLogin(pessoa.getLogin());
-        int clienteId = pessoa.getClienteId();
-        return "/index/" + clienteId;
-
-    }
+    // }
 
     @PutMapping("/editarCadastro")
     public PessoaFisica Editar(@RequestBody PessoaFisica pessoa){
@@ -97,40 +79,9 @@ public class ControllerPessoaFisica {
         return pf.findAllByOrderByNomeClienteAsc();
    }
 
-   @GetMapping("/contador")
-   public long contador(){
-    return pf.count();
-   }
-
    @GetMapping("/nomeContem/{termo}")
    List<PessoaFisica> nomeContem(@PathVariable String termo){
     return pf.findByNomeClienteContaining(termo);
-   }
-
-
-   @GetMapping("/iniciaCom/{termo}")
-   public List<PessoaFisica> iniciaCom(@PathVariable String termo){
-    return pf.findByNomeClienteStartsWith(termo);
-   }
-
-   @GetMapping("/terminaCom/{termo}")
-   public List<PessoaFisica> terminaCom(@PathVariable String termo){
-    return pf.findByNomeClienteEndsWith(termo);
-   }
-
-   @GetMapping("/nomesTabela")
-   public List<String> nomesTabela(){
-    return pf.NomesDaTabela();
-   }
-
-   @GetMapping("/idadeMaiorIgual/{idade}")
-   public List<PessoaFisica> idadeMaiorIgual(@PathVariable int idade){
-    return pf.idadeMaiorIgual(idade);
-   }
-
-   @GetMapping("/status")
-   public ResponseEntity<?> status(){
-    return new ResponseEntity<>(HttpStatus.CREATED);
    }
 
 }

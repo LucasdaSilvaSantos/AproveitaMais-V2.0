@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.jovemprogramador.aproveitamais.Models.Alimentos;
 import com.jovemprogramador.aproveitamais.Models.Categorias;
@@ -50,61 +52,39 @@ public class ControllerAlimentos {
 
     }
 
-
     @GetMapping("/mostrarAlimentos")
     public ResponseEntity<?> selecionar(){
         return services.selecionarTodosAlimentos();
     }
-
 
     @GetMapping("/mostrarAlimentos/{alimentosId}")
     public ResponseEntity<?> findByLogin(@Valid @PathVariable int alimentosId){
         return services.selecionarAlimentosPeloID(alimentosId);
     }
 
-
     @GetMapping("/mostrarAlimentosDisponiveis")
     public List<Alimentos> verificarDisponibilidades(){
         return ar.verificarQuantidade();
     }
-
 
     @PutMapping("/editarAlimentos")
     public ResponseEntity<?> Editar(@RequestBody Alimentos alimentos){
         return services.editarAlimentos(alimentos);
     }
 
-
     @DeleteMapping("/deletarAlimentos/{alimentosId}")
     public ResponseEntity<?> remover(@PathVariable int alimentosId){
         return services.removerAlimentos(alimentosId);
     }
-
-
-    @GetMapping("/ordenarAlimentosAsc")
-    public List<Alimentos> ordenarAlimentosAsc(){
-        return ar.findAllByOrderByNomeAlimentoAsc();
-   }
-
 
    @GetMapping("/ordenarAlimentosDesc")
     public List<Alimentos> ordenarAlimentosDesc(){
         return ar.findAllByOrderByNomeAlimentoDesc();
    }
 
-   @GetMapping(value="/ordenarCategoria")
-   public List<Categorias> ordenarCategoria() {
-       return cr.findAll();
-   }
-
    @GetMapping(value = "/ordenarCategoriaAsc")
    public List<Categorias> ordenarCategoriaAscendente(){
     return cr.findByOrderByCategoriaAsc();
-   }
-
-   @GetMapping(value = "/ordenarCategoriaDesc")
-   public List<Categorias> ordenarCategoriasDescendente(){
-    return cr.findByOrderByCategoriaDesc();
    }
 
    @GetMapping("/contadorAlimentos")
@@ -118,29 +98,13 @@ public class ControllerAlimentos {
     return ar.findByNomeAlimentoContaining(termo);
    }
 
-
-   @GetMapping("/nomesalimentosTabela")
-   public List<String> NomesAlimentosTabela(){
-    return ar.NomesDaTabela();
-   }
-
-
-   @GetMapping("/precoMaiorIgual/{preco}")
-   public List<Alimentos> precoMaiorIgual(@PathVariable int preco){
-    return ar.precoMaiorIgual(preco);
-   }
-
-
-   @GetMapping("/idadeMenorIgual/{idade}")
-   public List<Alimentos> precoMenorIgual(@PathVariable int preco){
-    return ar.precoMenorIgual(preco);
-   }
-   
-
-   @GetMapping("/statusAlimentos")
-   public ResponseEntity<?> status(){
-    return new ResponseEntity<>(HttpStatus.CREATED);
-   }
+   @RequestMapping("/alimentos")
+    public ModelAndView alimentos() {
+        ModelAndView mv = new ModelAndView("home/alimentos");
+        Iterable<Alimentos> alimentos = ar.findAll();
+        mv.addObject("Alimentos", alimentos);
+        return mv;
+    }
 
    @PostMapping("/{clienteId}/alimento/{alimentoId}")
    public String adicionarAoCarrinho (@PathVariable int alimentoId, @PathVariable int clienteId, int quantidade) {   
