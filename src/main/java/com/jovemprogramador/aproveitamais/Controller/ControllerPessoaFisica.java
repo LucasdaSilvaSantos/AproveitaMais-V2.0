@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jovemprogramador.aproveitamais.Models.ClasseGenerica;
 import com.jovemprogramador.aproveitamais.Models.Endereco;
 import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
-
+import com.jovemprogramador.aproveitamais.Repository.EnderecoRepository;
 // import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
 import com.jovemprogramador.aproveitamais.Service.ServicePessoaFisica;
@@ -32,16 +32,25 @@ public class ControllerPessoaFisica {
     @Autowired
     private ServicePessoaFisica services;
 
-    @PostMapping("/cadastro")
-    public ResponseEntity<?> cadastroPF(@RequestBody PessoaFisica pessoa){
-        return services.cadastrarPessoaFisica(pessoa);
+    @Autowired
+    private EnderecoRepository er;
+
+    @PostMapping("/cadastroPF")
+    public String cadastroPF(@RequestBody PessoaFisica pessoa){
+        pf.save(pessoa);
+        return "/home";
+    }
+
+    @PostMapping("/cadastroEndereco")
+    public String cadastroPF(@RequestBody Endereco endereco){
+        er.save(endereco);
+        return "/home";
     }
 
     @GetMapping("/mostrarCadastros")
     public ResponseEntity<?> selecionar(){
         return services.selecionarPessoaFisica();
     }
-
 
     @GetMapping("/mostrarCadastro/{login}")
     public ResponseEntity<?> findByLogin(@Valid @PathVariable String login){
