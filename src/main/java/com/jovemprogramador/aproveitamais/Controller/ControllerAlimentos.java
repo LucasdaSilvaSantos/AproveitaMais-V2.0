@@ -27,10 +27,9 @@ import com.jovemprogramador.aproveitamais.Service.ServiceAlimentos;
 
 import jakarta.validation.Valid;
 
-
 @RestController
 public class ControllerAlimentos {
-    
+
     @Autowired
     private AlimentosRepository ar;
 
@@ -46,59 +45,57 @@ public class ControllerAlimentos {
     @Autowired
     private PessoaFisicaRepository pfr;
 
-    @PostMapping("/cadastrarAlimento")
-    public ResponseEntity<?> cadastroAlimento(@RequestBody Alimentos alimentos){
-        return services.cadastrarAlimentos(alimentos); 
-
+    @PostMapping("/cadastroAlimento")
+    public ResponseEntity<?> cadastroAlimento(@RequestBody Alimentos alimentos) {
+        return services.cadastrarAlimentos(alimentos);
     }
 
     @GetMapping("/mostrarAlimentos")
-    public ResponseEntity<?> selecionar(){
+    public ResponseEntity<?> selecionar() {
         return services.selecionarTodosAlimentos();
     }
 
     @GetMapping("/mostrarAlimentos/{alimentosId}")
-    public ResponseEntity<?> findByLogin(@Valid @PathVariable int alimentosId){
+    public ResponseEntity<?> findByLogin(@Valid @PathVariable int alimentosId) {
         return services.selecionarAlimentosPeloID(alimentosId);
     }
 
     @GetMapping("/mostrarAlimentosDisponiveis")
-    public List<Alimentos> verificarDisponibilidades(){
+    public List<Alimentos> verificarDisponibilidades() {
         return ar.verificarQuantidade();
     }
 
     @PutMapping("/editarAlimentos")
-    public ResponseEntity<?> Editar(@RequestBody Alimentos alimentos){
+    public ResponseEntity<?> Editar(@RequestBody Alimentos alimentos) {
         return services.editarAlimentos(alimentos);
     }
 
     @DeleteMapping("/deletarAlimentos/{alimentosId}")
-    public ResponseEntity<?> remover(@PathVariable int alimentosId){
+    public ResponseEntity<?> remover(@PathVariable int alimentosId) {
         return services.removerAlimentos(alimentosId);
     }
 
-   @GetMapping("/ordenarAlimentosDesc")
-    public List<Alimentos> ordenarAlimentosDesc(){
+    @GetMapping("/ordenarAlimentosDesc")
+    public List<Alimentos> ordenarAlimentosDesc() {
         return ar.findAllByOrderByNomeAlimentoDesc();
-   }
+    }
 
-   @GetMapping(value = "/ordenarCategoriaAsc")
-   public List<Categorias> ordenarCategoriaAscendente(){
-    return cr.findByOrderByCategoriaAsc();
-   }
+    @GetMapping(value = "/ordenarCategoriaAsc")
+    public List<Categorias> ordenarCategoriaAscendente() {
+        return cr.findByOrderByCategoriaAsc();
+    }
 
-   @GetMapping("/contadorAlimentos")
-   public long contadorAlimentos(){
-    return ar.count();
-   }
+    @GetMapping("/contadorAlimentos")
+    public long contadorAlimentos() {
+        return ar.count();
+    }
 
+    @GetMapping("/nomealimentoContem/{termo}")
+    List<Alimentos> NomeAlimentoContem(@PathVariable String termo) {
+        return ar.findByNomeAlimentoContaining(termo);
+    }
 
-   @GetMapping("/nomealimentoContem/{termo}")
-   List<Alimentos> NomeAlimentoContem(@PathVariable String termo){
-    return ar.findByNomeAlimentoContaining(termo);
-   }
-
-   @RequestMapping("/alimentos")
+    @RequestMapping("/alimentos")
     public ModelAndView alimentos() {
         ModelAndView mv = new ModelAndView("home/alimentos");
         Iterable<Alimentos> alimentos = ar.findAll();
@@ -106,16 +103,16 @@ public class ControllerAlimentos {
         return mv;
     }
 
-   @PostMapping("/{clienteId}/alimento/{alimentoId}")
-   public String adicionarAoCarrinho (@PathVariable int alimentoId, @PathVariable int clienteId, int quantidade) {   
-    Alimentos Alimento = ar.findByAlimentosId(alimentoId);
+    @PostMapping("/{clienteId}/alimento/{alimentoId}")
+    public String adicionarAoCarrinho(@PathVariable int alimentoId, @PathVariable int clienteId, int quantidade) {
+        Alimentos Alimento = ar.findByAlimentosId(alimentoId);
         if (quantidade > Alimento.getQuantidade()) {
             return "Você está pedindo mais unidades deste produto doque há disponível em estoque";
         }
         if (quantidade == 0) {
             return "Selecione uma quantidade";
         }
-        PessoaFisica cliente = pfr.findByClienteId(clienteId);      
+        PessoaFisica cliente = pfr.findByClienteId(clienteId);
         Pedidos carrinho = new Pedidos();
         carrinho.setClienteId(cliente);
         carrinho.setAlimentosId(Alimento);
@@ -123,24 +120,24 @@ public class ControllerAlimentos {
         pr.save(carrinho);
         Alimento.setQuantidade(Alimento.getQuantidade() - quantidade);
         ar.save(Alimento);
-    return "Adicionado ao carrinho";
-   }
+        return "Adicionado ao carrinho";
+    }
 
-   @GetMapping("/{clienteId}/carrinho")
-   public List<Pedidos> mostrarCarrinho(@PathVariable int clienteId) {
-    PessoaFisica cliente = pfr.findByClienteId(clienteId);
+    @GetMapping("/{clienteId}/carrinho")
+    public List<Pedidos> mostrarCarrinho(@PathVariable int clienteId) {
+        PessoaFisica cliente = pfr.findByClienteId(clienteId);
         return pr.findAllByClienteId(cliente);
-   }
+    }
 
-   @DeleteMapping("/{clienteId}/carrinho")
-   public String deletarPedido(@PathVariable int clienteId, int pedidoId) {
+    @DeleteMapping("/{clienteId}/carrinho")
+    public String deletarPedido(@PathVariable int clienteId, int pedidoId) {
         Pedidos pedido = pr.findByPedidoId(pedidoId);
         pr.delete(pedido);
         return "Pedido cancelado";
-   }
+    }
 
-   @PutMapping("/{clienteId}/carrinho")
-   public String alterarPedido(@PathVariable int clienteId, @RequestBody Pedidos pedidos){
+    @PutMapping("/{clienteId}/carrinho")
+    public String alterarPedido(@PathVariable int clienteId, @RequestBody Pedidos pedidos) {
         Alimentos alimentos = pedidos.getAlimentosId();
         alimentos = ar.findByAlimentosId(alimentos.getAlimentosId());
         if (pedidos.getQuantidade() > alimentos.getQuantidade()) {
@@ -149,7 +146,7 @@ public class ControllerAlimentos {
         if (pedidos.getQuantidade() == 0) {
             return "Selecione uma quantidade";
         }
-        PessoaFisica cliente = pfr.findByClienteId(clienteId);      
+        PessoaFisica cliente = pfr.findByClienteId(clienteId);
         pedidos.setClienteId(cliente);
         pedidos.setAlimentosId(alimentos);
         pr.save(pedidos);
@@ -157,6 +154,6 @@ public class ControllerAlimentos {
         ar.save(alimentos);
         return "Pedido alterado com sucesso";
 
-   }
+    }
 
 }

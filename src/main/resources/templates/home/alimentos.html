@@ -82,7 +82,7 @@
 
 	<section class="ftco-section">
 		<div class="container">
-			<div class="row">
+			<div class="row" th:each="alimento : ${LAlimentos}">
 				<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
 						<a href="/detalhesproduto" class="img-prod" data-product-id="produto1"><img class="img-fluid"
@@ -92,10 +92,11 @@
 							<div class="overlay"></div>
 						</a>
 						<div class="text py-3 pb-4 px-3 text-center">
-							<h3><a href="#">Chocolate ao Leite Alpine Milk Milka</a></h3>
+							<h3><a href="#"><span th:text="${alimento.nome}"></span> ao Leite Alpine Milk Milka</a></h3>
 							<div class="d-flex">
 								<div class="pricing">
-									<p class="price"><span class="mr-2 price-dc">R$8.00</span><span class="price-sale">RS5.00</span></p>
+									<p class="price"><span class="mr-2 price-dc" th:text="${alimento.preco}">R$8.00</span><span
+											class="price-sale">RS5.00</span></p>
 								</div>
 							</div>
 							<div class="bottom-area d-flex px-3">
@@ -239,8 +240,7 @@
 				</div>
 				<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
-						<a href="/detalhesproduto?id=produto2" class="img-prod" data-product-id="produto3"><img
-								class="img-fluid"
+						<a href="/detalhesproduto?id=produto2" class="img-prod" data-product-id="produto3"><img class="img-fluid"
 								src="https://raw.githubusercontent.com/JefDfelipe/ProjetoIntegradorSENAC/efa40fef3c04fb54c2a8720fd3f292f723eee886/produto1.png"
 								alt="produto3">
 							<span class="status">Promoção</span>
@@ -266,8 +266,7 @@
 				</div>
 				<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
-						<a href="/detalhesproduto?id=produto4" class="img-prod" data-product-id="produto4"><img
-								class="img-fluid"
+						<a href="/detalhesproduto?id=produto4" class="img-prod" data-product-id="produto4"><img class="img-fluid"
 								src="https://raw.githubusercontent.com/JefDfelipe/ProjetoIntegradorSENAC/efa40fef3c04fb54c2a8720fd3f292f723eee886/produto2.png"
 								alt="produto4">
 							<div class="overlay"></div>
@@ -318,8 +317,7 @@
 				</div>
 				<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
-						<a href="/detalhesproduto?id=produto2" class="img-prod" data-product-id="produto2"><img
-								class="img-fluid"
+						<a href="/detalhesproduto?id=produto2" class="img-prod" data-product-id="produto2"><img class="img-fluid"
 								src="https://raw.githubusercontent.com/JefDfelipe/ProjetoIntegradorSENAC/efa40fef3c04fb54c2a8720fd3f292f723eee886/produto2.png"
 								alt="produto2">
 							<div class="overlay"></div>
@@ -344,8 +342,7 @@
 				</div>
 				<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
-						<a href="/detalhesproduto?id=produto2" class="img-prod" data-product-id="produto3"><img
-								class="img-fluid"
+						<a href="/detalhesproduto?id=produto2" class="img-prod" data-product-id="produto3"><img class="img-fluid"
 								src="https://raw.githubusercontent.com/JefDfelipe/ProjetoIntegradorSENAC/efa40fef3c04fb54c2a8720fd3f292f723eee886/produto1.png"
 								alt="produto3">
 							<span class="status">Promoção</span>
@@ -371,8 +368,7 @@
 				</div>
 				<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
-						<a href="/detalhesproduto?id=produto4" class="img-prod" data-product-id="produto4"><img
-								class="img-fluid"
+						<a href="/detalhesproduto?id=produto4" class="img-prod" data-product-id="produto4"><img class="img-fluid"
 								src="https://raw.githubusercontent.com/JefDfelipe/ProjetoIntegradorSENAC/efa40fef3c04fb54c2a8720fd3f292f723eee886/produto2.png"
 								alt="produto4">
 							<div class="overlay"></div>
@@ -478,7 +474,8 @@
 	<script type="text/javascript" src="js/google-map.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/produtos.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 
 </body>
 

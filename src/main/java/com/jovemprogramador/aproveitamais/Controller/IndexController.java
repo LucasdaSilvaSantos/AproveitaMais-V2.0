@@ -16,9 +16,9 @@ public class IndexController {
 		return "login";
 	}
 
-	@RequestMapping("/cadastro")
-	public String cadastro() {
-		return "home/cadastro";
+	@RequestMapping("/cadastroPF")
+	public String cadastroPF() {
+		return "home/cadastroPF";
 	}
 
 	@RequestMapping("/cart")
@@ -34,6 +34,11 @@ public class IndexController {
 	@RequestMapping("/checkout")
 	public String checkout() {
 		return "home/checkout";
+	}
+
+	@RequestMapping("/cadastroAlimento")
+	public String cadastroAlimento() {
+		return "home/cadastroAlimento";
 	}
 
 }

@@ -26,7 +26,7 @@ import jakarta.validation.Valid;
 
 @RestController
 public class ControllerPessoaFisica {
-    
+
     @Autowired
     private PessoaFisicaRepository pf;
 
@@ -37,51 +37,49 @@ public class ControllerPessoaFisica {
     private EnderecoRepository er;
 
     @PostMapping("/cadastroPF")
-    public String cadastroPF(@RequestBody PessoaFisica pessoa){
+    public String cadastroPF(@RequestBody PessoaFisica pessoa) {
         pf.save(pessoa);
-        return "/home";
+        return "redirect:/cadastroendereco";
     }
 
-    @PostMapping("/cadastroEndereco")
-    public String cadastroPF(@RequestBody Endereco endereco){
+    @PostMapping("/cadastroendereco")
+    public String cadastroPF(@RequestBody Endereco endereco) {
         er.save(endereco);
-        return "/home";
+        return "/";
     }
 
     // @GetMapping("/login")
     // public String login(@RequestBody PessoaFisica pessoa){
-    //     if (pf.countByCpf(pessoa.getCpf()) == 0) {
-    //         return "CPF não encontrado";
-    //     }
-    //     else if (pf.countBySenha(pessoa.getSenha()) == 0) {
-    //         return "Senha incorreta";
-    //     }
-    //     pessoa = pf.findByLogin(pessoa.getLogin());
-    //     int clienteId = pessoa.getClienteId();
-    //     return "/index/" + clienteId;
+    // if (pf.countByCpf(pessoa.getCpf()) == 0) {
+    // return "CPF não encontrado";
+    // }
+    // else if (pf.countBySenha(pessoa.getSenha()) == 0) {
+    // return "Senha incorreta";
+    // }
+    // pessoa = pf.findByLogin(pessoa.getLogin());
+    // int clienteId = pessoa.getClienteId();
+    // return "/index/" + clienteId;
 
     // }
 
     @PutMapping("/editarCadastro")
-    public PessoaFisica Editar(@RequestBody PessoaFisica pessoa){
+    public PessoaFisica Editar(@RequestBody PessoaFisica pessoa) {
         return pf.save(pessoa);
     }
 
-
     @DeleteMapping("/deletarCadastro/{login}")
-    public ResponseEntity<?> remover(@PathVariable String login){
+    public ResponseEntity<?> remover(@PathVariable String login) {
         return services.removerPessoaFisica(login);
     }
 
-
     @GetMapping("/ordenarNomes")
-    public List<PessoaFisica> ordenarNomes(){
+    public List<PessoaFisica> ordenarNomes() {
         return pf.findAllByOrderByNomeClienteAsc();
-   }
+    }
 
-   @GetMapping("/nomeContem/{termo}")
-   List<PessoaFisica> nomeContem(@PathVariable String termo){
-    return pf.findByNomeClienteContaining(termo);
-   }
+    @GetMapping("/nomeContem/{termo}")
+    List<PessoaFisica> nomeContem(@PathVariable String termo) {
+        return pf.findByNomeClienteContaining(termo);
+    }
 
 }
