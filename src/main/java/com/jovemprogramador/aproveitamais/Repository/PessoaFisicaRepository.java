@@ -40,6 +40,4 @@ public interface PessoaFisicaRepository extends JpaRepository<PessoaFisica, Inte
 
     long countBySenha(String senha);
 
-    long countByTelefone(String telefone);
-
 }

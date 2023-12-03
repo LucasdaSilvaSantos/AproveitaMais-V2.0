@@ -14,14 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jovemprogramador.aproveitamais.Models.ClasseGenerica;
 import com.jovemprogramador.aproveitamais.Models.Endereco;
 import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
 import com.jovemprogramador.aproveitamais.Repository.EnderecoRepository;
 // import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
-import com.jovemprogramador.aproveitamais.Service.ServicePessoaFisica;
-
 import jakarta.validation.Valid;
 
 @RestController
@@ -29,9 +26,6 @@ public class ControllerPessoaFisica {
     
     @Autowired
     private PessoaFisicaRepository pf;
-
-    @Autowired
-    private ServicePessoaFisica services;
 
     @Autowired
     private EnderecoRepository er;
@@ -48,19 +42,19 @@ public class ControllerPessoaFisica {
         return "/home";
     }
 
-    // @GetMapping("/login")
-    // public String login(@RequestBody PessoaFisica pessoa){
-    //     if (pf.countByCpf(pessoa.getCpf()) == 0) {
-    //         return "CPF não encontrado";
-    //     }
-    //     else if (pf.countBySenha(pessoa.getSenha()) == 0) {
-    //         return "Senha incorreta";
-    //     }
-    //     pessoa = pf.findByLogin(pessoa.getLogin());
-    //     int clienteId = pessoa.getClienteId();
-    //     return "/index/" + clienteId;
+    @PostMapping("/login")
+    public String login(@RequestBody PessoaFisica pessoa){
+        if (pf.countByCpf(pessoa.getCpf()) == 0) {
+            return "CPF não encontrado";
+        }
+        else if (pf.countBySenha(pessoa.getSenha()) == 0) {
+            return "Senha incorreta";
+        }
+        pessoa = pf.findByLogin(pessoa.getLogin());
+        int clienteId = pessoa.getClienteId();
+        return "/index/" + clienteId;
 
-    // }
+    }
 
     @PutMapping("/editarCadastro")
     public PessoaFisica Editar(@RequestBody PessoaFisica pessoa){
@@ -69,10 +63,10 @@ public class ControllerPessoaFisica {
 
 
     @DeleteMapping("/deletarCadastro/{login}")
-    public ResponseEntity<?> remover(@PathVariable String login){
-        return services.removerPessoaFisica(login);
+    public String remover(@PathVariable String login){
+        pf.delete(pf.findByLogin(login));
+        return "/deletarCadastro";
     }
-
 
     @GetMapping("/ordenarNomes")
     public List<PessoaFisica> ordenarNomes(){

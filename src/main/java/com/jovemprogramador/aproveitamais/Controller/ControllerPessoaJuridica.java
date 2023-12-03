@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
 import com.jovemprogramador.aproveitamais.Repository.PessoaJuridicaRepository;
-import com.jovemprogramador.aproveitamais.Service.ServicePessoaJuridica;
 
 import jakarta.validation.Valid;
 
@@ -25,27 +24,27 @@ public class ControllerPessoaJuridica {
     @Autowired
     private PessoaJuridicaRepository pj;
 
-    @Autowired
-    private ServicePessoaJuridica services;
-
     @PostMapping("/cadastroPJ")
-    public ResponseEntity<?> cadastroPJ(@RequestBody PessoaJuridica pessoa){
-        return services.cadastrarPessoaJuridica(pessoa);
+    public String cadastroPJ(@RequestBody PessoaJuridica pessoa){
+        pj.save(pessoa);
+        return "Empresa cadastrada";
     }
 
     @GetMapping("/mostrarCadastrosPJ")
-    public ResponseEntity<?> selecionarPJ(){
-        return services.selecionarPessoaJuridica();
+    public List<PessoaJuridica> selecionarPJ(){
+        return pj.findAll();
     }
 
     @DeleteMapping("/deletarPJ/{login}")
-    public ResponseEntity<?> deletarPJ(@Valid @PathVariable String login) {
-        return services.removerPessoaJuridica(login);
+    public String deletarPJ(@Valid @PathVariable String login) {
+        pj.delete(pj.findByLogin(login));
+        return "/deletarPJ";
     }
 
     @PutMapping("/editarCadastroPJ")
-    public PessoaJuridica editarPJ(PessoaJuridica pessoaJuridica) {
-        return pj.save(pessoaJuridica);
+    public String editarPJ(PessoaJuridica pessoaJuridica) {
+        pj.save(pessoaJuridica);
+        return "Empresa editada";
     }
 
 }

@@ -23,7 +23,6 @@ import com.jovemprogramador.aproveitamais.Repository.AlimentosRepository;
 import com.jovemprogramador.aproveitamais.Repository.CategoriaRepository;
 import com.jovemprogramador.aproveitamais.Repository.PedidosRepository;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
-import com.jovemprogramador.aproveitamais.Service.ServiceAlimentos;
 
 import jakarta.validation.Valid;
 
@@ -38,28 +37,25 @@ public class ControllerAlimentos {
     private CategoriaRepository cr;
 
     @Autowired
-    private ServiceAlimentos services;
-
-    @Autowired
     private PedidosRepository pr;
 
     @Autowired
     private PessoaFisicaRepository pfr;
 
     @PostMapping("/cadastrarAlimento")
-    public ResponseEntity<?> cadastroAlimento(@RequestBody Alimentos alimentos){
-        return services.cadastrarAlimentos(alimentos); 
-
+    public String cadastroAlimento(@RequestBody Alimentos alimentos){
+        ar.save(alimentos); 
+        return "Produto cadastrado";
     }
 
     @GetMapping("/mostrarAlimentos")
-    public ResponseEntity<?> selecionar(){
-        return services.selecionarTodosAlimentos();
+    public void selecionar(){
+        ar.findAll();
     }
 
     @GetMapping("/mostrarAlimentos/{alimentosId}")
-    public ResponseEntity<?> findByLogin(@Valid @PathVariable int alimentosId){
-        return services.selecionarAlimentosPeloID(alimentosId);
+    public void findByLogin(@Valid @PathVariable int alimentosId){
+        ar.findByAlimentosId(alimentosId);
     }
 
     @GetMapping("/mostrarAlimentosDisponiveis")
@@ -68,13 +64,14 @@ public class ControllerAlimentos {
     }
 
     @PutMapping("/editarAlimentos")
-    public ResponseEntity<?> Editar(@RequestBody Alimentos alimentos){
-        return services.editarAlimentos(alimentos);
+    public String Editar(@RequestBody Alimentos alimentos){
+        ar.save(alimentos);
+        return "Alimento editado";
     }
 
     @DeleteMapping("/deletarAlimentos/{alimentosId}")
-    public ResponseEntity<?> remover(@PathVariable int alimentosId){
-        return services.removerAlimentos(alimentosId);
+    public String remover(@PathVariable int alimentosId){
+        return "/deletarAlimentos";
     }
 
    @GetMapping("/ordenarAlimentosDesc")
