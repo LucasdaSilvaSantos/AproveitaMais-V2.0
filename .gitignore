@@ -26,7 +26,7 @@ replay_pid*
 #arquivos de projeto e IDE
 
 HELP.md
-/target/
+target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
