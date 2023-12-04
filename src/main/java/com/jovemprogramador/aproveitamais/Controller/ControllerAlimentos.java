@@ -3,8 +3,8 @@ package com.jovemprogramador.aproveitamais.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jovemprogramador.aproveitamais.Models.Alimentos;
@@ -25,9 +24,7 @@ import com.jovemprogramador.aproveitamais.Repository.PedidosRepository;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
 
 import jakarta.validation.Valid;
-
-
-@RestController
+@Controller
 public class ControllerAlimentos {
     
     @Autowired
@@ -58,11 +55,6 @@ public class ControllerAlimentos {
         ar.findByAlimentosId(alimentosId);
     }
 
-    @GetMapping("/mostrarAlimentosDisponiveis")
-    public List<Alimentos> verificarDisponibilidades(){
-        return ar.verificarQuantidade();
-    }
-
     @PutMapping("/editarAlimentos")
     public String Editar(@RequestBody Alimentos alimentos){
         ar.save(alimentos);
@@ -73,11 +65,6 @@ public class ControllerAlimentos {
     public String remover(@PathVariable int alimentosId){
         return "/deletarAlimentos";
     }
-
-   @GetMapping("/ordenarAlimentosDesc")
-    public List<Alimentos> ordenarAlimentosDesc(){
-        return ar.findAllByOrderByNomeAlimentoDesc();
-   }
 
    @GetMapping(value = "/ordenarCategoriaAsc")
    public List<Categorias> ordenarCategoriaAscendente(){

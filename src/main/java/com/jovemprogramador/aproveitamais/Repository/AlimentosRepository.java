@@ -10,8 +10,6 @@ import com.jovemprogramador.aproveitamais.Models.Alimentos;
 
 @Repository
 public interface AlimentosRepository extends JpaRepository<Alimentos, Integer>{
- 
-    List<Alimentos> findAll();
 
     List<Alimentos> findByNomeAlimento(String nomeAlimento);
 
@@ -37,7 +35,7 @@ public interface AlimentosRepository extends JpaRepository<Alimentos, Integer>{
     List<Alimentos> precoMenorIgual(int preco);
 
     @Query(value = "SELECT * FROM alimentos WHERE quantidade >= 1", nativeQuery = true)
-    List<Alimentos> verificarQuantidade();
+    List<Alimentos> findAll();
 
     long countByAlimentosId(int alimentosId);
 }

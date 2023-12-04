@@ -45,8 +45,8 @@ public class PessoaFisica {
     @NotBlank(message = "Insira uma senha")
     private String senha;
 
-    // @ManyToOne
-    // @JoinColumn(name = "codigoEndereco", nullable = true, unique = false)
-    // private Endereco codigoEndereco;
+    @ManyToOne
+    @JoinColumn(name = "codigoEndereco", nullable = true, unique = false)
+    private Endereco codigoEndereco;
 
 }

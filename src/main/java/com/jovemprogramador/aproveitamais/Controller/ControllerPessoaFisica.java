@@ -3,79 +3,79 @@ package com.jovemprogramador.aproveitamais.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jovemprogramador.aproveitamais.Models.Endereco;
 import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
 import com.jovemprogramador.aproveitamais.Repository.EnderecoRepository;
-// import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
+
 import jakarta.validation.Valid;
 
-@RestController
+@Controller
 public class ControllerPessoaFisica {
-    
+
     @Autowired
     private PessoaFisicaRepository pf;
 
     @Autowired
     private EnderecoRepository er;
 
-    @PostMapping("/cadastroPF")
-    public String cadastroPF(@RequestBody PessoaFisica pessoa){
+    @RequestMapping(value = "/cadastro", method = RequestMethod.POST)
+    public String cadastroPF(PessoaFisica pessoa) {
         pf.save(pessoa);
-        return "/home";
-    }
-
-    @PostMapping("/cadastroEndereco")
-    public String cadastroPF(@RequestBody Endereco endereco){
-        er.save(endereco);
-        return "/home";
-    }
-
-    @PostMapping("/login")
-    public String login(@RequestBody PessoaFisica pessoa){
-        if (pf.countByCpf(pessoa.getCpf()) == 0) {
-            return "CPF não encontrado";
-        }
-        else if (pf.countBySenha(pessoa.getSenha()) == 0) {
-            return "Senha incorreta";
-        }
-        pessoa = pf.findByLogin(pessoa.getLogin());
         int clienteId = pessoa.getClienteId();
-        return "/index/" + clienteId;
+        return "redirect:/cadastroendereco/" + clienteId;
+    }
+
+    @RequestMapping(value = "/cadastroendereco/{clienteId}", method = RequestMethod.POST)
+    public String cadastroPF(Endereco endereco, @PathVariable int clienteId) {
+        PessoaFisica pessoa = pf.findByClienteId(clienteId);
+        er.save(endereco);
+        pessoa.setCodigoEndereco(endereco);
+        pf.save(pessoa);
+        return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(String cpf, String senha) {
+        if (pf.countByCpf(cpf) == 0) {
+            return "redirect:/login";
+        }
+        PessoaFisica pessoa;
+        pessoa = pf.findByCpf(cpf);
+        if (pessoa.getSenha().equals(senha)) {
+           int clienteId = pessoa.getClienteId();
+        return "redirect:/" + clienteId; 
+        }
+        else {
+            return "redirect:/login";
+        }
 
     }
 
-    @PutMapping("/editarCadastro")
-    public PessoaFisica Editar(@RequestBody PessoaFisica pessoa){
+    @RequestMapping(value = "/editarCadastro", method = RequestMethod.POST)
+    public PessoaFisica Editar(PessoaFisica pessoa) {
         return pf.save(pessoa);
     }
 
-
-    @DeleteMapping("/deletarCadastro/{login}")
-    public String remover(@PathVariable String login){
+    @RequestMapping(value = "/deletarCadastro/{login}", method = RequestMethod.DELETE)
+    public String remover(@PathVariable String login) {
         pf.delete(pf.findByLogin(login));
         return "/deletarCadastro";
     }
 
-    @GetMapping("/ordenarNomes")
-    public List<PessoaFisica> ordenarNomes(){
+    @RequestMapping(value = "/ordenarNomes", method = RequestMethod.GET)
+    public List<PessoaFisica> ordenarNomes() {
         return pf.findAllByOrderByNomeClienteAsc();
-   }
+    }
 
-   @GetMapping("/nomeContem/{termo}")
-   List<PessoaFisica> nomeContem(@PathVariable String termo){
-    return pf.findByNomeClienteContaining(termo);
-   }
+    @RequestMapping(value = "/nomeContem/{termo}", method = RequestMethod.GET)
+    List<PessoaFisica> nomeContem(@PathVariable String termo) {
+        return pf.findByNomeClienteContaining(termo);
+    }
 
 }
