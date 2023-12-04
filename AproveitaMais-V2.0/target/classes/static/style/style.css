@@ -13032,10 +13032,12 @@ textarea.form-control {
 input[type="text"],
 [type="email"],
 [type="password"],
-[type="number"] {
+[type="number"],
+[type="date"] {
   height: 40px;
   padding: 10px;
 }
+
 button,
 [type="button"],
 [type="submit"] {
@@ -13073,7 +13075,9 @@ div.row.marquee {
 
 .form-group input[type="text"],
 .form-group input[type="email"],
-.form-group input[type="password"] {
+.form-group input[type="password"],
+.form-group input[type="number"],
+.form-group input[type="date"] {
   width: 50%;
   border: 1px solid #ccc;
   border-radius: 1px;
@@ -13092,7 +13096,7 @@ div.row.marquee {
   margin-bottom: 0.5rem;
 }
 
-.form-group input[type="number"] {
+.form-group select{
   width: 50%;
   border: 1px solid #ccc;
   border-radius: 1px;
