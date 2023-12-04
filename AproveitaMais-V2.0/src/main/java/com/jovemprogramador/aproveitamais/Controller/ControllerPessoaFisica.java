@@ -1,30 +1,35 @@
 package com.jovemprogramador.aproveitamais.Controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+<<<<<<< HEAD
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+=======
+>>>>>>> eedcc4c6da33b35adc3e2e21e923464336b5c19d
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+=======
+>>>>>>> eedcc4c6da33b35adc3e2e21e923464336b5c19d
 
 import com.jovemprogramador.aproveitamais.Models.Endereco;
 import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
 import com.jovemprogramador.aproveitamais.Repository.EnderecoRepository;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
 
+<<<<<<< HEAD
 import jakarta.validation.Valid;
 
+=======
+>>>>>>> eedcc4c6da33b35adc3e2e21e923464336b5c19d
 @Controller
 public class ControllerPessoaFisica {
 
@@ -47,33 +52,19 @@ public class ControllerPessoaFisica {
     return "redirect:/cadastroPF";
   }
 
-  // @RequestMapping(value = "/cadastrarEvento", method = RequestMethod.POST)
-  // public String form(@Valid Evento evento, BindingResult result,
-  // RedirectAttributes attributes) {
+    @RequestMapping(value = "/cadastroEndereco", method = RequestMethod.GET)
+    public String cadastroEndereco() {
+        return "home/cadastroEndereco";
+    }
 
-  // if (result.hasErrors()) {
-  // attributes.addFlashAttribute("mensagem", "Verifique os campos!");
-  // return "redirect:/cadastrarEvento";
-  // }
-  // er.save(evento);
-  // attributes.addFlashAttribute("mensagem", "Evento adicionado com sucesso!");
-  // return "redirect:/cadastrarEvento";
-  // }
+    @PutMapping("/editarCadastro")
+    public PessoaFisica Editar(@RequestBody PessoaFisica pessoa) {
+        return pf.save(pessoa);
+    }
 
-  @PostMapping("/cadastroEndereco")
-  public String cadastroPF(@RequestBody Endereco endereco) {
-    er.save(endereco);
-    return "/";
-  }
-
-  @PutMapping("/editarCadastro")
-  public PessoaFisica Editar(@RequestBody PessoaFisica pessoa) {
-    return pf.save(pessoa);
-  }
-
-  // @DeleteMapping("/deletarCadastro/{login}")
-  // public ResponseEntity<?> remover(@PathVariable String login) {
-  // return services.removerPessoaFisica(login);
-  // }
+    // @DeleteMapping("/deletarCadastro/{login}")
+    // public ResponseEntity<?> remover(@PathVariable String login) {
+    // return services.removerPessoaFisica(login);
+    // }
 
 }
