@@ -3,8 +3,8 @@ package com.jovemprogramador.aproveitamais.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -27,9 +24,9 @@ import com.jovemprogramador.aproveitamais.Repository.AlimentosRepository;
 import com.jovemprogramador.aproveitamais.Repository.CategoriaRepository;
 import com.jovemprogramador.aproveitamais.Repository.PedidosRepository;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
-import com.jovemprogramador.aproveitamais.Service.ServiceAlimentos;
 
 import jakarta.validation.Valid;
+
 @Controller
 public class ControllerAlimentos {
 
@@ -63,25 +60,25 @@ public class ControllerAlimentos {
         return "redirect:/alimentos";
     }
 
-    @GetMapping("/mostrarAlimentos/{alimentosId}")
-    public ResponseEntity<?> findByLogin(@Valid @PathVariable int alimentosId) {
-        return services.selecionarAlimentosPeloID(alimentosId);
-    }
+    // @GetMapping("/mostrarAlimentos/{alimentosId}")
+    // public ResponseEntity<?> findByLogin(@Valid @PathVariable int alimentosId) {
+    // return services.selecionarAlimentosPeloID(alimentosId);
+    // }
 
     @GetMapping("/mostrarAlimentosDisponiveis")
     public List<Alimentos> verificarDisponibilidades() {
         return ar.verificarQuantidade();
     }
 
-    @PutMapping("/editarAlimentos")
-    public ResponseEntity<?> Editar(@RequestBody Alimentos alimentos) {
-        return services.editarAlimentos(alimentos);
-    }
+    // @PutMapping("/editarAlimentos")
+    // public ResponseEntity<?> Editar(@RequestBody Alimentos alimentos) {
+    // return services.editarAlimentos(alimentos);
+    // }
 
-    @DeleteMapping("/deletarAlimentos/{alimentosId}")
-    public ResponseEntity<?> remover(@PathVariable int alimentosId) {
-        return services.removerAlimentos(alimentosId);
-    }                                                                                                                                            
+    // @DeleteMapping("/deletarAlimentos/{alimentosId}")
+    // public ResponseEntity<?> remover(@PathVariable int alimentosId) {
+    // return services.removerAlimentos(alimentosId);
+    // }
 
     @GetMapping(value = "/ordenarCategoriaAsc")
     public List<Categorias> ordenarCategoriaAscendente() {
