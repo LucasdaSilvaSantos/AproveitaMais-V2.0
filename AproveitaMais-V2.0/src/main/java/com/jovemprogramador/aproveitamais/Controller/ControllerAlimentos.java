@@ -42,9 +42,15 @@ public class ControllerAlimentos {
     @Autowired
     private PessoaFisicaRepository pfr;
 
+    // @RequestMapping(value = "/cadastroAlimento", method = RequestMethod.GET)
+    // public String cadastroAlimento() {
+    // return "home/cadastroDeProduto";
+    // }
+
     @RequestMapping(value = "/cadastroAlimento", method = RequestMethod.GET)
-    public String cadastroAlimento() {
-        return "home/cadastroDeProduto";
+    public ModelAndView detalhesEvento() {
+        ModelAndView mv = new ModelAndView("home/cadastroDeProduto");
+        return mv;
     }
 
     @RequestMapping(value = "/cadastroAlimento", method = RequestMethod.POST)
