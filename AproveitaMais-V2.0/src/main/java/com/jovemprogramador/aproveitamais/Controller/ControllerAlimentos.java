@@ -30,8 +30,6 @@ import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
 import com.jovemprogramador.aproveitamais.Service.ServiceAlimentos;
 
 import jakarta.validation.Valid;
-
-// @RestController
 @Controller
 public class ControllerAlimentos {
 
@@ -40,9 +38,6 @@ public class ControllerAlimentos {
 
     @Autowired
     private CategoriaRepository cr;
-
-    @Autowired
-    private ServiceAlimentos services;
 
     @Autowired
     private PedidosRepository pr;
@@ -68,16 +63,6 @@ public class ControllerAlimentos {
         return "redirect:/alimentos";
     }
 
-    // @PostMapping("/cadastroAlimento")
-    // public ResponseEntity<?> cadastroAlimento(@RequestBody Alimentos alimentos) {
-    // return services.cadastrarAlimentos(alimentos);
-    // }
-
-    // @GetMapping("/mostrarAlimentos")
-    // public ResponseEntity<?> selecionar() {
-    // return services.selecionarTodosAlimentos();
-    // }
-
     @GetMapping("/mostrarAlimentos/{alimentosId}")
     public ResponseEntity<?> findByLogin(@Valid @PathVariable int alimentosId) {
         return services.selecionarAlimentosPeloID(alimentosId);
@@ -96,12 +81,7 @@ public class ControllerAlimentos {
     @DeleteMapping("/deletarAlimentos/{alimentosId}")
     public ResponseEntity<?> remover(@PathVariable int alimentosId) {
         return services.removerAlimentos(alimentosId);
-    }
-
-    @GetMapping("/ordenarAlimentosDesc")
-    public List<Alimentos> ordenarAlimentosDesc() {
-        return ar.findAllByOrderByNomeAlimentoDesc();
-    }
+    }                                                                                                                                            
 
     @GetMapping(value = "/ordenarCategoriaAsc")
     public List<Categorias> ordenarCategoriaAscendente() {

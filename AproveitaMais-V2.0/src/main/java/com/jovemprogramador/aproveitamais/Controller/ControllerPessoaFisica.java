@@ -18,20 +18,15 @@ import com.jovemprogramador.aproveitamais.Models.ClasseGenerica;
 import com.jovemprogramador.aproveitamais.Models.Endereco;
 import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
 import com.jovemprogramador.aproveitamais.Repository.EnderecoRepository;
-// import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
 import com.jovemprogramador.aproveitamais.Service.ServicePessoaFisica;
 
 import jakarta.validation.Valid;
-
-@RestController
+@Controller
 public class ControllerPessoaFisica {
 
     @Autowired
     private PessoaFisicaRepository pf;
-
-    @Autowired
-    private ServicePessoaFisica services;
 
     @Autowired
     private EnderecoRepository er;
@@ -42,25 +37,11 @@ public class ControllerPessoaFisica {
         return "redirect:/cadastroendereco";
     }
 
-    @PostMapping("/cadastroendereco")
+    @PostMapping("/cadastroEndereco")
     public String cadastroPF(@RequestBody Endereco endereco) {
         er.save(endereco);
         return "/";
     }
-
-    // @GetMapping("/login")
-    // public String login(@RequestBody PessoaFisica pessoa){
-    // if (pf.countByCpf(pessoa.getCpf()) == 0) {
-    // return "CPF não encontrado";
-    // }
-    // else if (pf.countBySenha(pessoa.getSenha()) == 0) {
-    // return "Senha incorreta";
-    // }
-    // pessoa = pf.findByLogin(pessoa.getLogin());
-    // int clienteId = pessoa.getClienteId();
-    // return "/index/" + clienteId;
-
-    // }
 
     @PutMapping("/editarCadastro")
     public PessoaFisica Editar(@RequestBody PessoaFisica pessoa) {
@@ -70,16 +51,6 @@ public class ControllerPessoaFisica {
     @DeleteMapping("/deletarCadastro/{login}")
     public ResponseEntity<?> remover(@PathVariable String login) {
         return services.removerPessoaFisica(login);
-    }
-
-    @GetMapping("/ordenarNomes")
-    public List<PessoaFisica> ordenarNomes() {
-        return pf.findAllByOrderByNomeClienteAsc();
-    }
-
-    @GetMapping("/nomeContem/{termo}")
-    List<PessoaFisica> nomeContem(@PathVariable String termo) {
-        return pf.findByNomeClienteContaining(termo);
     }
 
 }

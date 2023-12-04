@@ -18,8 +18,7 @@ import com.jovemprogramador.aproveitamais.Repository.PessoaJuridicaRepository;
 import com.jovemprogramador.aproveitamais.Service.ServicePessoaJuridica;
 
 import jakarta.validation.Valid;
-
-@RestController
+@Controller
 public class ControllerPessoaJuridica {
     
     @Autowired
