@@ -2,7 +2,10 @@ package com.jovemprogramador.aproveitamais.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
 import com.jovemprogramador.aproveitamais.Repository.PessoaJuridicaRepository;
@@ -13,16 +16,14 @@ public class ControllerPessoaJuridica {
     @Autowired
     private PessoaJuridicaRepository pj;
 
-
-
     @PostMapping("/cadastroPJ")
-    public String cadastroPF(@RequestBody PessoaJuridica pessoaJuridica) {
+    public String cadastroPJ(@RequestBody PessoaJuridica pessoaJuridica) {
         pj.save(pessoaJuridica);
         return "redirect:/cadastroendereco";
     }
 
     @RequestMapping("/minhaConta")
-    public String minhaConta(){
+    public String minhaConta() {
         return "home/minhaConta";
     }
 
