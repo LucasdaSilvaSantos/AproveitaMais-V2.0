@@ -36,9 +36,9 @@ public class IndexController {
 		return "home/checkout";
 	}
 
-	@RequestMapping("/cadastroAlimento")
-	public String cadastroAlimento() {
-		return "home/cadastroDeProduto";
-	}
+	// @RequestMapping("/cadastroAlimento")
+	// public String cadastroAlimento() {
+	// 	return "home/cadastroDeProduto";
+	// }
 
 }

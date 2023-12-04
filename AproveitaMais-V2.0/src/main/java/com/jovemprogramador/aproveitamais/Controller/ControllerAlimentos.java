@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jovemprogramador.aproveitamais.Models.Alimentos;
 import com.jovemprogramador.aproveitamais.Models.Categorias;
@@ -47,15 +50,33 @@ public class ControllerAlimentos {
     @Autowired
     private PessoaFisicaRepository pfr;
 
-    @PostMapping("/cadastroAlimento")
-    public ResponseEntity<?> cadastroAlimento(@RequestBody Alimentos alimentos) {
-        return services.cadastrarAlimentos(alimentos);
+    @RequestMapping(value = "/cadastroAlimento", method = RequestMethod.GET)
+    public String cadastroAlimento() {
+        return "home/cadastroDeProduto";
     }
 
-    @GetMapping("/mostrarAlimentos")
-    public ResponseEntity<?> selecionar() {
-        return services.selecionarTodosAlimentos();
+    @RequestMapping(value = "/cadastroAlimento", method = RequestMethod.POST)
+    public String cadastroAlimento(@Valid Alimentos alimento, BindingResult result,
+            RedirectAttributes attributes) {
+
+        if (result.hasErrors()) {
+            attributes.addFlashAttribute("mensagem", "Verifique os campos!");
+            return "redirect:/cadastroAlimento";
+        }
+        ar.save(alimento);
+        attributes.addFlashAttribute("mensagem", "Evento adicionado com sucesso!");
+        return "redirect:/alimentos";
     }
+
+    // @PostMapping("/cadastroAlimento")
+    // public ResponseEntity<?> cadastroAlimento(@RequestBody Alimentos alimentos) {
+    // return services.cadastrarAlimentos(alimentos);
+    // }
+
+    // @GetMapping("/mostrarAlimentos")
+    // public ResponseEntity<?> selecionar() {
+    // return services.selecionarTodosAlimentos();
+    // }
 
     @GetMapping("/mostrarAlimentos/{alimentosId}")
     public ResponseEntity<?> findByLogin(@Valid @PathVariable int alimentosId) {
