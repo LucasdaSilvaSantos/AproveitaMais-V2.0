@@ -38,7 +38,7 @@ public class IndexController {
 
 	@RequestMapping("/cadastroAlimento")
 	public String cadastroAlimento() {
-		return "home/cadastroAlimento";
+		return "home/cadastroDeProduto";
 	}
 
 }
