@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,12 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jovemprogramador.aproveitamais.Models.ClasseGenerica;
 import com.jovemprogramador.aproveitamais.Models.Endereco;
 import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
 import com.jovemprogramador.aproveitamais.Repository.EnderecoRepository;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
-import com.jovemprogramador.aproveitamais.Service.ServicePessoaFisica;
 
 import jakarta.validation.Valid;
 @Controller
@@ -48,9 +47,9 @@ public class ControllerPessoaFisica {
         return pf.save(pessoa);
     }
 
-    @DeleteMapping("/deletarCadastro/{login}")
-    public ResponseEntity<?> remover(@PathVariable String login) {
-        return services.removerPessoaFisica(login);
-    }
+    // @DeleteMapping("/deletarCadastro/{login}")
+    // public ResponseEntity<?> remover(@PathVariable String login) {
+    //     return services.removerPessoaFisica(login);
+    // }
 
 }
