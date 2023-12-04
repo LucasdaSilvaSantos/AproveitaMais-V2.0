@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jovemprogramador.aproveitamais.Models.Endereco;
 import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
@@ -30,6 +32,11 @@ public class ControllerPessoaFisica {
     public String cadastroPF(@RequestBody Endereco endereco) {
         er.save(endereco);
         return "/";
+    }
+
+    @RequestMapping(value = "/cadastroEndereco", method = RequestMethod.GET)
+    public String cadastroEndereco() {
+        return "home/cadastroEndereco";
     }
 
     @PutMapping("/editarCadastro")
