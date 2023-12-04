@@ -13,6 +13,19 @@ public class ControllerPessoaJuridica {
     @Autowired
     private PessoaJuridicaRepository pj;
 
+
+
+    @PostMapping("/cadastroPJ")
+    public String cadastroPF(@RequestBody PessoaJuridica pessoaJuridica) {
+        pj.save(pessoaJuridica);
+        return "redirect:/cadastroendereco";
+    }
+
+    @RequestMapping("/minhaConta")
+    public String minhaConta(){
+        return "home/minhaConta";
+    }
+
     // @Autowired
     // private ServicePessoaJuridica services;
 
