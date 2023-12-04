@@ -7,6 +7,9 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -30,4 +33,9 @@ public class Endereco {
 
     @Column(nullable = true, unique = false)
     private String complemento;
+
+    @OneToMany
+    // @JoinColumn(name = "pessoaFisica", nullable = true, unique = false)
+    private PessoaFisica pessoaFisica;
+
 }

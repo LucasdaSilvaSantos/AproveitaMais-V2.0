@@ -23,7 +23,7 @@ import lombok.Data;
 public class PessoaFisica {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int clienteId;
@@ -50,7 +50,7 @@ public class PessoaFisica {
     private String telefone;
 
     @ManyToOne
-    @JoinColumn(name = "codigoEndereco", nullable = false, unique = false)
-    private Endereco codigoEndereco;
+    // @JoinColumn(name = "endereco", nullable = true, unique = false)
+    private Endereco endereco;
 
 }
