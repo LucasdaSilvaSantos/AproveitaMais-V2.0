@@ -2,34 +2,25 @@ package com.jovemprogramador.aproveitamais.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-<<<<<<< HEAD
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-=======
->>>>>>> eedcc4c6da33b35adc3e2e21e923464336b5c19d
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-=======
->>>>>>> eedcc4c6da33b35adc3e2e21e923464336b5c19d
 
 import com.jovemprogramador.aproveitamais.Models.Endereco;
 import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
 import com.jovemprogramador.aproveitamais.Repository.EnderecoRepository;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
 
-<<<<<<< HEAD
 import jakarta.validation.Valid;
 
-=======
->>>>>>> eedcc4c6da33b35adc3e2e21e923464336b5c19d
 @Controller
 public class ControllerPessoaFisica {
 
