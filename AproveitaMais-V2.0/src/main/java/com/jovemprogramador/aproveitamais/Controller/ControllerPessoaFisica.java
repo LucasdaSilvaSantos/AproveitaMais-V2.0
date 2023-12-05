@@ -22,23 +22,46 @@ public class ControllerPessoaFisica {
 
   @RequestMapping(value = "/cadastro", method = RequestMethod.POST)
   public String cadastroPF(PessoaFisica pessoa, Endereco endereco) {
-    er.save(endereco);
-    pessoa.setEndereco(endereco);
-    pf.save(pessoa);
-    int clienteId = pessoa.getClienteId();
-    return "redirect:/" + clienteId ;
+    if (er.countByCep(endereco.getCep()) == 0) {
+      er.save(endereco);
+      pessoa.setEndereco(endereco);
+      pf.save(pessoa);
+      int clienteId = pessoa.getClienteId();
+      return "redirect:/login";
+    } else if (er.countByNumero(endereco.getNumero()) == 0 ){
+      er.save(endereco);
+      pessoa.setEndereco(endereco);
+      pf.save(pessoa);
+      int clienteId = pessoa.getClienteId();
+      return "redirect:/login";
+    }
+    else {
+      Endereco enderecoEx = er.findByCepAndNumero(endereco.getCep(), endereco.getNumero());
+      pessoa.setEndereco(enderecoEx);
+      pf.save(pessoa);
+      int clienteId = pessoa.getClienteId();
+      return "redirect:/login";
+    }
   }
 
-  @RequestMapping(value = "/cadastroEndereco", method = RequestMethod.GET)
-  public String cadastroEndereco() {
-    return "home/cadastroEndereco";
+  @RequestMapping(value = "/login", method = RequestMethod.POST)
+  public String login(String cpf, String senha) {
+    if (pf.countByCpf(cpf) == 0) {
+      return "CPF não encontrado";
+    }
+    PessoaFisica pessoa = pf.findByCpf(cpf);
+    if (pessoa.getSenha().equals(senha)) {
+      int clienteId = pessoa.getClienteId();
+      return "redirect:/" + clienteId;
+    }
+    return "Senha incorreta";
   }
 
   @RequestMapping(value = "/{clienteId}/editarcadastro", method = RequestMethod.PUT)
   public String editarCadastro(@PathVariable int clienteId) {
     PessoaFisica pessoa = pf.findByClienteId(clienteId);
     pf.save(pessoa);
-    return "/{clienteId}/editarCadastro";
+    return "/{clienteId}/minhaConta";
   }
 
 }

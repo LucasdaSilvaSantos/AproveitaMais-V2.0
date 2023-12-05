@@ -47,4 +47,9 @@ public class IndexController {
 		return "home/checkout";
 	}
 
+	@RequestMapping("/{clienteId}/minhaConta")
+	public String minhaConta() {
+		return "home/minhaConta";
+	}
+
 }

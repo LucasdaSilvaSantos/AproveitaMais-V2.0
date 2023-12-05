@@ -36,7 +36,4 @@ public class Endereco {
     @Column(nullable = true, unique = false)
     private String complemento;
 
-    @OneToMany
-    private List<PessoaFisica> pessoaFisica;
-
 }
