@@ -86,12 +86,7 @@ public class ControllerAlimentos {
     }
 
     @RequestMapping(value = "/cadastroAlimento", method = RequestMethod.GET)
-    public String cadastroAlimento() {
-        return "home/cadastroDeProduto";
-    }
-
-    @RequestMapping(value = "/cadastroAlimento", method = RequestMethod.GET)
-    public ModelAndView detalhesEvento() {
+    public ModelAndView cadastroAlimento() {
         ModelAndView mv = new ModelAndView("home/cadastroDeProduto");
         return mv;
     }

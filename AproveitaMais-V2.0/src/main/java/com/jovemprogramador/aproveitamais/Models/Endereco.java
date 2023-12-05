@@ -1,5 +1,7 @@
 package com.jovemprogramador.aproveitamais.Models;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -35,7 +37,6 @@ public class Endereco {
     private String complemento;
 
     @OneToMany
-    // @JoinColumn(name = "pessoaFisica", nullable = true, unique = false)
-    private PessoaFisica pessoaFisica;
+    private List<PessoaFisica> pessoaFisica;
 
 }
