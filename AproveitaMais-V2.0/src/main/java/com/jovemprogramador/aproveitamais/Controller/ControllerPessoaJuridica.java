@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.jovemprogramador.aproveitamais.Models.Alimentos;
 import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
+import com.jovemprogramador.aproveitamais.Repository.AlimentosRepository;
+import com.jovemprogramador.aproveitamais.Repository.CategoriaRepository;
 import com.jovemprogramador.aproveitamais.Repository.PessoaJuridicaRepository;
 
 @Controller
@@ -20,6 +23,12 @@ public class ControllerPessoaJuridica {
 
     @Autowired
     private PessoaJuridicaRepository pj;
+
+    @Autowired
+    private AlimentosRepository ar;
+
+    @Autowired
+    private CategoriaRepository cr;
 
     @RequestMapping(value = "/cadastroPJ", method = RequestMethod.POST)
     public String cadastroPJ(@RequestBody PessoaJuridica pessoaJuridica) {
@@ -44,6 +53,16 @@ public class ControllerPessoaJuridica {
         return pj.save(pessoaJuridica);
     }
 
-    
+    @RequestMapping(value = "/{empresaId}/cadastroDeProduto", method = RequestMethod.POST)
+    public String cadastroDeProduto(Alimentos produto, @PathVariable int empresaId, String categ) {
+        PessoaJuridica empresa = pj.findByEmpresaId(empresaId);
+        produto.setMercadoDeOrigem(empresa);
+        produto.setCategoria(cr.findByCategoria(categ));
+        if (ar.findAll() == produto) {
+            return "Produto já cadastrado";
+        }
+        ar.save(produto);
+        return "redirect:/" + empresaId + "/cadastroDeProduto";
+    }
 
 }

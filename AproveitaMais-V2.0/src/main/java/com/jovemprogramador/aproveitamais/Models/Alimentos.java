@@ -1,5 +1,8 @@
 package com.jovemprogramador.aproveitamais.Models;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,4 +46,7 @@ public class Alimentos {
 
     @Column(nullable = false, unique = false)
     private int quantidade;
+
+    @Column(nullable = false, unique = false)
+    private Date validade;
 }

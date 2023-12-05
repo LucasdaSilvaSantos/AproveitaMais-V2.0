@@ -92,8 +92,7 @@
 					</div>
 					<div class="form-group">
 						<label for="nomeDoAlimento">Nome do alimento:</label>
-						<input type="text" id="nomeDoAlimento" placeholder="Digite o nome do alimento" value=""
-							name="nomeDoAlimento" required>
+						<input type="text" id="nomeDoAlimento" name="nomeAlimento" placeholder="Digite o nome do alimento" value="" required>
 					</div>
 					<div class="form-group">
 						<label for="marca">Marca:</label>
@@ -101,22 +100,22 @@
 					</div>
 					<div class="form-group">
 						<label for="categoria">Selecione a Categoria:</label>
-						<select id="categoria" name="categoria" required>
+						<select id="categoria" name="categ" required>
 							<option value="mercearia">Mercearia</option>
 							<option value="padariaeconfeitaria">Padaria e Confeitaria</option>
 						</select>
 					</div>
 					<div class="form-group">
 						<label for="quantidade">Quantidade:</label>
-						<input type="text" id="quantidade" placeholder="Quantidade" value="" name="quantidade" required>
+						<input type="number" id="quantidade" placeholder="Quantidade" value="" name="quantidade" required>
 					</div>
 					<div class="form-group">
 						<label for="preco">Preço R$:</label>
-						<input type="text" id="preco" placeholder="Preço" value="" name="preco" required>
+						<input type="number" id="preco" placeholder="Preço" value="" name="preco" required>
 					</div>
 					<div class="form-group">
 						<label for="validade">Validade:</label>
-						<input type="text" id="validade" placeholder="Validade: dd/mm/aaaa" value="" name="validade" required>
+						<input type="date" id="validade" placeholder="Validade: dd/mm/aaaa" value="" name="validade" required>
 					</div>
 					<button type="submit" class="submit-button">Salvar</button>
 				</div>
