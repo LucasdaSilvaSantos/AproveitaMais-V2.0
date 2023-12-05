@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.jovemprogramador.aproveitamais.Models.Alimentos;
+import com.jovemprogramador.aproveitamais.Models.Produtos;
 import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
-import com.jovemprogramador.aproveitamais.Repository.AlimentosRepository;
+import com.jovemprogramador.aproveitamais.Repository.ProdutosRepository;
 import com.jovemprogramador.aproveitamais.Repository.CategoriaRepository;
 import com.jovemprogramador.aproveitamais.Repository.PessoaJuridicaRepository;
 
@@ -25,7 +25,7 @@ public class ControllerPessoaJuridica {
     private PessoaJuridicaRepository pj;
 
     @Autowired
-    private AlimentosRepository ar;
+    private ProdutosRepository ar;
 
     @Autowired
     private CategoriaRepository cr;
@@ -53,8 +53,12 @@ public class ControllerPessoaJuridica {
         return pj.save(pessoaJuridica);
     }
 
-    @RequestMapping(value = "/{empresaId}/cadastroDeProduto", method = RequestMethod.POST)
-    public String cadastroDeProduto(Alimentos produto, @PathVariable int empresaId, String categ) {
+    @RequestMapping(value = "/{empresaId}/cadastroDeProdutos", method = RequestMethod.POST)
+    public String cadastroDeProduto(Produtos produto, @PathVariable int empresaId, String categ) {
+        if (produto.getQuantidade() <= 0) {
+            return "A quantidade tenque ser maior que 0";
+        }
+        else {
         PessoaJuridica empresa = pj.findByEmpresaId(empresaId);
         produto.setMercadoDeOrigem(empresa);
         produto.setCategoria(cr.findByCategoria(categ));
@@ -62,7 +66,8 @@ public class ControllerPessoaJuridica {
             return "Produto já cadastrado";
         }
         ar.save(produto);
-        return "redirect:/" + empresaId + "/cadastroDeProduto";
+        return "redirect:/" + empresaId + "/cadastroDeProdutos";
+        }
     }
 
 }

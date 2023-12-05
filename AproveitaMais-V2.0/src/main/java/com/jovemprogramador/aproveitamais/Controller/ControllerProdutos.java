@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.jovemprogramador.aproveitamais.Models.Alimentos;
+import com.jovemprogramador.aproveitamais.Models.Produtos;
 import com.jovemprogramador.aproveitamais.Models.Categorias;
 import com.jovemprogramador.aproveitamais.Models.Pedidos;
 import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
-import com.jovemprogramador.aproveitamais.Repository.AlimentosRepository;
+import com.jovemprogramador.aproveitamais.Repository.ProdutosRepository;
 import com.jovemprogramador.aproveitamais.Repository.CategoriaRepository;
 import com.jovemprogramador.aproveitamais.Repository.PedidosRepository;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
@@ -29,10 +29,10 @@ import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
 import jakarta.validation.Valid;
 
 @Controller
-public class ControllerAlimentos {
+public class ControllerProdutos {
 
     @Autowired
-    private AlimentosRepository ar;
+    private ProdutosRepository ar;
 
     @Autowired
     private CategoriaRepository cr;
@@ -44,30 +44,30 @@ public class ControllerAlimentos {
     private PessoaFisicaRepository pfr;
 
     @PostMapping("/cadastrarAlimento")
-    public String cadastroAlimento(@RequestBody Alimentos alimentos) {
-        ar.save(alimentos);
+    public String cadastroAlimento(@RequestBody Produtos produtos) {
+        ar.save(produtos);
         return "Produto cadastrado";
     }
 
-    @GetMapping("/mostrarAlimentos")
+    @GetMapping("/mostrarprodutos")
     public void selecionar() {
         ar.findAll();
     }
 
-    @GetMapping("/mostrarAlimentos/{alimentosId}")
-    public void findByLogin(@Valid @PathVariable int alimentosId) {
-        ar.findByAlimentosId(alimentosId);
+    @GetMapping("/mostrarprodutos/{produtosId}")
+    public void findByLogin(@Valid @PathVariable int produtosId) {
+        ar.findByProdutoId(produtosId);
     }
 
-    @PutMapping("/editarAlimentos")
-    public String Editar(@RequestBody Alimentos alimentos) {
-        ar.save(alimentos);
+    @PutMapping("/editarprodutos")
+    public String Editar(@RequestBody Produtos produtos) {
+        ar.save(produtos);
         return "Alimento editado";
     }
 
-    @DeleteMapping("/deletarAlimentos/{alimentosId}")
-    public String remover(@PathVariable int alimentosId) {
-        return "/deletarAlimentos";
+    @DeleteMapping("/deletarprodutos/{produtosId}")
+    public String remover(@PathVariable int produtosId) {
+        return "/deletarprodutos";
     }
 
     @GetMapping(value = "/ordenarCategoriaAsc")
@@ -75,14 +75,14 @@ public class ControllerAlimentos {
         return cr.findByOrderByCategoriaAsc();
     }
 
-    @GetMapping("/contadorAlimentos")
-    public long contadorAlimentos() {
+    @GetMapping("/contadorprodutos")
+    public long contadorprodutos() {
         return ar.count();
     }
 
     @GetMapping("/nomealimentoContem/{termo}")
-    List<Alimentos> NomeAlimentoContem(@PathVariable String termo) {
-        return ar.findByNomeAlimentoContaining(termo);
+    List<Produtos> NomeAlimentoContem(@PathVariable String termo) {
+        return ar.findByNomeProdutoContaining(termo);
     }
 
     @RequestMapping(value = "/cadastroAlimento", method = RequestMethod.GET)
@@ -92,7 +92,7 @@ public class ControllerAlimentos {
     }
 
     @RequestMapping(value = "/cadastroAlimento", method = RequestMethod.POST)
-    public String cadastroAlimento(@Valid Alimentos alimento, BindingResult result,
+    public String cadastroAlimento(@Valid Produtos alimento, BindingResult result,
             RedirectAttributes attributes) {
 
         if (result.hasErrors()) {
@@ -101,40 +101,20 @@ public class ControllerAlimentos {
         }
         ar.save(alimento);
         attributes.addFlashAttribute("mensagem", "Evento adicionado com sucesso!");
-        return "redirect:/alimentos";
+        return "redirect:/produtos";
     }
 
-    // @GetMapping("/mostrarAlimentos/{alimentosId}")
-    // public ResponseEntity<?> findByLogin(@Valid @PathVariable int alimentosId) {
-    // return services.selecionarAlimentosPeloID(alimentosId);
-    // }
-
-    // @GetMapping("/mostrarAlimentosDisponiveis")
-    // public List<Alimentos> verificarDisponibilidades() {
-    // return ar.verificarQuantidade();
-    // }
-
-    // @PutMapping("/editarAlimentos")
-    // public ResponseEntity<?> Editar(@RequestBody Alimentos alimentos) {
-    // return services.editarAlimentos(alimentos);
-    // }
-
-    // @DeleteMapping("/deletarAlimentos/{alimentosId}")
-    // public ResponseEntity<?> remover(@PathVariable int alimentosId) {
-    // return services.removerAlimentos(alimentosId);
-    // }
-
-    @RequestMapping("/alimentos")
-    public ModelAndView alimentos() {
-        ModelAndView mv = new ModelAndView("home/alimentos");
-        Iterable<Alimentos> alimentos = ar.findAll();
-        mv.addObject("Alimentos", alimentos);
+    @RequestMapping("/produtos")
+    public ModelAndView produtos() {
+        ModelAndView mv = new ModelAndView("home/produtos");
+        Iterable<Produtos> produtos = ar.findAll();
+        mv.addObject("produtos", produtos);
         return mv;
     }
 
     @PostMapping("/{clienteId}/alimento/{alimentoId}")
     public String adicionarAoCarrinho(@PathVariable int alimentoId, @PathVariable int clienteId, int quantidade) {
-        Alimentos Alimento = ar.findByAlimentosId(alimentoId);
+        Produtos Alimento = ar.findByProdutoId(alimentoId);
         if (quantidade > Alimento.getQuantidade()) {
             return "Você está pedindo mais unidades deste produto doque há disponível em estoque";
         }
@@ -144,7 +124,7 @@ public class ControllerAlimentos {
         PessoaFisica cliente = pfr.findByClienteId(clienteId);
         Pedidos carrinho = new Pedidos();
         carrinho.setClienteId(cliente);
-        carrinho.setAlimentosId(Alimento);
+        carrinho.setProdutoId(Alimento);
         carrinho.setQuantidade(quantidade);
         pr.save(carrinho);
         Alimento.setQuantidade(Alimento.getQuantidade() - quantidade);
@@ -166,10 +146,10 @@ public class ControllerAlimentos {
     }
 
     @PutMapping("/{clienteId}/carrinho")
-    public String alterarPedido(@PathVariable int clienteId, @RequestBody Pedidos pedidos) {
-        Alimentos alimentos = pedidos.getAlimentosId();
-        alimentos = ar.findByAlimentosId(alimentos.getAlimentosId());
-        if (pedidos.getQuantidade() > alimentos.getQuantidade()) {
+    public String alterarPedido(@PathVariable int clienteId, Pedidos pedidos) {
+        Produtos produtos = pedidos.getProdutoId();
+        produtos = ar.findByProdutoId(produtos.getProdutoId());
+        if (pedidos.getQuantidade() > produtos.getQuantidade()) {
             return "Você está pedindo mais unidades deste produto doque há disponível em estoque";
         }
         if (pedidos.getQuantidade() == 0) {
@@ -177,10 +157,10 @@ public class ControllerAlimentos {
         }
         PessoaFisica cliente = pfr.findByClienteId(clienteId);
         pedidos.setClienteId(cliente);
-        pedidos.setAlimentosId(alimentos);
+        pedidos.setProdutoId(produtos);
         pr.save(pedidos);
-        alimentos.setQuantidade(alimentos.getQuantidade() - pedidos.getQuantidade());
-        ar.save(alimentos);
+        produtos.setQuantidade(produtos.getQuantidade() - pedidos.getQuantidade());
+        ar.save(produtos);
         return "Pedido alterado com sucesso";
 
     }

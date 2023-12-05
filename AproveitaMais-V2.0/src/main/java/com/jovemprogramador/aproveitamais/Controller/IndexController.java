@@ -27,9 +27,9 @@ public class IndexController {
 		return "home/cadastro";
 	}
 
-	@RequestMapping("/{empresaId}/cadastroDeProduto")
+	@RequestMapping("/{empresaId}/cadastroDeProdutos")
 	public String cadastroDeProduto() {
-		return "home/cadastroDeProduto";
+		return "home/cadastroDeProdutos";
 	}
 
 	@RequestMapping("/cart")

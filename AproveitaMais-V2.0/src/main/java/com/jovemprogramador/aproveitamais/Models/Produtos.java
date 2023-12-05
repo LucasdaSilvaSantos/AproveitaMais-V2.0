@@ -15,20 +15,20 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "alimentos")
-public class Alimentos {
+@Table(name = "produtos")
+public class Produtos {
     
     private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int alimentosId;
+    private int produtoId;
 
     @Column(nullable = false, unique = true)
     private String codigoDeBarras;
 
     @Column(nullable = false, unique = false)
-    private String nomeAlimento;
+    private String nomeProduto;
   
     @Column(nullable = false, unique = false)
     private String marca;
