@@ -37,15 +37,15 @@ public class ControllerPessoaJuridica {
     }
 
     @RequestMapping(value = "/mostrarCadastrosPJ", method = RequestMethod.GET)
-    public List<PessoaJuridica> selecionarPJ(){
-    return pj.findAll();
+    public List<PessoaJuridica> selecionarPJ() {
+        return pj.findAll();
     }
 
     @RequestMapping(value = "/deletarCadastroPJ/{login}", method = RequestMethod.DELETE)
     public String deletarPJ(@PathVariable String login) {
-    PessoaJuridica pessoa = pj.findByLogin(login);
-    pj.delete(pessoa);
-    return "";
+        PessoaJuridica pessoa = pj.findByLogin(login);
+        pj.delete(pessoa);
+        return "";
     }
 
     @RequestMapping(value = "/editarCadastroPJ", method = RequestMethod.PUT)
@@ -57,16 +57,16 @@ public class ControllerPessoaJuridica {
     public String cadastroDeProduto(Produtos produto, @PathVariable int empresaId, String categ) {
         if (produto.getQuantidade() <= 0) {
             return "A quantidade tenque ser maior que 0";
-        }
-        else {
-        PessoaJuridica empresa = pj.findByEmpresaId(empresaId);
-        produto.setMercadoDeOrigem(empresa);
-        produto.setCategoria(cr.findByCategoria(categ));
-        if (ar.findAll() == produto) {
-            return "Produto já cadastrado";
-        }
-        ar.save(produto);
-        return "redirect:/" + empresaId + "/cadastroDeProdutos";
+        } else {
+            PessoaJuridica empresa = pj.findByEmpresaId(empresaId);
+            produto.setMercadoDeOrigem(empresa);
+            produto.setCategoria(cr.findByCategoria(categ));
+            if (ar.countByCodigoDeBarrasAndMercadoDeOrigem(produto.getCodigoDeBarras(), empresa) == 0) {
+                ar.save(produto);
+                return "redirect:/" + empresaId + "/cadastroDeProdutos";
+            } else {
+                return "Produto já cadastrado";
+            }
         }
     }
 
