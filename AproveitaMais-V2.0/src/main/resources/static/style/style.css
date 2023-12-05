@@ -13031,7 +13031,8 @@ textarea.form-control {
 
 input[type="text"],
 [type="email"],
-[type="password"] {
+[type="password"],
+[type="number"]  {
   height: 40px;
   padding: 10px;
 }
@@ -13071,7 +13072,8 @@ div.row.marquee {
 
 .form-group input[type="text"],
 .form-group input[type="email"],
-.form-group input[type="password"] {
+.form-group input[type="password"],
+.form-group input[type="number"] {
   width: 50%;
   border: 1px solid #ccc;
   border-radius: 1px;
