@@ -3,13 +3,9 @@ package com.jovemprogramador.aproveitamais.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD:src/main/java/com/jovemprogramador/aproveitamais/Controller/ControllerAlimentos.java
 
 import org.springframework.stereotype.Controller;
-=======
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
->>>>>>> 0a838491a90d107c7e436af3c353289d2c2ac8f7:AproveitaMais-V2.0/src/main/java/com/jovemprogramador/aproveitamais/Controller/ControllerAlimentos.java
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,10 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-<<<<<<< HEAD:src/main/java/com/jovemprogramador/aproveitamais/Controller/ControllerAlimentos.java
-=======
 import org.springframework.web.bind.annotation.RequestMethod;
->>>>>>> 0a838491a90d107c7e436af3c353289d2c2ac8f7:AproveitaMais-V2.0/src/main/java/com/jovemprogramador/aproveitamais/Controller/ControllerAlimentos.java
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -34,10 +27,7 @@ import com.jovemprogramador.aproveitamais.Repository.PedidosRepository;
 import com.jovemprogramador.aproveitamais.Repository.PessoaFisicaRepository;
 
 import jakarta.validation.Valid;
-<<<<<<< HEAD:src/main/java/com/jovemprogramador/aproveitamais/Controller/ControllerAlimentos.java
-=======
 
->>>>>>> 0a838491a90d107c7e436af3c353289d2c2ac8f7:AproveitaMais-V2.0/src/main/java/com/jovemprogramador/aproveitamais/Controller/ControllerAlimentos.java
 @Controller
 public class ControllerAlimentos {
 
@@ -53,56 +43,52 @@ public class ControllerAlimentos {
     @Autowired
     private PessoaFisicaRepository pfr;
 
-<<<<<<< HEAD:src/main/java/com/jovemprogramador/aproveitamais/Controller/ControllerAlimentos.java
     @PostMapping("/cadastrarAlimento")
-    public String cadastroAlimento(@RequestBody Alimentos alimentos){
-        ar.save(alimentos); 
+    public String cadastroAlimento(@RequestBody Alimentos alimentos) {
+        ar.save(alimentos);
         return "Produto cadastrado";
     }
 
     @GetMapping("/mostrarAlimentos")
-    public void selecionar(){
+    public void selecionar() {
         ar.findAll();
     }
 
     @GetMapping("/mostrarAlimentos/{alimentosId}")
-    public void findByLogin(@Valid @PathVariable int alimentosId){
+    public void findByLogin(@Valid @PathVariable int alimentosId) {
         ar.findByAlimentosId(alimentosId);
     }
 
     @PutMapping("/editarAlimentos")
-    public String Editar(@RequestBody Alimentos alimentos){
+    public String Editar(@RequestBody Alimentos alimentos) {
         ar.save(alimentos);
         return "Alimento editado";
     }
 
     @DeleteMapping("/deletarAlimentos/{alimentosId}")
-    public String remover(@PathVariable int alimentosId){
+    public String remover(@PathVariable int alimentosId) {
         return "/deletarAlimentos";
     }
 
-   @GetMapping(value = "/ordenarCategoriaAsc")
-   public List<Categorias> ordenarCategoriaAscendente(){
-    return cr.findByOrderByCategoriaAsc();
-   }
+    @GetMapping(value = "/ordenarCategoriaAsc")
+    public List<Categorias> ordenarCategoriaAscendente() {
+        return cr.findByOrderByCategoriaAsc();
+    }
 
-   @GetMapping("/contadorAlimentos")
-   public long contadorAlimentos(){
-    return ar.count();
-   }
+    @GetMapping("/contadorAlimentos")
+    public long contadorAlimentos() {
+        return ar.count();
+    }
 
+    @GetMapping("/nomealimentoContem/{termo}")
+    List<Alimentos> NomeAlimentoContem(@PathVariable String termo) {
+        return ar.findByNomeAlimentoContaining(termo);
+    }
 
-   @GetMapping("/nomealimentoContem/{termo}")
-   List<Alimentos> NomeAlimentoContem(@PathVariable String termo){
-    return ar.findByNomeAlimentoContaining(termo);
-   }
-
-   @RequestMapping("/alimentos")
-=======
-    // @RequestMapping(value = "/cadastroAlimento", method = RequestMethod.GET)
-    // public String cadastroAlimento() {
-    // return "home/cadastroDeProduto";
-    // }
+    @RequestMapping(value = "/cadastroAlimento", method = RequestMethod.GET)
+    public String cadastroAlimento() {
+        return "home/cadastroDeProduto";
+    }
 
     @RequestMapping(value = "/cadastroAlimento", method = RequestMethod.GET)
     public ModelAndView detalhesEvento() {
@@ -128,10 +114,10 @@ public class ControllerAlimentos {
     // return services.selecionarAlimentosPeloID(alimentosId);
     // }
 
-    @GetMapping("/mostrarAlimentosDisponiveis")
-    public List<Alimentos> verificarDisponibilidades() {
-        return ar.verificarQuantidade();
-    }
+    // @GetMapping("/mostrarAlimentosDisponiveis")
+    // public List<Alimentos> verificarDisponibilidades() {
+    // return ar.verificarQuantidade();
+    // }
 
     // @PutMapping("/editarAlimentos")
     // public ResponseEntity<?> Editar(@RequestBody Alimentos alimentos) {
@@ -143,23 +129,7 @@ public class ControllerAlimentos {
     // return services.removerAlimentos(alimentosId);
     // }
 
-    @GetMapping(value = "/ordenarCategoriaAsc")
-    public List<Categorias> ordenarCategoriaAscendente() {
-        return cr.findByOrderByCategoriaAsc();
-    }
-
-    @GetMapping("/contadorAlimentos")
-    public long contadorAlimentos() {
-        return ar.count();
-    }
-
-    @GetMapping("/nomealimentoContem/{termo}")
-    List<Alimentos> NomeAlimentoContem(@PathVariable String termo) {
-        return ar.findByNomeAlimentoContaining(termo);
-    }
-
     @RequestMapping("/alimentos")
->>>>>>> 0a838491a90d107c7e436af3c353289d2c2ac8f7:AproveitaMais-V2.0/src/main/java/com/jovemprogramador/aproveitamais/Controller/ControllerAlimentos.java
     public ModelAndView alimentos() {
         ModelAndView mv = new ModelAndView("home/alimentos");
         Iterable<Alimentos> alimentos = ar.findAll();

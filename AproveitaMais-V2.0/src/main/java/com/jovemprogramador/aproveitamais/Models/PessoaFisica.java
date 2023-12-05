@@ -46,12 +46,6 @@ public class PessoaFisica {
     private String senha;
 
     @ManyToOne
-<<<<<<< HEAD:src/main/java/com/jovemprogramador/aproveitamais/Models/PessoaFisica.java
-    @JoinColumn(name = "codigoEndereco", nullable = true, unique = false)
-    private Endereco codigoEndereco;
-=======
-    // @JoinColumn(name = "endereco", nullable = true, unique = false)
     private Endereco endereco;
->>>>>>> 0a838491a90d107c7e436af3c353289d2c2ac8f7:AproveitaMais-V2.0/src/main/java/com/jovemprogramador/aproveitamais/Models/PessoaFisica.java
 
 }
