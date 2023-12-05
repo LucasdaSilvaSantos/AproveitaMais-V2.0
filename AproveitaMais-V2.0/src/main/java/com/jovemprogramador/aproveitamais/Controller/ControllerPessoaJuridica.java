@@ -1,11 +1,16 @@
 package com.jovemprogramador.aproveitamais.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
 import com.jovemprogramador.aproveitamais.Repository.PessoaJuridicaRepository;
@@ -22,28 +27,17 @@ public class ControllerPessoaJuridica {
         return "redirect:/cadastroendereco";
     }
 
-    @RequestMapping("/minhaConta")
-    public String minhaConta() {
-        return "home/minhaConta";
+    @GetMapping("/mostrarCadastrosPJ")
+    public List<PessoaJuridica> selecionarPJ(){
+    return pj.findAll();
     }
 
-    // @Autowired
-    // private ServicePessoaJuridica services;
-
-    // @PostMapping("/cadastroPJ")
-    // public ResponseEntity<?> cadastroPJ(@RequestBody PessoaJuridica pessoa){
-    // return services.cadastrarPessoaJuridica(pessoa);
-    // }
-
-    // @GetMapping("/mostrarCadastrosPJ")
-    // public ResponseEntity<?> selecionarPJ(){
-    // return services.selecionarPessoaJuridica();
-    // }
-
-    // @DeleteMapping("/deletarPJ/{login}")
-    // public ResponseEntity<?> deletarPJ(@Valid @PathVariable String login) {
-    // return services.removerPessoaJuridica(login);
-    // }
+    @RequestMapping(value = "/deletarCadastroPJ/{login}", method = RequestMethod.DELETE)
+    public String deletarPJ(@PathVariable String login) {
+    PessoaJuridica pessoa = pj.findByLogin(login);
+    pj.delete(pessoa);
+    return "";
+    }
 
     @PutMapping("/editarCadastroPJ")
     public PessoaJuridica editarPJ(PessoaJuridica pessoaJuridica) {

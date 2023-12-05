@@ -1,6 +1,7 @@
 package com.jovemprogramador.aproveitamais.Controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -13,7 +14,7 @@ public class IndexController {
 	}
 	@RequestMapping("/{clienteId}")
 	public String indexLogado() {
-		return "";
+		return "index";
 	}
 
 	@RequestMapping("/login")
@@ -21,9 +22,9 @@ public class IndexController {
 		return "login";
 	}
 
-	@RequestMapping("/cadastroPF")
+	@RequestMapping("/cadastro")
 	public String cadastroPF() {
-		return "home/cadastroPF";
+		return "home/cadastro";
 	}
 
 	@RequestMapping("/cadastroendereco/{clienteId}")
