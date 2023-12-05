@@ -21,13 +21,13 @@ public class ControllerPessoaJuridica {
     @Autowired
     private PessoaJuridicaRepository pj;
 
-    @PostMapping("/cadastroPJ")
+    @RequestMapping(value = "/cadastroPJ", method = RequestMethod.POST)
     public String cadastroPJ(@RequestBody PessoaJuridica pessoaJuridica) {
         pj.save(pessoaJuridica);
         return "redirect:/cadastroendereco";
     }
 
-    @GetMapping("/mostrarCadastrosPJ")
+    @RequestMapping(value = "/mostrarCadastrosPJ", method = RequestMethod.GET)
     public List<PessoaJuridica> selecionarPJ(){
     return pj.findAll();
     }
@@ -39,9 +39,11 @@ public class ControllerPessoaJuridica {
     return "";
     }
 
-    @PutMapping("/editarCadastroPJ")
+    @RequestMapping(value = "/editarCadastroPJ", method = RequestMethod.PUT)
     public PessoaJuridica editarPJ(PessoaJuridica pessoaJuridica) {
         return pj.save(pessoaJuridica);
     }
+
+    
 
 }
