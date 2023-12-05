@@ -58,6 +58,7 @@
 						</div>
 					</li>
 					<li class="nav-item"><a href="/login" class="nav-link">Entre ou cadastre-se</a></li>
+					<li class="nav-item"><a href="/minhaConta" class="nav-link">Área do Lojista</a></li>
 					<li class="nav-item cta cta-colored"><a href="/cart" class="nav-link"><span
 								class="icon-shopping_cart"></span>[0]</a></li>
 				</ul>
@@ -86,7 +87,7 @@
 					<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end"
 						style="background-image: url(https://user-images.githubusercontent.com/105174916/280140686-f6311ce8-fb83-40ed-8868-e5edf2f19b77.png);">
 						<div class="text px-3 py-1">
-							<h2 class="mb-0"><a th:href="${(#mvc.url('CA#cadastroPJ')).build()}">Cadastre sua loja</a></h2>
+							<h2 class="mb-0"><a th:href="${(#mvc.url('CPJ#cadastroPJ')).build()}">Cadastre sua loja</a></h2>
 						</div>
 					</div>
 				</div>
@@ -103,7 +104,7 @@
 					<div class="category-wrap ftco-animate img d-flex align-items-end"
 						style="background-image: url(https://user-images.githubusercontent.com/105174916/280141522-e0a74790-fb7a-49e4-a79e-6966ac621d54.jpg);">
 						<div class="text px-3 py-1">
-							<h2 class="mb-0"><a href="#">Pedidos</a></h2>
+							<h2 class="mb-0"><a th:href="${(#mvc.url('CPJ#listaPedidos')).build()}">Pedidos</a></h2>
 						</div>
 					</div>
 				</div>
