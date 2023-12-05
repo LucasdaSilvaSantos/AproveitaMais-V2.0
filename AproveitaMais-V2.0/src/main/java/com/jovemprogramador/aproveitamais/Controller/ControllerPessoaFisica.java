@@ -28,14 +28,13 @@ public class ControllerPessoaFisica {
       pf.save(pessoa);
       int clienteId = pessoa.getClienteId();
       return "redirect:/login";
-    } else if (er.countByNumero(endereco.getNumero()) == 0 ){
+    } else if (er.countByNumero(endereco.getNumero()) == 0) {
       er.save(endereco);
       pessoa.setEndereco(endereco);
       pf.save(pessoa);
       int clienteId = pessoa.getClienteId();
       return "redirect:/login";
-    }
-    else {
+    } else {
       Endereco enderecoEx = er.findByCepAndNumero(endereco.getCep(), endereco.getNumero());
       pessoa.setEndereco(enderecoEx);
       pf.save(pessoa);
