@@ -2,7 +2,7 @@
 <html lang="pt-BR" xmlns:th=“http://thymeleaf.org” xmlns:layout=“http://www.ultraq.net.nz/thymeleaf/layout”>
 
 <head>
-	<title>Aproveita+ | Minha Conta</title>
+	<title>Aproveita+ | Área do Lojista</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -72,7 +72,7 @@
             <div class="container">
                 <div class="row no-gutters slider-text align-items-center justify-content-center">
                     <div class="col-md-9 ftco-animate text-center">
-                        <h1 class="mb-0 bread">Minha Conta</h1>
+                        <h1 class="mb-0 bread">Área do Lojista</h1>
                     </div>
                 </div>
             </div>
@@ -84,6 +84,14 @@
 			<div class="row">
 				<div class="col-md-4">
 					<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end"
+						style="background-image: url(https://user-images.githubusercontent.com/105174916/280140686-f6311ce8-fb83-40ed-8868-e5edf2f19b77.png);">
+						<div class="text px-3 py-1">
+							<h2 class="mb-0"><a th:href="${(#mvc.url('CA#cadastroPJ')).build()}">Cadastre sua loja</a></h2>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end"
 						style="background-image: url(https://raw.githubusercontent.com/JefDfelipe/ProjetoIntegradorSENAC/d5576e7d85bd63e458626d426b98a9b804c8a3da/image.jpg);">
 						<div class="text px-3 py-1">
 							<h2 class="mb-0"><a th:href="${(#mvc.url('CA#cadastroAlimento')).build()}">Cadastrar produtos</a></h2>
@@ -92,18 +100,10 @@
 				</div>
 				
 				<div class="col-md-4">
-					<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end"
-						style="background-image: url(https://user-images.githubusercontent.com/105174916/280140686-f6311ce8-fb83-40ed-8868-e5edf2f19b77.png);">
-						<div class="text px-3 py-1">
-							<h2 class="mb-0"><a href="#">Snacks</a></h2>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
 					<div class="category-wrap ftco-animate img d-flex align-items-end"
 						style="background-image: url(https://user-images.githubusercontent.com/105174916/280141522-e0a74790-fb7a-49e4-a79e-6966ac621d54.jpg);">
 						<div class="text px-3 py-1">
-							<h2 class="mb-0"><a href="#">Bebidas</a></h2>
+							<h2 class="mb-0"><a href="#">Pedidos</a></h2>
 						</div>
 					</div>
 				</div>
