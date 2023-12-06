@@ -12,10 +12,6 @@ public class IndexController {
 	public String index() {
 		return "index";
 	}
-	@RequestMapping("/{clienteId}")
-	public String indexLogado() {
-		return "index";
-	}
 
 	@RequestMapping("/login")
 	public String login() {

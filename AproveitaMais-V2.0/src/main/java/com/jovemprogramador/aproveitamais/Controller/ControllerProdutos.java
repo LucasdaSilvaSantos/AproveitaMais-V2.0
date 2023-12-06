@@ -54,11 +54,6 @@ public class ControllerProdutos {
         ar.findByProdutoId(produtosId);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<Categorias> ordenarCategoriaAscendente() {
-        return cr.findByOrderByCategoriaAsc();
-    }
-
     @RequestMapping(value = "/nomealimentoContem/{termo}", method = RequestMethod.GET)
     List<Produtos> NomeAlimentoContem(@PathVariable String termo) {
         return ar.findByNomeProdutoContaining(termo);

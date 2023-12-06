@@ -28,7 +28,7 @@ public class ControllerPessoaFisica {
       pessoa.setEndereco(endereco);
       pf.save(pessoa);
       int clienteId = pessoa.getClienteId();
-      return "redirect:/login";
+      return "redirect:/login/" + clienteId;
     }
       er.save(endereco);
       pessoa.setEndereco(endereco);
