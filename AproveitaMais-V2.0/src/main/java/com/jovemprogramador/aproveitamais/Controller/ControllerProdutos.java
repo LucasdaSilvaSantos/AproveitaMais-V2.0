@@ -42,7 +42,7 @@ public class ControllerProdutos {
     }
 
     @RequestMapping(value = "/produtos/{produtoId}", method = RequestMethod.GET)
-    public void findByLogin(@Valid @PathVariable int produtosId) {
+    public void findByProdutoId(@Valid @PathVariable int produtosId) {
         ar.findByProdutoId(produtosId);
     }
 
