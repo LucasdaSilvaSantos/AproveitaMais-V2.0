@@ -5,15 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jovemprogramador.aproveitamais.Models.Produtos;
+import com.jovemprogramador.aproveitamais.Models.Endereco;
+import com.jovemprogramador.aproveitamais.Models.PessoaFisica;
 import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
 import com.jovemprogramador.aproveitamais.Repository.ProdutosRepository;
 import com.jovemprogramador.aproveitamais.Repository.CategoriaRepository;
+import com.jovemprogramador.aproveitamais.Repository.EnderecoRepository;
 import com.jovemprogramador.aproveitamais.Repository.PessoaJuridicaRepository;
 
 @Controller
@@ -28,6 +30,9 @@ public class ControllerPessoaJuridica {
     @Autowired
     private CategoriaRepository cr;
 
+    @Autowired
+    private EnderecoRepository er;
+
     @RequestMapping(value = "/cadastroPJ", method = RequestMethod.GET)
     public ModelAndView cadastroPJ() {
         ModelAndView mv = new ModelAndView("home/cadastroPJ");
@@ -35,10 +40,48 @@ public class ControllerPessoaJuridica {
     }
 
     @RequestMapping(value = "/cadastroPJ", method = RequestMethod.POST)
-    public String cadastroPJPost(@RequestBody PessoaJuridica pessoaJuridica) {
-        pj.save(pessoaJuridica);
-        return "redirect:/cadastroendereco";
+    public String cadastroPjPost(PessoaJuridica pessoaJuridica, Endereco endereco) {
+        if (er.countByCep(endereco.getCep()) == 0) {
+            if (er.countByNumero(endereco.getNumero()) == 0 ){
+                er.save(endereco);
+                pessoaJuridica.setCodigoEndereco(endereco);
+                pj.save(pessoaJuridica);
+                int empresaId = pessoaJuridica.getEmpresaId();
+                return "redirect:/loginLojista/" + empresaId;
+            }
+            er.save(endereco);
+            pessoaJuridica.setCodigoEndereco(endereco);
+            pj.save(pessoaJuridica);
+            int empresaId = pessoaJuridica.getEmpresaId();
+            return "redirect:/loginLojista";
+        }
+         else {
+            Endereco enderecoEx = er.findByCepAndNumero(endereco.getCep(), endereco.getNumero());
+            pessoaJuridica.setCodigoEndereco(enderecoEx);
+            pj.save(pessoaJuridica);
+            int empresaId = pessoaJuridica.getEmpresaId();
+            return "redirect:/loginLojista";
+        }
     }
+
+    @RequestMapping(value = "/loginLojista", method = RequestMethod.GET)
+    public ModelAndView LoginPJ() {
+        ModelAndView mv = new ModelAndView("loginLojista");
+        return mv;
+    }
+
+    @RequestMapping(value = "/loginLojista", method = RequestMethod.POST)
+  public String login(String login, String senha) {
+    if (pj.countByLogin(login) == 0) {
+      return "Login não encontrado";
+    }
+    PessoaJuridica pessoaJuridica = pj.findByLogin(login);
+    if (pessoaJuridica.getSenha().equals(senha)) {
+      int empresaId = pessoaJuridica.getEmpresaId();
+      return "redirect:/home/"+ empresaId+"/minhaConta";
+    }
+    return "Senha incorreta";
+  }
 
     @RequestMapping(value = "/mostrarCadastrosPJ", method = RequestMethod.GET)
     public List<PessoaJuridica> selecionarPJ() {
