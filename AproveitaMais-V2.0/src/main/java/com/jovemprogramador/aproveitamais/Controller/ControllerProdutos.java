@@ -43,76 +43,28 @@ public class ControllerProdutos {
     @Autowired
     private PessoaFisicaRepository pfr;
 
-    @PostMapping("/cadastrarAlimento")
-    public String cadastroAlimento(@RequestBody Produtos produtos) {
-        ar.save(produtos);
-        return "Produto cadastrado";
-    }
-
-    @GetMapping("/mostrarprodutos")
+    @RequestMapping(value = "/produtos", method = RequestMethod.GET)
     public void selecionar() {
-        ar.findAll();
+        long quantidadeDeAlimentos = ar.count();
+        ar.findByQuantidadeGreaterThanEqual(1);
     }
 
-    @GetMapping("/mostrarprodutos/{produtosId}")
+    @RequestMapping(value = "/produtos/{produtoId}", method = RequestMethod.GET)
     public void findByLogin(@Valid @PathVariable int produtosId) {
         ar.findByProdutoId(produtosId);
     }
 
-    @PutMapping("/editarprodutos")
-    public String Editar(@RequestBody Produtos produtos) {
-        ar.save(produtos);
-        return "Alimento editado";
-    }
-
-    @DeleteMapping("/deletarprodutos/{produtosId}")
-    public String remover(@PathVariable int produtosId) {
-        return "/deletarprodutos";
-    }
-
-    @GetMapping(value = "/ordenarCategoriaAsc")
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Categorias> ordenarCategoriaAscendente() {
         return cr.findByOrderByCategoriaAsc();
     }
 
-    @GetMapping("/contadorprodutos")
-    public long contadorprodutos() {
-        return ar.count();
-    }
-
-    @GetMapping("/nomealimentoContem/{termo}")
+    @RequestMapping(value = "/nomealimentoContem/{termo}", method = RequestMethod.GET)
     List<Produtos> NomeAlimentoContem(@PathVariable String termo) {
         return ar.findByNomeProdutoContaining(termo);
     }
 
-    @RequestMapping(value = "/cadastroAlimento", method = RequestMethod.GET)
-    public ModelAndView cadastroAlimento() {
-        ModelAndView mv = new ModelAndView("home/cadastroDeProduto");
-        return mv;
-    }
-
-    @RequestMapping(value = "/cadastroAlimento", method = RequestMethod.POST)
-    public String cadastroAlimento(@Valid Produtos alimento, BindingResult result,
-            RedirectAttributes attributes) {
-
-        if (result.hasErrors()) {
-            attributes.addFlashAttribute("mensagem", "Verifique os campos!");
-            return "redirect:/cadastroAlimento";
-        }
-        ar.save(alimento);
-        attributes.addFlashAttribute("mensagem", "Evento adicionado com sucesso!");
-        return "redirect:/produtos";
-    }
-
-    @RequestMapping("/produtos")
-    public ModelAndView produtos() {
-        ModelAndView mv = new ModelAndView("home/produtos");
-        Iterable<Produtos> produtos = ar.findAll();
-        mv.addObject("produtos", produtos);
-        return mv;
-    }
-
-    @PostMapping("/{clienteId}/alimento/{alimentoId}")
+    @RequestMapping(value = "/{clienteId}/alimento/{alimentoId}", method = RequestMethod.GET)
     public String adicionarAoCarrinho(@PathVariable int alimentoId, @PathVariable int clienteId, int quantidade) {
         Produtos Alimento = ar.findByProdutoId(alimentoId);
         if (quantidade > Alimento.getQuantidade()) {
@@ -132,21 +84,23 @@ public class ControllerProdutos {
         return "Adicionado ao carrinho";
     }
 
-    @GetMapping("/{clienteId}/carrinho")
+    @RequestMapping(value = "/{clienteId}/carrinho", method = RequestMethod.GET)
     public List<Pedidos> mostrarCarrinho(@PathVariable int clienteId) {
         PessoaFisica cliente = pfr.findByClienteId(clienteId);
         return pr.findAllByClienteId(cliente);
     }
 
-    @DeleteMapping("/{clienteId}/carrinho")
+    @RequestMapping(value = "/{clienteId}/carrinho", method = RequestMethod.DELETE)
     public String deletarPedido(@PathVariable int clienteId, int pedidoId) {
         Pedidos pedido = pr.findByPedidoId(pedidoId);
+        Produtos produto = pedido.getProdutoId();
+        produto.setQuantidade(produto.getQuantidade() + pedido.getQuantidade());
         pr.delete(pedido);
         return "Pedido cancelado";
     }
 
-    @PutMapping("/{clienteId}/carrinho")
-    public String alterarPedido(@PathVariable int clienteId, Pedidos pedidos) {
+    @RequestMapping(value = "/{clienteId}/carrinho", method = RequestMethod.PUT)
+    public String editarPedido(@PathVariable int clienteId, Pedidos pedidos) {
         Produtos produtos = pedidos.getProdutoId();
         produtos = ar.findByProdutoId(produtos.getProdutoId());
         if (pedidos.getQuantidade() > produtos.getQuantidade()) {

@@ -18,5 +18,7 @@ public interface ProdutosRepository extends JpaRepository<Produtos, Integer>{
 
     List<Produtos> findByNomeProdutoContaining(String termo);
 
+    List<Produtos> findByMercadoDeOrigem(PessoaJuridica pessoaJuridica);
+
     long countByCodigoDeBarrasAndMercadoDeOrigem(String codigoDeBarras, PessoaJuridica empresaId);
 }

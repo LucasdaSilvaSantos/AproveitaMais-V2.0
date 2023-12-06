@@ -23,12 +23,13 @@ public class ControllerPessoaFisica {
   @RequestMapping(value = "/cadastro", method = RequestMethod.POST)
   public String cadastroPF(PessoaFisica pessoa, Endereco endereco) {
     if (er.countByCep(endereco.getCep()) == 0) {
+      if (er.countByNumero(endereco.getNumero()) == 0 ){
       er.save(endereco);
       pessoa.setEndereco(endereco);
       pf.save(pessoa);
       int clienteId = pessoa.getClienteId();
       return "redirect:/login";
-    } else if (er.countByNumero(endereco.getNumero()) == 0 ){
+    }
       er.save(endereco);
       pessoa.setEndereco(endereco);
       pf.save(pessoa);
@@ -58,10 +59,10 @@ public class ControllerPessoaFisica {
   }
 
   @RequestMapping(value = "/{clienteId}/editarcadastro", method = RequestMethod.PUT)
-  public String editarCadastro(@PathVariable int clienteId) {
-    PessoaFisica pessoa = pf.findByClienteId(clienteId);
-    pf.save(pessoa);
-    return "/{clienteId}/minhaConta";
+  public String editarCadastro(@PathVariable int clienteId, PessoaFisica pessoa) {
+    PessoaFisica cliente = pf.findByClienteId(clienteId);
+    cliente.setNomeCliente(pessoa.getNomeCliente());
+    return "/" + clienteId + "/minhaConta";
   }
 
 }

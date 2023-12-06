@@ -23,11 +23,9 @@ public class Pedidos {
     private int pedidoId;
 
     @ManyToOne
-    @JoinColumn(name = "clienteId", nullable = false, unique = false)
     private PessoaFisica clienteId;
 
     @ManyToOne
-    @JoinColumn(name = "alimentosId", nullable = false, unique = false)
     private Produtos produtoId;
 
     private int quantidade;

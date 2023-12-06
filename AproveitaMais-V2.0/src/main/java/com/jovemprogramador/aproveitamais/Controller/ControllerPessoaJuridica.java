@@ -57,7 +57,11 @@ public class ControllerPessoaJuridica {
     public String cadastroDeProduto(Produtos produto, @PathVariable int empresaId, String categ) {
         if (produto.getQuantidade() <= 0) {
             return "A quantidade tenque ser maior que 0";
-        } else {
+        } 
+        else if (produto.getPreco() <= 0) {
+            return "O preço tenque ser maior que 0";
+        }
+        else {
             PessoaJuridica empresa = pj.findByEmpresaId(empresaId);
             produto.setMercadoDeOrigem(empresa);
             produto.setCategoria(cr.findByCategoria(categ));
@@ -68,6 +72,19 @@ public class ControllerPessoaJuridica {
                 return "Produto já cadastrado";
             }
         }
+    }
+
+    @RequestMapping(value = "/{empresaId}/mostrarProdutosCadastrados", method = RequestMethod.GET)
+    public List<Produtos> cadastroDeProduto(@PathVariable int empresaId) {
+        PessoaJuridica pessoaJuridica = pj.findByEmpresaId(empresaId);
+        return ar.findByMercadoDeOrigem(pessoaJuridica);
+    }
+
+    @RequestMapping(value = "/{empresaId}/mostrarProdutosCadastrados", method = RequestMethod.DELETE)
+    public String deletarProdutoCadastrado(int produtoId) {
+        Produtos produto = ar.findByProdutoId(produtoId);
+        ar.delete(produto);
+        return "Produto deletado";
     }
 
 }
