@@ -29,10 +29,6 @@ public class PessoaJuridica {
     private String login;
 
     @NotBlank
-    @Column(nullable = false, unique = true)
-    private String nomeEmpresa;
-
-    @NotBlank
     @Column(nullable = false, unique = false)
     private String senha;
 

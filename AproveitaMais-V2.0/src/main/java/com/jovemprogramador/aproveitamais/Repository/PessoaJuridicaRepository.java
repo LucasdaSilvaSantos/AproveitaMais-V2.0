@@ -11,7 +11,7 @@ public interface PessoaJuridicaRepository extends JpaRepository<PessoaJuridica, 
     
     PessoaJuridica findByEmpresaId(int empresaId);
 
-    PessoaJuridica findByNomeEmpresa(String nomeEmpresa);
+    PessoaJuridica findByRazaoSocial(String razaoSocial);
 
     PessoaJuridica findByLogin(String login);
 

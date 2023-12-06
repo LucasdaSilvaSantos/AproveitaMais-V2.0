@@ -4,13 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.jovemprogramador.aproveitamais.Models.Produtos;
 import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
@@ -30,8 +28,18 @@ public class ControllerPessoaJuridica {
     @Autowired
     private CategoriaRepository cr;
 
+    @RequestMapping(value = "/cadastroPJ", method = RequestMethod.GET)
+    public ModelAndView cadastroPJ() {
+        ModelAndView mv = new ModelAndView("home/cadastroPJ");
+        return mv;
+    }
+
     @RequestMapping(value = "/cadastroPJ", method = RequestMethod.POST)
+<<<<<<< HEAD
     public String cadastroPJ(PessoaJuridica pessoaJuridica) {
+=======
+    public String cadastroPJPost(@RequestBody PessoaJuridica pessoaJuridica) {
+>>>>>>> d24360bc01909b285ee8a19f66e5348e0b4fc1b5
         pj.save(pessoaJuridica);
         return "redirect:/";
     }
@@ -56,10 +64,10 @@ public class ControllerPessoaJuridica {
     @RequestMapping(value = "/{empresaId}/cadastroAlimentos", method = RequestMethod.POST)
     public String cadastroDeProduto(Produtos produto, @PathVariable int empresaId, String categ) {
         if (produto.getQuantidade() <= 0) {
-            return "A quantidade tenque ser maior que 0";
+            return "A quantidade tem que ser maior que 0";
         } 
         else if (produto.getPreco() <= 0) {
-            return "O preço tenque ser maior que 0";
+            return "O preço tem que ser maior que 0";
         }
         else {
             PessoaJuridica empresa = pj.findByEmpresaId(empresaId);
