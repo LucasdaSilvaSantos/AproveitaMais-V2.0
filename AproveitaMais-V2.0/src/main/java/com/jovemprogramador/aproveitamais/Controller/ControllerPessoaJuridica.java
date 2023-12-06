@@ -100,7 +100,7 @@ public class ControllerPessoaJuridica {
         return pj.save(pessoaJuridica);
     }
 
-    @RequestMapping(value = "/{empresaId}/cadastroDeProdutos", method = RequestMethod.POST)
+    @RequestMapping(value = "/{empresaId}/cadastroAlimentos", method = RequestMethod.POST)
     public String cadastroDeProduto(Produtos produto, @PathVariable int empresaId, String categ) {
         if (produto.getQuantidade() <= 0) {
             return "A quantidade tem que ser maior que 0";
