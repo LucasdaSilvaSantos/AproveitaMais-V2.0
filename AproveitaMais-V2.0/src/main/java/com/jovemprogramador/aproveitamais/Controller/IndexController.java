@@ -13,6 +13,11 @@ public class IndexController {
 		return "index";
 	}
 
+	@RequestMapping("/minhaConta")
+    public String minhaConta(){
+        return "home/minhaConta";
+    }
+
 	@RequestMapping("/login")
 	public String login() {
 		return "login";
@@ -48,9 +53,9 @@ public class IndexController {
 		return "home/checkout";
 	}
 
-	@RequestMapping("/{clienteId}/minhaConta")
-	public String minhaConta() {
-		return "home/minhaConta";
-	}
+	// @RequestMapping("/{clienteId}/minhaConta")
+	// public String minhaContaCliente() {
+	// 	return "home/minhaConta";
+	// }
 
 }

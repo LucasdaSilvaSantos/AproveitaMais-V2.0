@@ -2,7 +2,7 @@
 <html lang="pt-BR" xmlns:th=“http://thymeleaf.org” xmlns:layout=“http://www.ultraq.net.nz/thymeleaf/layout”>
 
 <head>
-	<title>Aproveita+ | Área do Lojista</title>
+	<title>Aproveita+ | Cadastre-se</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -11,7 +11,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
 
-	<link type="text/css" rel="stylesheet" href="style/estiloImport.css">
+	<link type="text/css" rel="stylesheet" href="/style/estiloImport.css">
 </head>
 
 <body class="goto-here">
@@ -61,57 +61,69 @@
 					<li class="nav-item"><a href="/minhaConta" class="nav-link">Área do Lojista</a></li>
 					<li class="nav-item cta cta-colored"><a href="/cart" class="nav-link"><span
 								class="icon-shopping_cart"></span>[0]</a></li>
+
 				</ul>
 			</div>
 		</div>
-
 	</nav>
 	<!-- END nav -->
 
-    <section id="home-section" class="hero ftco-section ftco-category ftco-no-pt">
-        <div class="hero-wrap hero-bread" style="background-image: url(https://raw.githubusercontent.com/JefDfelipe/ProjetoIntegradorSENAC/39c4933be5bd6e9f2d2cae3ac673897649ba8f10/pexels-sulav-jung-hamal-18925018.jpg);">
-            <div class="container">
-                <div class="row no-gutters slider-text align-items-center justify-content-center">
-                    <div class="col-md-9 ftco-animate text-center">
-                        <h1 class="mb-0 bread">Área do Lojista</h1>
-                    </div>
-                </div>
-            </div>
-	    </div>
-    </section>
-    
-	<section class="ftco-section ftco-category ftco-no-pt">
-        <div class="container">
-			<div class="row">
-				<div class="col-md-4">
-					<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end"
-						style="background-image: url(https://user-images.githubusercontent.com/105174916/280140686-f6311ce8-fb83-40ed-8868-e5edf2f19b77.png);">
-						<div class="text px-3 py-1">
-							<!-- <h2 class="mb-0"><a th:href="${(#mvc.url('CPJ#cadastroPJ')).build()}">  --> Cadastre sua loja</a></h2>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end"
-						style="background-image: url(https://raw.githubusercontent.com/JefDfelipe/ProjetoIntegradorSENAC/d5576e7d85bd63e458626d426b98a9b804c8a3da/image.jpg);">
-						<div class="text px-3 py-1">
-							<h2 class="mb-0"><a th:href="${(#mvc.url('CP#cadastroAlimento')).build()}">Cadastrar produtos</a></h2>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-md-4">
-					<div class="category-wrap ftco-animate img d-flex align-items-end"
-						style="background-image: url(https://user-images.githubusercontent.com/105174916/280141522-e0a74790-fb7a-49e4-a79e-6966ac621d54.jpg);">
-						<div class="text px-3 py-1">
-							<!-- <h2 class="mb-0"><a th:href="${(#mvc.url('CPJ#listaPedidos')).build()}"--->Pedidos</a></h2>
-						</div>
-					</div>
-				</div>
+	<div class="hero-wrap hero-bread"
+		style="background-image: url(https://raw.githubusercontent.com/JefDfelipe/ProjetoIntegradorSENAC/39c4933be5bd6e9f2d2cae3ac673897649ba8f10/pexels-sulav-jung-hamal-18925018.jpg);">
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-center justify-content-center">
+				<div class="col-md-9 ftco-animate text-center">
+					<p class="breadcrumbs"><span class="mr-2">Preencha seus dados Cadastrais</span></p>
+					<h1 class="mb-0 bread">Cadastre-se</h1>
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<section class="ftco-section ftco-category">
+		<div class="container">
+			<form class="registration-form" method="post">
+				<div class="box">
+					<h2 class="mb-4">Dados Pessoais:</h2>
+					<div class="form-group" id="cpf-field">
+						<label for="cnpj">CNPJ:</label>
+						<input type="number" id="cnpj" placeholder="Digite seu CNPJ (apenas números)" value="" name="cnpj" required>
+					</div>
+					<div class="form-group">
+						<label for="razaoSocial">Razão Social:</label>
+						<input type="text" id="razaoSocial" placeholder="Digite a razão social da sua empresa" value="" name="razaoSocial" required>
+					</div>
+					<div class="form-group">
+						<label for="nomeFantasia">Nome Fantasia:</label>
+						<input type="text" id="nomeFantasia" placeholder="Digite o nome fantasia da sua empresa (Opcional)" value="" name="nomeFantasia">
+					</div>
+					<div class="form-group">
+						<label for="email">E-mail:</label>
+						<input type="email" id="email" placeholder="Digite seu endereço de e-mail" value="" name="login" required>
+					</div>
+					<div class="form-group">
+						<label for="senha">Senha:</label>
+						<input type="password" id="senha" placeholder="Digite sua senha" value="" name="senha" required>
+					</div>
+					<div class="form-group">
+						<label for="CEP">CEP:</label>
+						<input type="number" id="CEP" placeholder="Digite o CEP" value="" name="cep" required>
+					</div>
+					<div class="form-group">
+						<label for="numero">Digite o Número:</label>
+						<input type="number" id="numero" placeholder="Digite o Número" value="" name="numero" required>
+					</div>
+					<div class="form-group">
+						<label for="complemento">Complemento:</label>
+						<input type="text" id="complemento" placeholder="Digite o Complemento" value="" name="complemento" required>
+					</div>
+					<button type="submit" class="submit-button">Cadastrar</button>
+				</div>
+			</form>
+			<th:block th:include="home/mensagemValidacao"></th:block>
+		</div>
 	</section>
+
 
 	<section class="ftco-section ftco-counter img" id="section-counter"
 		style="background-image: url(https://raw.githubusercontent.com/JefDfelipe/ProjetoIntegradorSENAC/d1fc8b4876d575fc585ab8b1c86d078a23ead496/cookies-702931_1280.jpg);">
@@ -121,6 +133,7 @@
 			</div>
 		</div>
 	</section>
+
 
 	<footer class="ftco-footer ftco-section">
 		<div class="container">
