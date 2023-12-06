@@ -13,44 +13,19 @@ public class IndexController {
 		return "index";
 	}
 
-	@RequestMapping("/minhaConta")
-    public String minhaConta(){
-        return "home/minhaConta";
-    }
-
-	@RequestMapping("/login")
-	public String login() {
-		return "login";
-	}
-
-	@RequestMapping("/cadastro")
-	public String cadastroPF() {
-		return "home/cadastro";
-	}
-
-	@RequestMapping("/{empresaId}/cadastroDeProdutos")
-	public String cadastroDeProduto() {
-		return "home/cadastroDeProdutos";
+	@RequestMapping("/{clienteId}")
+	public String indexLogado() {
+		return "index";
 	}
 
 	@RequestMapping("/cart")
-	public String cart() {
+	public String carrinho() {
 		return "home/cart";
 	}
 
-	@RequestMapping("/detalhesproduto")
-	public String detalhesproduto() {
-		return "home/detalhesproduto";
+	@RequestMapping("/{clienteId}/cart")
+	public String carrinhoLogado() {
+		return "home/cart";
 	}
-
-	@RequestMapping("/checkout")
-	public String checkout() {
-		return "home/checkout";
-	}
-
-	// @RequestMapping("/{clienteId}/minhaConta")
-	// public String minhaContaCliente() {
-	// 	return "home/minhaConta";
-	// }
 
 }

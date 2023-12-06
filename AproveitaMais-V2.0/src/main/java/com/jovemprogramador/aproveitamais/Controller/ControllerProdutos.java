@@ -60,8 +60,6 @@ public class ControllerProdutos {
 		return mv;
 	}
 
-
-
     @RequestMapping(value = "/nomealimentoContem/{termo}", method = RequestMethod.GET)
     List<Produtos> NomeAlimentoContem(@PathVariable String termo) {
         return ar.findByNomeProdutoContaining(termo);
@@ -69,8 +67,8 @@ public class ControllerProdutos {
 
     @RequestMapping(value = "/{clienteId}/alimento/{alimentoId}", method = RequestMethod.GET)
     public String adicionarAoCarrinho(@PathVariable int alimentoId, @PathVariable int clienteId, int quantidade) {
-        Produtos Alimento = ar.findByProdutoId(alimentoId);
-        if (quantidade > Alimento.getQuantidade()) {
+        Produtos produto = ar.findByProdutoId(alimentoId);
+        if (quantidade > produto.getQuantidade()) {
             return "Você está pedindo mais unidades deste produto doque há disponível em estoque";
         }
         if (quantidade == 0) {
@@ -79,11 +77,10 @@ public class ControllerProdutos {
         PessoaFisica cliente = pfr.findByClienteId(clienteId);
         Pedidos carrinho = new Pedidos();
         carrinho.setClienteId(cliente);
-        carrinho.setProdutoId(Alimento);
+        carrinho.setProdutoId(produto);
         carrinho.setQuantidade(quantidade);
         pr.save(carrinho);
-        Alimento.setQuantidade(Alimento.getQuantidade() - quantidade);
-        ar.save(Alimento);
+        ar.save(produto);
         return "Adicionado ao carrinho";
     }
 
@@ -97,7 +94,6 @@ public class ControllerProdutos {
     public String deletarPedido(@PathVariable int clienteId, int pedidoId) {
         Pedidos pedido = pr.findByPedidoId(pedidoId);
         Produtos produto = pedido.getProdutoId();
-        produto.setQuantidade(produto.getQuantidade() + pedido.getQuantidade());
         pr.delete(pedido);
         return "Pedido cancelado";
     }

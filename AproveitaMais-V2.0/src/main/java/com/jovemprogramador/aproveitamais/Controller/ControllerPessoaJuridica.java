@@ -31,9 +31,9 @@ public class ControllerPessoaJuridica {
     private CategoriaRepository cr;
 
     @RequestMapping(value = "/cadastroPJ", method = RequestMethod.POST)
-    public String cadastroPJ(@RequestBody PessoaJuridica pessoaJuridica) {
+    public String cadastroPJ(PessoaJuridica pessoaJuridica) {
         pj.save(pessoaJuridica);
-        return "redirect:/cadastroendereco";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/mostrarCadastrosPJ", method = RequestMethod.GET)
@@ -53,7 +53,7 @@ public class ControllerPessoaJuridica {
         return pj.save(pessoaJuridica);
     }
 
-    @RequestMapping(value = "/{empresaId}/cadastroDeProdutos", method = RequestMethod.POST)
+    @RequestMapping(value = "/{empresaId}/cadastroAlimentos", method = RequestMethod.POST)
     public String cadastroDeProduto(Produtos produto, @PathVariable int empresaId, String categ) {
         if (produto.getQuantidade() <= 0) {
             return "A quantidade tenque ser maior que 0";

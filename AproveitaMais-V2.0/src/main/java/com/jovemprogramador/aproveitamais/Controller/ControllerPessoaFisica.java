@@ -28,7 +28,7 @@ public class ControllerPessoaFisica {
       pessoa.setEndereco(endereco);
       pf.save(pessoa);
       int clienteId = pessoa.getClienteId();
-      return "redirect:/login/" + clienteId;
+      return "redirect:/" + clienteId;
     }
       er.save(endereco);
       pessoa.setEndereco(endereco);
@@ -44,6 +44,8 @@ public class ControllerPessoaFisica {
       return "redirect:/login";
     }
   }
+
+
 
   @RequestMapping(value = "/login", method = RequestMethod.POST)
   public String login(String cpf, String senha) {
@@ -62,7 +64,7 @@ public class ControllerPessoaFisica {
   public String editarCadastro(@PathVariable int clienteId, PessoaFisica pessoa) {
     PessoaFisica cliente = pf.findByClienteId(clienteId);
     cliente.setNomeCliente(pessoa.getNomeCliente());
-    return "/" + clienteId + "/minhaConta";
+    return "/" + clienteId;
   }
 
 }
