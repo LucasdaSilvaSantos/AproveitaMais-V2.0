@@ -21,6 +21,11 @@ public class IndexController {
 		return "login";
 	}
 
+	@RequestMapping("/loginLojista")
+	public String loginLojista() {
+		return "loginLojista";
+	}
+
 	@RequestMapping("/cadastro")
 	public String cadastroPF() {
 		return "home/cadastro";
