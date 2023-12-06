@@ -35,11 +35,7 @@ public class ControllerPessoaJuridica {
     }
 
     @RequestMapping(value = "/cadastroPJ", method = RequestMethod.POST)
-<<<<<<< HEAD
     public String cadastroPJ(PessoaJuridica pessoaJuridica) {
-=======
-    public String cadastroPJPost(@RequestBody PessoaJuridica pessoaJuridica) {
->>>>>>> d24360bc01909b285ee8a19f66e5348e0b4fc1b5
         pj.save(pessoaJuridica);
         return "redirect:/";
     }
