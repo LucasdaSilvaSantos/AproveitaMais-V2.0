@@ -30,6 +30,11 @@ public class ControllerPessoaJuridica {
     @Autowired
     private CategoriaRepository cr;
 
+    @RequestMapping(value = "/cadastroPJ", method = RequestMethod.GET)
+    public String cadastroPJ() {
+        return "redirect:/cadastroendereco";
+    }
+
     @RequestMapping(value = "/cadastroPJ", method = RequestMethod.POST)
     public String cadastroPJ(@RequestBody PessoaJuridica pessoaJuridica) {
         pj.save(pessoaJuridica);
