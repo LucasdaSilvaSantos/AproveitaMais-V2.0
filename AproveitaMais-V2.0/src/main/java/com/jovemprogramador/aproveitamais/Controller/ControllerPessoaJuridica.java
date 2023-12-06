@@ -4,13 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.jovemprogramador.aproveitamais.Models.Produtos;
 import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
@@ -30,8 +28,14 @@ public class ControllerPessoaJuridica {
     @Autowired
     private CategoriaRepository cr;
 
+    @RequestMapping(value = "/cadastroPJ", method = RequestMethod.GET)
+    public ModelAndView cadastroPJ() {
+        ModelAndView mv = new ModelAndView("home/cadastroPJ");
+        return mv;
+    }
+
     @RequestMapping(value = "/cadastroPJ", method = RequestMethod.POST)
-    public String cadastroPJ(@RequestBody PessoaJuridica pessoaJuridica) {
+    public String cadastroPJPost(@RequestBody PessoaJuridica pessoaJuridica) {
         pj.save(pessoaJuridica);
         return "redirect:/cadastroendereco";
     }
@@ -56,10 +60,10 @@ public class ControllerPessoaJuridica {
     @RequestMapping(value = "/{empresaId}/cadastroDeProdutos", method = RequestMethod.POST)
     public String cadastroDeProduto(Produtos produto, @PathVariable int empresaId, String categ) {
         if (produto.getQuantidade() <= 0) {
-            return "A quantidade tenque ser maior que 0";
+            return "A quantidade tem que ser maior que 0";
         } 
         else if (produto.getPreco() <= 0) {
-            return "O preço tenque ser maior que 0";
+            return "O preço tem que ser maior que 0";
         }
         else {
             PessoaJuridica empresa = pj.findByEmpresaId(empresaId);
