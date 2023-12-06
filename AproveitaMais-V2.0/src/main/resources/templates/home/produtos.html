@@ -86,25 +86,32 @@
 			<div class="row" th:each="produto : ${produtos}">
 				<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
-						<a href="/detalhesproduto" class="img-prod" data-product-id="produto1">
+						<a th:href="${#mvc.url('CP#findByProdutoId').arg(0, produto.produtoId).build()}" class="img-prod"
+							data-product-id="${produto.produtoId}">
 							<img class="img-fluid"
 								src="https://raw.githubusercontent.com/JefDfelipe/ProjetoIntegradorSENAC/efa40fef3c04fb54c2a8720fd3f292f723eee886/produto1.png"
-								alt="produto1">
+								alt="${produto.nomeProduto}">
 							<span class="status">Promoção</span>
 							<div class="overlay"></div>
 						</a>
 						<div class="text py-3 pb-4 px-3 text-center">
-							<h3><a href="${(#mvc.url('CP#findByProdutoId').arg(0, produto.produtosId)).build()}"><span
-										th:text="${produto.nomeProduto}"></span></a></h3>
+							<h3>
+								<a th:href="${#mvc.url('CP#findByProdutoId').arg(0, produto.produtoId).build()}">
+									<span th:text="${produto.nomeProduto}"></span>
+								</a>
+							</h3>
 							<div class="d-flex">
 								<div class="pricing">
-									<p class="price"><span class="mr-2 price-dc" th:text="${produto.preco}"></span></p>
+									<p class="price">
+										<span class="mr-2 price-dc" th:text="${produto.preco}"></span>
+									</p>
 								</div>
 							</div>
 							<div class="bottom-area d-flex px-3">
 								<div class="m-auto d-flex">
-									<a href="/cart?id=${produto.produtoId}"
-										class="buy-now d-flex justify-content-center align-items-center mx-1" data-product-id="produto1">
+									<a th:href="@{'/cart?id=' + ${produto.produtoId}}"
+										class="buy-now d-flex justify-content-center align-items-center mx-1"
+										data-product-id="${produto.produtoId}">
 										<span><i class="ion-ios-cart"></i></span>
 									</a>
 								</div>
