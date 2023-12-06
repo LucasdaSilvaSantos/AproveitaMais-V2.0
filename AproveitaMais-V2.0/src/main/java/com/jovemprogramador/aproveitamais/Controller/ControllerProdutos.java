@@ -54,6 +54,14 @@ public class ControllerProdutos {
         ar.findByProdutoId(produtosId);
     }
 
+    @RequestMapping(value = "/cadastroAlimentos", method = RequestMethod.GET)
+	public ModelAndView cadastroAlimento() {
+		ModelAndView mv = new ModelAndView("home/cadastroDeProdutos");
+		return mv;
+	}
+
+
+
     @RequestMapping(value = "/nomealimentoContem/{termo}", method = RequestMethod.GET)
     List<Produtos> NomeAlimentoContem(@PathVariable String termo) {
         return ar.findByNomeProdutoContaining(termo);
