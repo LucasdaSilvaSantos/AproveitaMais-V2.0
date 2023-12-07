@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jovemprogramador.aproveitamais.Models.Produtos;
+import com.jovemprogramador.aproveitamais.Models.Endereco;
 import com.jovemprogramador.aproveitamais.Models.PessoaJuridica;
 import com.jovemprogramador.aproveitamais.Repository.ProdutosRepository;
 import com.jovemprogramador.aproveitamais.Repository.CategoriaRepository;
+import com.jovemprogramador.aproveitamais.Repository.EnderecoRepository;
 import com.jovemprogramador.aproveitamais.Repository.PessoaJuridicaRepository;
 
 @Controller
@@ -26,6 +28,9 @@ public class ControllerPessoaJuridica {
     private ProdutosRepository ar;
 
     @Autowired
+    private EnderecoRepository er;
+
+    @Autowired
     private CategoriaRepository cr;
 
     @RequestMapping(value = "/cadastroPJ", method = RequestMethod.GET)
@@ -35,9 +40,40 @@ public class ControllerPessoaJuridica {
     }
 
     @RequestMapping(value = "/cadastroPJ", method = RequestMethod.POST)
-    public String cadastroPJPost(@RequestBody PessoaJuridica pessoaJuridica) {
-        pj.save(pessoaJuridica);
-        return "redirect:/cadastroendereco";
+    public String cadastroPjPost(PessoaJuridica pessoaJuridica, Endereco endereco) {
+        if (er.countByCep(endereco.getCep()) == 0) {
+            if (er.countByNumero(endereco.getNumero()) == 0) {
+                er.save(endereco);
+                pessoaJuridica.setCodigoEndereco(endereco);
+                pj.save(pessoaJuridica);
+                int empresaId = pessoaJuridica.getEmpresaId();
+                return "redirect:/loginLojista/" + empresaId;
+            }
+            er.save(endereco);
+            pessoaJuridica.setCodigoEndereco(endereco);
+            pj.save(pessoaJuridica);
+            int empresaId = pessoaJuridica.getEmpresaId();
+            return "redirect:/loginLojista";
+        } else {
+            Endereco enderecoEx = er.findByCepAndNumero(endereco.getCep(), endereco.getNumero());
+            pessoaJuridica.setCodigoEndereco(enderecoEx);
+            pj.save(pessoaJuridica);
+            int empresaId = pessoaJuridica.getEmpresaId();
+            return "redirect:/loginLojista";
+        }
+    }
+
+    @RequestMapping(value = "/loginLojista", method = RequestMethod.POST)
+    public String login(String login, String senha) {
+        if (pj.countByLogin(login) == 0) {
+            return "Login não encontrado";
+        }
+        PessoaJuridica pessoaJuridica = pj.findByLogin(login);
+        if (pessoaJuridica.getSenha().equals(senha)) {
+            int empresaId = pessoaJuridica.getEmpresaId();
+            return "redirect:/cadastroDeProdutos";
+        }
+        return "Senha incorreta";
     }
 
     @RequestMapping(value = "/mostrarCadastrosPJ", method = RequestMethod.GET)
@@ -61,11 +97,9 @@ public class ControllerPessoaJuridica {
     public String cadastroDeProduto(Produtos produto, @PathVariable int empresaId, String categ) {
         if (produto.getQuantidade() <= 0) {
             return "A quantidade tem que ser maior que 0";
-        } 
-        else if (produto.getPreco() <= 0) {
+        } else if (produto.getPreco() <= 0) {
             return "O preço tem que ser maior que 0";
-        }
-        else {
+        } else {
             PessoaJuridica empresa = pj.findByEmpresaId(empresaId);
             produto.setMercadoDeOrigem(empresa);
             produto.setCategoria(cr.findByCategoria(categ));

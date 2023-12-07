@@ -35,10 +35,18 @@ public class ControllerProdutos {
     @Autowired
     private PessoaFisicaRepository pfr;
 
+    // @RequestMapping(value = "/produtos", method = RequestMethod.GET)
+    // public void selecionar() {
+    // long quantidadeDeAlimentos = ar.count();
+    // ar.findByQuantidadeGreaterThanEqual(1);
+    // }
+
     @RequestMapping(value = "/produtos", method = RequestMethod.GET)
-    public void selecionar() {
-        long quantidadeDeAlimentos = ar.count();
-        ar.findByQuantidadeGreaterThanEqual(1);
+    public ModelAndView listarProdutos() {
+        List<Produtos> listaProdutos = ar.findAll(); // Busca todos os produtos
+        ModelAndView mv = new ModelAndView("produtos");
+        mv.addObject("produtos", listaProdutos);
+        return mv;
     }
 
     @RequestMapping(value = "/produtos/{produtoId}", method = RequestMethod.GET)
@@ -47,12 +55,10 @@ public class ControllerProdutos {
     }
 
     @RequestMapping(value = "/cadastroAlimentos", method = RequestMethod.GET)
-	public ModelAndView cadastroAlimento() {
-		ModelAndView mv = new ModelAndView("home/cadastroDeProdutos");
-		return mv;
-	}
-
-
+    public ModelAndView cadastroAlimento() {
+        ModelAndView mv = new ModelAndView("home/cadastroDeProdutos");
+        return mv;
+    }
 
     @RequestMapping(value = "/nomealimentoContem/{termo}", method = RequestMethod.GET)
     List<Produtos> NomeAlimentoContem(@PathVariable String termo) {
