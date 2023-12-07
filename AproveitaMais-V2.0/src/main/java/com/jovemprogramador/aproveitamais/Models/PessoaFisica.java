@@ -1,13 +1,21 @@
 package com.jovemprogramador.aproveitamais.Models;
 
+import java.util.Collection;
+import java.util.List;
+
 import org.hibernate.annotations.ManyToAny;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -20,7 +28,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "pessoa_fisica")
-public class PessoaFisica {
+public class PessoaFisica implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
@@ -47,5 +55,51 @@ public class PessoaFisica {
 
     @ManyToOne
     private Endereco endereco;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "usuarios_roles", joinColumns =
+    @JoinColumn(name = "cliente_id", referencedColumnName = "login"),
+    inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "nomeRole"))
+    private List<Role> roles;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.cpf;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 }

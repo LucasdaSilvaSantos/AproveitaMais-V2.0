@@ -82,6 +82,9 @@
 
 	<section class="ftco-section">
 		<div class="container">
+			<div th:if="${#lists.isEmpty(produtos)}">
+				<p>Nenhum produto encontrado.</p>
+			</div>
 			<div class="row" th:each="produto : ${produtos}">
 				<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
