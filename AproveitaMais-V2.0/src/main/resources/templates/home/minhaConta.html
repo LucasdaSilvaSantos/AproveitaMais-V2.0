@@ -67,26 +67,27 @@
 	</nav>
 	<!-- END nav -->
 
-    <section id="home-section" class="hero ftco-section ftco-category ftco-no-pt">
-        <div class="hero-wrap hero-bread" style="background-image: url(https://raw.githubusercontent.com/JefDfelipe/ProjetoIntegradorSENAC/39c4933be5bd6e9f2d2cae3ac673897649ba8f10/pexels-sulav-jung-hamal-18925018.jpg);">
-            <div class="container">
-                <div class="row no-gutters slider-text align-items-center justify-content-center">
-                    <div class="col-md-9 ftco-animate text-center">
-                        <h1 class="mb-0 bread">Área do Lojista</h1>
-                    </div>
-                </div>
-            </div>
-	    </div>
-    </section>
-    
+	<section id="home-section" class="hero ftco-section ftco-category ftco-no-pt">
+		<div class="hero-wrap hero-bread"
+			style="background-image: url(https://raw.githubusercontent.com/JefDfelipe/ProjetoIntegradorSENAC/39c4933be5bd6e9f2d2cae3ac673897649ba8f10/pexels-sulav-jung-hamal-18925018.jpg);">
+			<div class="container">
+				<div class="row no-gutters slider-text align-items-center justify-content-center">
+					<div class="col-md-9 ftco-animate text-center">
+						<h1 class="mb-0 bread">Área do Lojista</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<section class="ftco-section ftco-category ftco-no-pt">
-        <div class="container">
+		<div class="container">
 			<div class="row">
 				<div class="col-md-4">
 					<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end"
 						style="background-image: url(https://user-images.githubusercontent.com/105174916/280140686-f6311ce8-fb83-40ed-8868-e5edf2f19b77.png);">
 						<div class="text px-3 py-1">
-							<h2 class="mb-0"><a th:href="${(#mvc.url('CPJ#cadastroPJ')).build()}">Cadastre sua loja</a></h2>
+							<h2 class="mb-0"><a th:href="/cadastroPJ">Cadastre sua loja</a></h2>
 						</div>
 					</div>
 				</div>
@@ -94,11 +95,11 @@
 					<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end"
 						style="background-image: url(https://raw.githubusercontent.com/JefDfelipe/ProjetoIntegradorSENAC/d5576e7d85bd63e458626d426b98a9b804c8a3da/image.jpg);">
 						<div class="text px-3 py-1">
-							<h2 class="mb-0"><a th:href="${(#mvc.url('CP#cadastroAlimento')).build()}">Cadastrar produtos</a></h2>
+							<h2 class="mb-0"><a th:href="/cadastroDeProdutos">Cadastrar produtos</a></h2>
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="col-md-4">
 					<div class="category-wrap ftco-animate img d-flex align-items-end"
 						style="background-image: url(https://user-images.githubusercontent.com/105174916/280141522-e0a74790-fb7a-49e4-a79e-6966ac621d54.jpg);">
@@ -107,8 +108,8 @@
 						</div>
 					</div>
 				</div>
-				</div>
 			</div>
+		</div>
 		</div>
 	</section>
 

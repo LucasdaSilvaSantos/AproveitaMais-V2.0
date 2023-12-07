@@ -11,9 +11,24 @@ public class IndexController {
 		return "index";
 	}
 
+	@RequestMapping("/loginLojista")
+	public String loginLojista() {
+		return "loginLojista";
+	}
+
 	@RequestMapping("/{clienteId}")
 	public String indexLogado() {
 		return "index";
+	}
+
+	@RequestMapping("/minhaConta")
+	public String minhaConta() {
+		return "home/minhaConta";
+	}
+
+	@RequestMapping("/cadastroPJ")
+	public String cadastroPJ() {
+		return "home/cadastroPJ";
 	}
 
 	@RequestMapping("/cart")
@@ -24,6 +39,11 @@ public class IndexController {
 	@RequestMapping("/{clienteId}/cart")
 	public String carrinhoLogado() {
 		return "home/cart";
+	}
+
+	@RequestMapping("/{empresaId}/cadastroDeProdutos")
+	public String cadastroProdutos() {
+		return "home/cadastroDeProdutos";
 	}
 
 }

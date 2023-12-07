@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,28 +36,16 @@ public class ControllerProdutos {
     @Autowired
     private PessoaFisicaRepository pfr;
 
-    // @RequestMapping(value = "/produtos", method = RequestMethod.GET)
-    // public void selecionar() {
-    // long quantidadeDeAlimentos = ar.count();
-    // ar.findByQuantidadeGreaterThanEqual(1);
-    // }
-
-    @RequestMapping(value = "/produtos", method = RequestMethod.GET)
-    public ModelAndView listarProdutos() {
-        List<Produtos> listaProdutos = ar.findAll(); // Busca todos os produtos
-        ModelAndView mv = new ModelAndView("produtos");
-        mv.addObject("produtos", listaProdutos);
-        return mv;
-    }
-
     @RequestMapping(value = "/produtos/{produtoId}", method = RequestMethod.GET)
-    public void findByProdutoId(@Valid @PathVariable int produtosId) {
-        ar.findByProdutoId(produtosId);
+    public Produtos findByProdutoId(@Valid @PathVariable int produtosId) {
+        return ar.findByProdutoId(produtosId);
     }
 
-    @RequestMapping(value = "/cadastroAlimentos", method = RequestMethod.GET)
-    public ModelAndView cadastroAlimento() {
-        ModelAndView mv = new ModelAndView("home/cadastroDeProdutos");
+    @GetMapping("/todosProdutos")
+    public ModelAndView listarTodosProdutos() {
+        List<Produtos> produtos = ar.findByQuantidadeGreaterThanEqual(1);
+        ModelAndView mv = new ModelAndView("nome-do-seu-template");
+        mv.addObject("produto", produtos);
         return mv;
     }
 
@@ -82,40 +71,6 @@ public class ControllerProdutos {
         pr.save(carrinho);
         ar.save(produto);
         return "Adicionado ao carrinho";
-    }
-
-    @RequestMapping(value = "/{clienteId}/carrinho", method = RequestMethod.GET)
-    public List<Pedidos> mostrarCarrinho(@PathVariable int clienteId) {
-        PessoaFisica cliente = pfr.findByClienteId(clienteId);
-        return pr.findAllByClienteId(cliente);
-    }
-
-    @RequestMapping(value = "/{clienteId}/carrinho", method = RequestMethod.DELETE)
-    public String deletarPedido(@PathVariable int clienteId, int pedidoId) {
-        Pedidos pedido = pr.findByPedidoId(pedidoId);
-        Produtos produto = pedido.getProdutoId();
-        pr.delete(pedido);
-        return "Pedido cancelado";
-    }
-
-    @RequestMapping(value = "/{clienteId}/carrinho", method = RequestMethod.PUT)
-    public String editarPedido(@PathVariable int clienteId, Pedidos pedidos) {
-        Produtos produtos = pedidos.getProdutoId();
-        produtos = ar.findByProdutoId(produtos.getProdutoId());
-        if (pedidos.getQuantidade() > produtos.getQuantidade()) {
-            return "Você está pedindo mais unidades deste produto doque há disponível em estoque";
-        }
-        if (pedidos.getQuantidade() == 0) {
-            return "Selecione uma quantidade";
-        }
-        PessoaFisica cliente = pfr.findByClienteId(clienteId);
-        pedidos.setClienteId(cliente);
-        pedidos.setProdutoId(produtos);
-        pr.save(pedidos);
-        produtos.setQuantidade(produtos.getQuantidade() - pedidos.getQuantidade());
-        ar.save(produtos);
-        return "Pedido alterado com sucesso";
-
     }
 
 }
