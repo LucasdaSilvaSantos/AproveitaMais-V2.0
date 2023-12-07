@@ -33,16 +33,10 @@ public class ControllerPessoaJuridica {
     @Autowired
     private EnderecoRepository er;
 
-    @RequestMapping(value = "/cadastroPJ", method = RequestMethod.GET)
-    public ModelAndView cadastroPJ() {
-        ModelAndView mv = new ModelAndView("home/cadastroPJ");
-        return mv;
-    }
-
     @RequestMapping(value = "/cadastroPJ", method = RequestMethod.POST)
     public String cadastroPjPost(PessoaJuridica pessoaJuridica, Endereco endereco) {
         if (er.countByCep(endereco.getCep()) == 0) {
-            if (er.countByNumero(endereco.getNumero()) == 0 ){
+            if (er.countByNumero(endereco.getNumero()) == 0) {
                 er.save(endereco);
                 pessoaJuridica.setCodigoEndereco(endereco);
                 pj.save(pessoaJuridica);
@@ -54,8 +48,7 @@ public class ControllerPessoaJuridica {
             pj.save(pessoaJuridica);
             int empresaId = pessoaJuridica.getEmpresaId();
             return "redirect:/loginLojista";
-        }
-         else {
+        } else {
             Endereco enderecoEx = er.findByCepAndNumero(endereco.getCep(), endereco.getNumero());
             pessoaJuridica.setCodigoEndereco(enderecoEx);
             pj.save(pessoaJuridica);
@@ -64,24 +57,18 @@ public class ControllerPessoaJuridica {
         }
     }
 
-    @RequestMapping(value = "/loginLojista", method = RequestMethod.GET)
-    public ModelAndView LoginPJ() {
-        ModelAndView mv = new ModelAndView("loginLojista");
-        return mv;
-    }
-
     @RequestMapping(value = "/loginLojista", method = RequestMethod.POST)
-  public String login(String login, String senha) {
-    if (pj.countByLogin(login) == 0) {
-      return "Login não encontrado";
+    public String login(String login, String senha) {
+        if (pj.countByLogin(login) == 0) {
+            return "Login não encontrado";
+        }
+        PessoaJuridica pessoaJuridica = pj.findByLogin(login);
+        if (pessoaJuridica.getSenha().equals(senha)) {
+            int empresaId = pessoaJuridica.getEmpresaId();
+            return "redirect:/" + empresaId;
+        }
+        return "Senha incorreta";
     }
-    PessoaJuridica pessoaJuridica = pj.findByLogin(login);
-    if (pessoaJuridica.getSenha().equals(senha)) {
-      int empresaId = pessoaJuridica.getEmpresaId();
-      return "redirect:/home/"+ empresaId+"/minhaConta";
-    }
-    return "Senha incorreta";
-  }
 
     @RequestMapping(value = "/mostrarCadastrosPJ", method = RequestMethod.GET)
     public List<PessoaJuridica> selecionarPJ() {
@@ -100,15 +87,13 @@ public class ControllerPessoaJuridica {
         return pj.save(pessoaJuridica);
     }
 
-    @RequestMapping(value = "/{empresaId}/cadastroAlimentos", method = RequestMethod.POST)
+    @RequestMapping(value = "/{empresaId}/cadastroDeProdutos", method = RequestMethod.POST)
     public String cadastroDeProduto(Produtos produto, @PathVariable int empresaId, String categ) {
         if (produto.getQuantidade() <= 0) {
             return "A quantidade tem que ser maior que 0";
-        } 
-        else if (produto.getPreco() <= 0) {
+        } else if (produto.getPreco() <= 0) {
             return "O preço tem que ser maior que 0";
-        }
-        else {
+        } else {
             PessoaJuridica empresa = pj.findByEmpresaId(empresaId);
             produto.setMercadoDeOrigem(empresa);
             produto.setCategoria(cr.findByCategoria(categ));
@@ -122,7 +107,7 @@ public class ControllerPessoaJuridica {
     }
 
     @RequestMapping(value = "/{empresaId}/mostrarProdutosCadastrados", method = RequestMethod.GET)
-    public List<Produtos> cadastroDeProduto(@PathVariable int empresaId) {
+    public List<Produtos> mostrarProdutosCadastrados(@PathVariable int empresaId) {
         PessoaJuridica pessoaJuridica = pj.findByEmpresaId(empresaId);
         return ar.findByMercadoDeOrigem(pessoaJuridica);
     }
